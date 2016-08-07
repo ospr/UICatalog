@@ -39,3 +39,12 @@ extension UIView {
         bottomAnchor.constraintEqualToAnchor(superview.bottomAnchor).active = true
     }
 }
+
+// MARK: - Layer Support
+
+extension UIView {
+    
+    func roundCornersToFormCircle() {
+        layer.cornerRadius = bounds.size.width / 2.0
+    }
+}
