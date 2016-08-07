@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThumbSliderView" customModule="UICatalogElements" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundLeadingConstraint" destination="8bP-Kp-MUb" id="YJr-1L-0kB"/>
                 <outlet property="backgroundView" destination="vEC-WO-fCw" id="yeT-QO-4cZ"/>
                 <outlet property="thumbView" destination="sty-rf-MIA" id="dHc-V6-RfN"/>
             </connections>

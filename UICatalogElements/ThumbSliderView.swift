@@ -13,6 +13,7 @@ class ThumbSliderView: UIView {
     
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var thumbView: UIView!
+    @IBOutlet weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,6 +33,14 @@ class ThumbSliderView: UIView {
         
         backgroundView.backgroundColor = .purpleColor()
         thumbView.backgroundColor = .greenColor() // TODO: remove this
+        
+        setupThumbView()
+    }
+    
+    func setupThumbView() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(thumbViewWasPanned))
+        thumbView.addGestureRecognizer(panGesture)
+        panGesture.enabled = true
     }
 
     override func layoutSubviews() {
@@ -40,5 +49,12 @@ class ThumbSliderView: UIView {
         // TODO: rounded corners don't look quite right
         backgroundView.layer.cornerRadius = backgroundView.bounds.size.height / 2.0
         thumbView.roundCornersToFormCircle()
+    }
+    
+    // MARK: - Gesture Handling
+    
+    func thumbViewWasPanned(recognizer:UIPanGestureRecognizer) {
+        let translation = recognizer.translationInView(self)
+        backgroundLeadingConstraint.constant = max(translation.x, 0)
     }
 }
