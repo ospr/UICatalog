@@ -57,16 +57,40 @@ class ThumbSliderView: UIView {
     func thumbViewWasPanned(recognizer: UIPanGestureRecognizer) {
         // Note that slider is prevented from sliding past its end by making the
         // backgroundLeadingConstraint priority lower in the xib 
+
+        let updatePowerOffLabel: () -> () = {
+            // Hide the power off label when the slider is panned
+            let desiredPowerOffLabelAlpha: CGFloat = (self.backgroundLeadingConstraint.constant == 0) ? 1.0 : 0.0
+            if self.powerOffLabel.alpha != desiredPowerOffLabelAlpha {
+                UIView.animateWithDuration(0.10, animations: {
+                    self.powerOffLabel.alpha = desiredPowerOffLabelAlpha
+                })
+            }
+        }
         
-        let translation = recognizer.translationInView(self)
-        backgroundLeadingConstraint.constant = max(translation.x, 0)
-        
-        // Hide the power off label when the slider is panned
-        let desiredPowerOffLabelAlpha: CGFloat = (self.backgroundLeadingConstraint.constant == 0) ? 1.0 : 0.0
-        if powerOffLabel.alpha != desiredPowerOffLabelAlpha {
-            UIView.animateWithDuration(0.10, animations: {
-                self.powerOffLabel.alpha = desiredPowerOffLabelAlpha
+        switch recognizer.state {
+        case .Possible, .Began:
+            break
+            
+        case .Changed:
+            let translation = recognizer.translationInView(self)
+            backgroundLeadingConstraint.constant = max(translation.x, 0)
+            updatePowerOffLabel()
+            
+        case .Ended, .Cancelled, .Failed:
+            layoutIfNeeded()
+            
+            // Animate the slider back after the user lifts up and
+            // it didn't pass the threshold
+            UIView.animateWithDuration(0.10, animations: { 
+                self.backgroundLeadingConstraint.constant = 0
+                self.layoutIfNeeded()
+            }, completion: { (finished) in
+                if finished {
+                    updatePowerOffLabel()
+                }
             })
         }
+        
     }
 }
