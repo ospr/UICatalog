@@ -16,6 +16,16 @@ public class ThumbSliderView: UIView {
     @IBOutlet private(set) weak var powerOffLabel: UIView!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
+    @IBInspectable var backgroundViewColor: UIColor? {
+        get { return backgroundView.backgroundColor }
+        set { backgroundView.backgroundColor = newValue }
+    }
+
+    @IBInspectable var thumbViewColor: UIColor? {
+        get { return thumbView.backgroundColor }
+        set { thumbView.backgroundColor = newValue }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -32,8 +42,8 @@ public class ThumbSliderView: UIView {
         let view = addOwnedViewFrom(nibNamed: String(ThumbSliderView.self))
         view.backgroundColor = .clearColor()
         
-        backgroundView.backgroundColor = .purpleColor()
-        thumbView.backgroundColor = .greenColor() // TODO: remove this
+        backgroundView.backgroundColor = .whiteColor()
+        thumbView.backgroundColor = .redColor()
         
         setupThumbView()
     }

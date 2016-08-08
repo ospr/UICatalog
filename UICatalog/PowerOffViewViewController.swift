@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import UICatalogElements
 
 // TODO: fix name here
 class PowerOffViewViewController: UIViewController {
+    
+    @IBOutlet weak var thumbSliderView: ThumbSliderView!
     
     required init() {
         super.init(nibName: String(PowerOffViewViewController.self), bundle: nil)
