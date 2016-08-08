@@ -73,6 +73,8 @@ class ThumbSliderView: UIView {
             break
             
         case .Changed:
+            // Update the leading constraint to move the slider to match
+            // the user's pan gesture
             let translation = recognizer.translationInView(self)
             backgroundLeadingConstraint.constant = max(translation.x, 0)
             updatePowerOffLabel()
@@ -80,10 +82,19 @@ class ThumbSliderView: UIView {
         case .Ended, .Cancelled, .Failed:
             layoutIfNeeded()
             
-            // Animate the slider back after the user lifts up and
-            // it didn't pass the threshold
+            // Determine whether the user slid the slider far enough to
+            // either have the slider finish to the end position or slide
+            // back to the start position
+            let thumbViewCenterPointInRoot = convertPoint(thumbView.center, fromView: thumbView.superview)
+            let shouldSlideToEnd = thumbViewCenterPointInRoot.x > bounds.midX // Past the middle point?
+            let finalBackgroundLeadingConstraintConstant = shouldSlideToEnd ? self.backgroundView.superview!.bounds.maxX : 0
+            
+            print("\(thumbViewCenterPointInRoot.x) vs \(bounds.midX)")
+            
+            // Animate the slider either to the start or end depending on
+            // whether the threshold was crossed when dragging
             UIView.animateWithDuration(0.10, animations: { 
-                self.backgroundLeadingConstraint.constant = 0
+                self.backgroundLeadingConstraint.constant = finalBackgroundLeadingConstraintConstant
                 self.layoutIfNeeded()
             }, completion: { (finished) in
                 if finished {
