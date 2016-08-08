@@ -54,7 +54,7 @@ class ThumbSliderView: UIView {
     
     // MARK: - Gesture Handling
     
-    func thumbViewWasPanned(recognizer:UIPanGestureRecognizer) {
+    func thumbViewWasPanned(recognizer: UIPanGestureRecognizer) {
         // Note that slider is prevented from sliding past its end by making the
         // backgroundLeadingConstraint priority lower in the xib 
         
