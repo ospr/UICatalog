@@ -9,12 +9,12 @@
 import UIKit
 
 @IBDesignable
-class ThumbSliderView: UIView {
+public class ThumbSliderView: UIView {
     
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var thumbView: UIView!
-    @IBOutlet weak var powerOffLabel: UIView!
-    @IBOutlet weak var backgroundLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private(set) weak var backgroundView: UIView!
+    @IBOutlet private(set) weak var thumbView: UIView!
+    @IBOutlet private(set) weak var powerOffLabel: UIView!
+    @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,13 +22,13 @@ class ThumbSliderView: UIView {
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         setup()
     }
     
-    func setup() {
+    private func setup() {
         let view = addOwnedViewFrom(nibNamed: String(ThumbSliderView.self))
         view.backgroundColor = .clearColor()
         
@@ -38,13 +38,15 @@ class ThumbSliderView: UIView {
         setupThumbView()
     }
     
-    func setupThumbView() {
+    private func setupThumbView() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(thumbViewWasPanned))
         thumbView.addGestureRecognizer(panGesture)
         panGesture.enabled = true
     }
 
-    override func layoutSubviews() {
+    // MARK: - View Layout
+    
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         // TODO: rounded corners don't look quite right
