@@ -22,58 +22,29 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEC-WO-fCw" userLabel="Background View">
                     <rect key="frame" x="0.0" y="0.0" width="526" height="69"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eAe-oN-Rc7">
-                            <rect key="frame" x="0.0" y="0.0" width="526" height="69"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="njp-GX-KiG">
-                                    <rect key="frame" x="0.0" y="10" width="5" height="50"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="5" id="oxD-PK-G8b"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sty-rf-MIA" userLabel="Thumb View">
-                                    <rect key="frame" x="5" y="5" width="59" height="59"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" secondItem="sty-rf-MIA" secondAttribute="height" multiplier="1:1" id="h9v-r2-wzX"/>
-                                    </constraints>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Slide to Power Off" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-Vq-xms">
-                                    <rect key="frame" x="64" y="25" width="440" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rWJ-la-VA0">
-                                    <rect key="frame" x="504" y="0.0" width="22" height="69"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="22" id="rhM-X5-O2H"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Slide to Power Off" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-Vq-xms">
+                            <rect key="frame" x="8" y="24" width="504" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sty-rf-MIA" userLabel="Thumb View">
+                            <rect key="frame" x="5" y="5" width="59" height="59"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="sty-rf-MIA" secondAttribute="bottom" constant="5" id="2ZU-sV-3oh"/>
-                                <constraint firstItem="sty-rf-MIA" firstAttribute="top" secondItem="eAe-oN-Rc7" secondAttribute="top" constant="5" id="3Y5-Yr-3zX"/>
-                                <constraint firstAttribute="trailing" secondItem="Vkb-Vq-xms" secondAttribute="trailing" id="nlX-de-QR8"/>
-                                <constraint firstAttribute="bottom" secondItem="sty-rf-MIA" secondAttribute="bottom" constant="5" id="rgF-AU-agV"/>
-                                <constraint firstItem="sty-rf-MIA" firstAttribute="leading" secondItem="eAe-oN-Rc7" secondAttribute="leading" constant="5" id="xW1-bB-2cJ"/>
+                                <constraint firstAttribute="width" secondItem="sty-rf-MIA" secondAttribute="height" multiplier="1:1" id="h9v-r2-wzX"/>
                             </constraints>
-                            <variation key="default">
-                                <mask key="constraints">
-                                    <exclude reference="xW1-bB-2cJ"/>
-                                    <exclude reference="nlX-de-QR8"/>
-                                </mask>
-                            </variation>
-                        </stackView>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="eAe-oN-Rc7" firstAttribute="top" secondItem="vEC-WO-fCw" secondAttribute="top" id="ENm-3K-WFT"/>
-                        <constraint firstAttribute="trailing" secondItem="eAe-oN-Rc7" secondAttribute="trailing" id="Fyw-Sh-byZ"/>
-                        <constraint firstAttribute="bottom" secondItem="eAe-oN-Rc7" secondAttribute="bottom" id="kjC-Ix-sNM"/>
-                        <constraint firstItem="eAe-oN-Rc7" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" id="rmI-Hy-Cnx"/>
+                        <constraint firstItem="sty-rf-MIA" firstAttribute="top" secondItem="vEC-WO-fCw" secondAttribute="top" constant="5" id="7yZ-Xz-DzS"/>
+                        <constraint firstAttribute="trailing" secondItem="Vkb-Vq-xms" secondAttribute="trailing" constant="22" id="Pt3-5m-iYk"/>
+                        <constraint firstAttribute="bottom" secondItem="sty-rf-MIA" secondAttribute="bottom" constant="5" id="WJx-ow-1Tx"/>
+                        <constraint firstItem="Vkb-Vq-xms" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" constant="22" id="dy2-EI-9bq"/>
+                        <constraint firstItem="Vkb-Vq-xms" firstAttribute="centerY" secondItem="vEC-WO-fCw" secondAttribute="centerY" id="gBp-Ju-h7g"/>
+                        <constraint firstItem="sty-rf-MIA" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" constant="5" id="lcr-tI-rMZ"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sty-rf-MIA" secondAttribute="trailing" constant="5" id="zHE-cM-fAu"/>
                     </constraints>
                 </view>
             </subviews>
