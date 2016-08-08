@@ -15,6 +15,9 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundWallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="4ix-zA-6qA">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1u-ug-RwU">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GGU-Hf-r9t">
@@ -22,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsQ-b0-T1C" customClass="ThumbSliderView" customModule="UICatalogElements">
-                                <rect key="frame" x="166.5" y="80" width="267" height="75"/>
+                                <rect key="frame" x="166" y="80" width="267" height="75"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="0HZ-gP-KrU"/>
@@ -41,10 +44,17 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="M1u-ug-RwU" secondAttribute="bottom" id="3MY-uz-KHM"/>
+                <constraint firstItem="4ix-zA-6qA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9F4-Ai-Yzp"/>
                 <constraint firstAttribute="trailing" secondItem="M1u-ug-RwU" secondAttribute="trailing" id="Jdo-wm-hmX"/>
+                <constraint firstAttribute="bottom" secondItem="4ix-zA-6qA" secondAttribute="bottom" id="OXO-oQ-4nc"/>
+                <constraint firstItem="4ix-zA-6qA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Pbe-1D-Q2Z"/>
                 <constraint firstItem="M1u-ug-RwU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="cXN-Fx-G5d"/>
                 <constraint firstItem="M1u-ug-RwU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ldU-mz-I99"/>
+                <constraint firstAttribute="trailing" secondItem="4ix-zA-6qA" secondAttribute="trailing" id="xcE-jx-Zzb"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="backgroundWallpaper" width="768" height="913"/>
+    </resources>
 </document>
