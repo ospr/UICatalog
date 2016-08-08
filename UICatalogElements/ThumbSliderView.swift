@@ -13,6 +13,7 @@ class ThumbSliderView: UIView {
     
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var thumbView: UIView!
+    @IBOutlet weak var powerOffLabel: UIView!
     @IBOutlet weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
     override init(frame: CGRect) {
@@ -56,5 +57,13 @@ class ThumbSliderView: UIView {
     func thumbViewWasPanned(recognizer:UIPanGestureRecognizer) {
         let translation = recognizer.translationInView(self)
         backgroundLeadingConstraint.constant = max(translation.x, 0)
+        
+        // Hide the power off label when the slider is panned
+        let desiredPowerOffLabelAlpha: CGFloat = (self.backgroundLeadingConstraint.constant == 0) ? 1.0 : 0.0
+        if powerOffLabel.alpha != desiredPowerOffLabelAlpha {
+            UIView.animateWithDuration(0.10, animations: {
+                self.powerOffLabel.alpha = desiredPowerOffLabelAlpha
+            })
+        }
     }
 }
