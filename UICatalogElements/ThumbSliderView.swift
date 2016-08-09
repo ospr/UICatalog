@@ -12,7 +12,7 @@ import UIKit
 public class ThumbSliderView: UIView {
     
     @IBOutlet private(set) weak var backgroundView: UIView!
-    @IBOutlet private(set) weak var thumbView: UIView!
+    @IBOutlet private(set) weak var thumbView: UIImageView!
     @IBOutlet private(set) weak var powerOffLabel: UIView!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
@@ -21,9 +21,9 @@ public class ThumbSliderView: UIView {
         set { backgroundView.backgroundColor = newValue }
     }
 
-    @IBInspectable var thumbViewColor: UIColor? {
-        get { return thumbView.backgroundColor }
-        set { thumbView.backgroundColor = newValue }
+    @IBInspectable var thumbViewImage: UIImage? {
+        get { return thumbView.image }
+        set { thumbView.image = newValue }
     }
     
     override init(frame: CGRect) {
@@ -43,7 +43,6 @@ public class ThumbSliderView: UIView {
         view.backgroundColor = .clearColor()
         
         backgroundView.backgroundColor = .whiteColor()
-        thumbView.backgroundColor = .redColor()
         
         setupThumbView()
     }
