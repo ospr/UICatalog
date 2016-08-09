@@ -35,9 +35,6 @@
                                     <userDefinedRuntimeAttribute type="color" keyPath="backgroundViewColor">
                                         <color key="value" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="thumbViewColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="image" keyPath="thumbViewImage" value="OffCircleButton"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
