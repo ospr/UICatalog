@@ -13,7 +13,7 @@ public class ThumbSliderView: UIView {
     
     @IBOutlet private(set) weak var backgroundView: UIView!
     @IBOutlet private(set) weak var thumbView: UIImageView!
-    @IBOutlet private(set) weak var powerOffLabel: UIView!
+    @IBOutlet private(set) weak var informationalLabel: UILabel!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
     @IBInspectable var backgroundViewColor: UIColor? {
@@ -24,6 +24,11 @@ public class ThumbSliderView: UIView {
     @IBInspectable var thumbViewImage: UIImage? {
         get { return thumbView.image }
         set { thumbView.image = newValue }
+    }
+    
+    @IBInspectable var informationalText: String? {
+        get { return informationalLabel.text }
+        set { informationalLabel.text = newValue }
     }
     
     override init(frame: CGRect) {
@@ -72,9 +77,9 @@ public class ThumbSliderView: UIView {
         let updatePowerOffLabel: () -> () = {
             // Hide the power off label when the slider is panned
             let desiredPowerOffLabelAlpha: CGFloat = (self.backgroundLeadingConstraint.constant == 0) ? 1.0 : 0.0
-            if self.powerOffLabel.alpha != desiredPowerOffLabelAlpha {
+            if self.informationalLabel.alpha != desiredPowerOffLabelAlpha {
                 UIView.animateWithDuration(0.10, animations: {
-                    self.powerOffLabel.alpha = desiredPowerOffLabelAlpha
+                    self.informationalLabel.alpha = desiredPowerOffLabelAlpha
                 })
             }
         }

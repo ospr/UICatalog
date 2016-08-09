@@ -10,7 +10,7 @@
             <connections>
                 <outlet property="backgroundLeadingConstraint" destination="8bP-Kp-MUb" id="YJr-1L-0kB"/>
                 <outlet property="backgroundView" destination="vEC-WO-fCw" id="yeT-QO-4cZ"/>
-                <outlet property="powerOffLabel" destination="Vkb-Vq-xms" id="nGM-se-45g"/>
+                <outlet property="informationalLabel" destination="Vkb-Vq-xms" id="fmp-gg-bvi"/>
                 <outlet property="thumbView" destination="sty-rf-MIA" id="dHc-V6-RfN"/>
             </connections>
         </placeholder>
@@ -22,10 +22,10 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEC-WO-fCw" userLabel="Background View">
                     <rect key="frame" x="0.0" y="0.0" width="526" height="69"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Slide to Power Off" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-Vq-xms">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-Vq-xms">
                             <rect key="frame" x="8" y="24" width="504" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" white="0.47999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sty-rf-MIA" userLabel="Thumb View" customClass="UIImageView">
