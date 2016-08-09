@@ -16,11 +16,6 @@ public class ThumbSliderView: UIView {
     @IBOutlet private(set) weak var informationalLabel: UILabel!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
-    @IBInspectable var backgroundViewColor: UIColor? {
-        get { return backgroundView.backgroundColor }
-        set { backgroundView.backgroundColor = newValue }
-    }
-
     @IBInspectable var thumbViewImage: UIImage? {
         get { return thumbView.image }
         set { thumbView.image = newValue }
@@ -46,8 +41,6 @@ public class ThumbSliderView: UIView {
     private func setup() {
         let view = addOwnedViewFrom(nibNamed: String(ThumbSliderView.self))
         view.backgroundColor = .clearColor()
-        
-        backgroundView.backgroundColor = .whiteColor()
         
         setupThumbView()
     }

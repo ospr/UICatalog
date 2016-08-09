@@ -19,9 +19,17 @@
             <rect key="frame" x="0.0" y="0.0" width="526" height="69"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEC-WO-fCw" userLabel="Background View">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vEC-WO-fCw" userLabel="Background View">
                     <rect key="frame" x="0.0" y="0.0" width="526" height="69"/>
                     <subviews>
+                        <visualEffectView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9a-aG-gQj">
+                            <rect key="frame" x="143" y="-29" width="240" height="128"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="guQ-PT-8jY">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <blurEffect style="extraLight"/>
+                        </visualEffectView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-Vq-xms">
                             <rect key="frame" x="8" y="24" width="504" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -36,16 +44,26 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="sty-rf-MIA" firstAttribute="top" secondItem="vEC-WO-fCw" secondAttribute="top" constant="5" id="7yZ-Xz-DzS"/>
                         <constraint firstAttribute="trailing" secondItem="Vkb-Vq-xms" secondAttribute="trailing" constant="22" id="Pt3-5m-iYk"/>
                         <constraint firstAttribute="bottom" secondItem="sty-rf-MIA" secondAttribute="bottom" constant="5" id="WJx-ow-1Tx"/>
                         <constraint firstItem="Vkb-Vq-xms" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" constant="22" id="dy2-EI-9bq"/>
+                        <constraint firstAttribute="trailing" secondItem="R9a-aG-gQj" secondAttribute="trailing" id="eMo-H0-RZI"/>
                         <constraint firstItem="Vkb-Vq-xms" firstAttribute="centerY" secondItem="vEC-WO-fCw" secondAttribute="centerY" id="gBp-Ju-h7g"/>
+                        <constraint firstItem="R9a-aG-gQj" firstAttribute="top" secondItem="vEC-WO-fCw" secondAttribute="top" id="iNd-w7-vg8"/>
                         <constraint firstItem="sty-rf-MIA" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" constant="5" id="lcr-tI-rMZ"/>
+                        <constraint firstAttribute="bottom" secondItem="R9a-aG-gQj" secondAttribute="bottom" id="mF2-4g-Wgy"/>
+                        <constraint firstItem="R9a-aG-gQj" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" id="sID-3A-zu4"/>
+                        <constraint firstItem="R9a-aG-gQj" firstAttribute="leading" secondItem="sty-rf-MIA" secondAttribute="trailing" id="tmp-jl-pTe"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sty-rf-MIA" secondAttribute="trailing" constant="5" id="zHE-cM-fAu"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="tmp-jl-pTe"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
