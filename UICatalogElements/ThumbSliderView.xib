@@ -27,11 +27,25 @@
                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="guQ-PT-8jY">
                                 <rect key="frame" x="0.0" y="0.0" width="526" height="69"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIn-5I-LY3" userLabel="Vibrancy White View">
+                                        <rect key="frame" x="0.0" y="0.0" width="526" height="69"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="nIn-5I-LY3" secondAttribute="bottom" id="nqH-qV-4IP"/>
+                                    <constraint firstItem="nIn-5I-LY3" firstAttribute="top" secondItem="guQ-PT-8jY" secondAttribute="top" id="rSA-c4-53x"/>
+                                    <constraint firstAttribute="trailing" secondItem="nIn-5I-LY3" secondAttribute="trailing" id="wPr-jr-nEk"/>
+                                    <constraint firstItem="nIn-5I-LY3" firstAttribute="leading" secondItem="guQ-PT-8jY" secondAttribute="leading" id="ycB-do-kWt"/>
+                                </constraints>
                             </view>
-                            <blurEffect style="extraLight"/>
+                            <vibrancyEffect>
+                                <blurEffect style="dark"/>
+                            </vibrancyEffect>
                         </visualEffectView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-Vq-xms">
-                            <rect key="frame" x="22" y="34.5" width="482" height="0.0"/>
+                            <rect key="frame" x="22" y="34" width="482" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" white="0.47999999999999998" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
