@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThumbSliderView" customModule="UICatalogElements" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundInformationalLabel" destination="3cI-Tn-448" id="lNn-as-I2f"/>
                 <outlet property="backgroundLeadingConstraint" destination="8bP-Kp-MUb" id="YJr-1L-0kB"/>
                 <outlet property="backgroundView" destination="vEC-WO-fCw" id="yeT-QO-4cZ"/>
                 <outlet property="informationalLabel" destination="Vkb-Vq-xms" id="fmp-gg-bvi"/>
@@ -44,10 +45,16 @@
                                 <blurEffect style="dark"/>
                             </vibrancyEffect>
                         </visualEffectView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cI-Tn-448">
+                            <rect key="frame" x="22" y="34" width="482" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <color key="textColor" white="0.20915810032894733" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkb-Vq-xms">
                             <rect key="frame" x="22" y="34" width="482" height="0.0"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <color key="textColor" white="0.47999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sty-rf-MIA" userLabel="Thumb View" customClass="UIImageView">
@@ -61,6 +68,8 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="sty-rf-MIA" firstAttribute="top" secondItem="vEC-WO-fCw" secondAttribute="top" constant="5" id="7yZ-Xz-DzS"/>
+                        <constraint firstItem="3cI-Tn-448" firstAttribute="trailing" secondItem="Vkb-Vq-xms" secondAttribute="trailing" id="8Jm-Gd-Ytk"/>
+                        <constraint firstItem="3cI-Tn-448" firstAttribute="top" secondItem="Vkb-Vq-xms" secondAttribute="top" id="Otw-5d-45j"/>
                         <constraint firstAttribute="trailing" secondItem="Vkb-Vq-xms" secondAttribute="trailing" constant="22" id="Pt3-5m-iYk"/>
                         <constraint firstAttribute="bottom" secondItem="sty-rf-MIA" secondAttribute="bottom" constant="5" id="WJx-ow-1Tx"/>
                         <constraint firstItem="Vkb-Vq-xms" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" constant="22" id="dy2-EI-9bq"/>
@@ -69,7 +78,9 @@
                         <constraint firstItem="R9a-aG-gQj" firstAttribute="top" secondItem="vEC-WO-fCw" secondAttribute="top" id="iNd-w7-vg8"/>
                         <constraint firstItem="sty-rf-MIA" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" constant="5" id="lcr-tI-rMZ"/>
                         <constraint firstAttribute="bottom" secondItem="R9a-aG-gQj" secondAttribute="bottom" id="mF2-4g-Wgy"/>
+                        <constraint firstItem="3cI-Tn-448" firstAttribute="leading" secondItem="Vkb-Vq-xms" secondAttribute="leading" id="oeQ-LX-ReI"/>
                         <constraint firstItem="R9a-aG-gQj" firstAttribute="leading" secondItem="vEC-WO-fCw" secondAttribute="leading" id="sID-3A-zu4"/>
+                        <constraint firstItem="3cI-Tn-448" firstAttribute="bottom" secondItem="Vkb-Vq-xms" secondAttribute="bottom" id="tLC-sY-rIn"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sty-rf-MIA" secondAttribute="trailing" constant="5" id="zHE-cM-fAu"/>
                     </constraints>
                 </view>

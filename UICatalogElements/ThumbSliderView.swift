@@ -14,6 +14,7 @@ public class ThumbSliderView: UIView {
     @IBOutlet private(set) weak var backgroundView: UIView!
     @IBOutlet private(set) weak var thumbView: UIImageView!
     @IBOutlet private(set) weak var informationalLabel: UILabel!
+    @IBOutlet private(set) weak var backgroundInformationalLabel: UILabel!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
     @IBInspectable var thumbViewImage: UIImage? {
@@ -23,7 +24,10 @@ public class ThumbSliderView: UIView {
     
     @IBInspectable var informationalText: String? {
         get { return informationalLabel.text }
-        set { informationalLabel.text = newValue }
+        set {
+            informationalLabel.text = newValue
+            backgroundInformationalLabel.text = newValue
+        }
     }
     
     override init(frame: CGRect) {
@@ -43,12 +47,36 @@ public class ThumbSliderView: UIView {
         view.backgroundColor = .clearColor()
         
         setupThumbView()
+        setupInformationalLabel()
     }
     
     private func setupThumbView() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(thumbViewWasPanned))
         thumbView.addGestureRecognizer(panGesture)
         panGesture.enabled = true
+    }
+    
+    private func setupInformationalLabel() {
+        // Properly handle changing of view layout for this
+        // TODO: move this to the framework's own assets.xcassests
+        // Create a mask for the white informational label to glide through
+        // the label to create a shimmer effect
+        let shimmerMaskImage = UIImage(named: "ShimmerMask")!
+        let shimmerMaskLayer = CALayer()
+        shimmerMaskLayer.contents = shimmerMaskImage.CGImage
+        shimmerMaskLayer.contentsGravity = kCAGravityCenter
+        shimmerMaskLayer.frame = CGRect(x: -shimmerMaskImage.size.width, y: shimmerMaskImage.size.height / 2.0,
+                                        width: shimmerMaskImage.size.width, height: shimmerMaskImage.size.height)
+        
+        // Create the horizontal animation to move the shimmer mask
+        let shimmerAnimation = CABasicAnimation(keyPath: "position.x")
+        shimmerAnimation.byValue = informationalLabel.bounds.size.width
+        shimmerAnimation.repeatCount = HUGE
+        shimmerAnimation.duration = 3.5
+        shimmerAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        shimmerMaskLayer.addAnimation(shimmerAnimation, forKey: "shimmerAnimation")
+        
+        informationalLabel.layer.mask = shimmerMaskLayer
     }
 
     // MARK: - View Layout
