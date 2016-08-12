@@ -122,23 +122,54 @@ public class ThumbSliderView: UIView {
             // Determine whether the user slid the slider far enough to
             // either have the slider finish to the end position or slide
             // back to the start position
-            let thumbViewCenterPointInRoot = convertPoint(thumbView.center, fromView: thumbView.superview)
-            let shouldSlideToEnd = thumbViewCenterPointInRoot.x > bounds.midX // Past the middle point?
-            let finalBackgroundLeadingConstraintConstant = shouldSlideToEnd ? self.backgroundView.superview!.bounds.maxX : 0
+//            let thumbViewCenterPointInRoot = convertPoint(thumbView.center, fromView: thumbView.superview)
+//            let shouldSlideToEnd = thumbViewCenterPointInRoot.x > bounds.midX // Past the middle point?
+//            let finalBackgroundLeadingConstraintConstant = shouldSlideToEnd ? self.backgroundView.superview!.bounds.maxX : 0
             
-            print("\(thumbViewCenterPointInRoot.x) vs \(bounds.midX)")
+//            print("\(thumbViewCenterPointInRoot.x) vs \(bounds.midX)")
             
-            // Animate the slider either to the start or end depending on
-            // whether the threshold was crossed when dragging
-            UIView.animateWithDuration(0.10, animations: { 
-                self.backgroundLeadingConstraint.constant = finalBackgroundLeadingConstraintConstant
-                self.layoutIfNeeded()
-            }, completion: { (finished) in
-                if finished {
-                    updatePowerOffLabel()
-                }
-            })
+            (panEndDisplayLink, panEndStartTimestamp, startConstant, shouldSlideToEnd) = {
+                let displayLink = CADisplayLink(target: self, selector: #selector(updateForPanEnd))
+                displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+                
+                let thumbViewCenterPointInRoot = convertPoint(thumbView.center, fromView: thumbView.superview)
+                let shouldSlideToEnd = thumbViewCenterPointInRoot.x > bounds.midX
+                
+                return (displayLink, CACurrentMediaTime(), backgroundLeadingConstraint.constant, shouldSlideToEnd)
+            }()
+        }
+    }
+    
+    // TODO: clean this up
+    // TODO: make a category or tuple here
+    var panEndDisplayLink: CADisplayLink?
+    var panEndStartTimestamp: CFTimeInterval?
+    var startConstant: CGFloat?
+    var shouldSlideToEnd: Bool?
+    var panEndDuration = 0.10 // TODO: make this variable?
+    
+    func updateForPanEnd() {
+        guard let panEndDisplayLink = self.panEndDisplayLink,
+              let panEndStartTimestamp = self.panEndStartTimestamp,
+              let startConstant = self.startConstant,
+              let shouldSlideToEnd = self.shouldSlideToEnd else {
+            return
         }
         
+        let endConstant = shouldSlideToEnd ? backgroundView.superview!.bounds.width - (5 + 5 + thumbView.frame.width) : 0
+        let dt = (panEndDisplayLink.timestamp - panEndStartTimestamp) / panEndDuration
+        
+        
+        let constant = startConstant + (endConstant - startConstant) * CGFloat(dt)
+        print("endConstant \(endConstant) dt \(dt), constant \(constant)")
+        
+        backgroundLeadingConstraint.constant = constant
+        
+        if dt >= 1 {
+            panEndDisplayLink.invalidate()
+            self.panEndDisplayLink = nil
+            self.panEndStartTimestamp = nil
+            // TODO: update label here
+        }
     }
 }
