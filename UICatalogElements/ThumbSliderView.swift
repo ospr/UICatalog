@@ -156,6 +156,7 @@ public class ThumbSliderView: UIView {
             return
         }
         
+        // TODO: clean up hardcoded values here
         let endConstant = shouldSlideToEnd ? backgroundView.superview!.bounds.width - (5 + 5 + thumbView.frame.width) : 0
         let dt = (panEndDisplayLink.timestamp - panEndStartTimestamp) / panEndDuration
         
