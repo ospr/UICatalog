@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PowerOffViewViewController" customModule="UICatalog" customModuleProvider="target">
             <connections>
+                <outlet property="dimmingView" destination="DTH-0O-Tmu" id="Vel-Xp-iV4"/>
+                <outlet property="powerOffSliderView" destination="PsQ-b0-T1C" id="kck-U1-SuB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,18 +26,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsQ-b0-T1C" customClass="ThumbSliderView" customModule="UICatalogElements">
-                                <rect key="frame" x="166.5" y="80" width="266" height="75"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="0HZ-gP-KrU"/>
-                                    <constraint firstAttribute="width" constant="266" id="c4t-fB-l4y"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="thumbViewImage" value="OffCircleButton"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="informationalText" value="slide to power off"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="asb-1z-fDv" userLabel="Cancel Stack View">
                                 <rect key="frame" x="267" y="471" width="66" height="89"/>
                                 <subviews>
@@ -51,12 +41,32 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DTH-0O-Tmu" userLabel="Dimming View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsQ-b0-T1C" customClass="ThumbSliderView" customModule="UICatalogElements">
+                                <rect key="frame" x="166.5" y="80" width="266" height="75"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="0HZ-gP-KrU"/>
+                                    <constraint firstAttribute="width" constant="266" id="c4t-fB-l4y"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="thumbViewImage" value="OffCircleButton"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="informationalText" value="slide to power off"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="DTH-0O-Tmu" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" id="3HV-pD-za0"/>
                             <constraint firstItem="asb-1z-fDv" firstAttribute="centerX" secondItem="GGU-Hf-r9t" secondAttribute="centerX" id="FU8-QX-f1T"/>
                             <constraint firstItem="PsQ-b0-T1C" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" constant="80" id="Niw-Lp-Xqb"/>
                             <constraint firstItem="PsQ-b0-T1C" firstAttribute="centerX" secondItem="GGU-Hf-r9t" secondAttribute="centerX" id="PUC-X4-pHD"/>
+                            <constraint firstItem="DTH-0O-Tmu" firstAttribute="leading" secondItem="GGU-Hf-r9t" secondAttribute="leading" id="V4X-sx-qGS"/>
                             <constraint firstAttribute="bottom" secondItem="asb-1z-fDv" secondAttribute="bottom" constant="40" id="fYx-Xn-ZXS"/>
+                            <constraint firstAttribute="bottom" secondItem="DTH-0O-Tmu" secondAttribute="bottom" id="fdv-13-WgG"/>
+                            <constraint firstAttribute="trailing" secondItem="DTH-0O-Tmu" secondAttribute="trailing" id="v1F-9R-zw0"/>
                         </constraints>
                     </view>
                     <blurEffect style="dark"/>

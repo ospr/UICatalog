@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import UICatalogElements
 
 // TODO: fix name here
 class PowerOffViewViewController: UIViewController {
+    
+    @IBOutlet weak var powerOffSliderView: ThumbSliderView!
+    @IBOutlet weak var dimmingView: UIView!
     
     required init() {
         super.init(nibName: String(PowerOffViewViewController.self), bundle: nil)
@@ -24,5 +28,16 @@ class PowerOffViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupPowerOffSliderView()
+    }
+    
+    // MARK: - Working with Power Off Slider
+    
+    func setupPowerOffSliderView() {
+        powerOffSliderView.addTarget(self, action: #selector(powerOffSliderValueDidChange), forControlEvents: [.ValueChanged])
+    }
+    
+    func powerOffSliderValueDidChange() {
+        dimmingView.alpha = CGFloat(powerOffSliderView.value)
     }
 }
