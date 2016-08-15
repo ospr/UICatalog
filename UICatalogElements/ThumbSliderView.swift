@@ -118,8 +118,6 @@ public class ThumbSliderView: UIView {
             updatePowerOffLabel()
             
         case .Ended, .Cancelled, .Failed:
-            layoutIfNeeded()
-            
             // Determine whether the user slid the slider far enough to
             // either have the slider finish to the end position or slide
             // back to the start position
