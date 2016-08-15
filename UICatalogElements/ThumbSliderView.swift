@@ -101,6 +101,7 @@ public class ThumbSliderView: UIView {
             if self.informationalLabel.alpha != desiredPowerOffLabelAlpha {
                 UIView.animateWithDuration(0.10, animations: {
                     self.informationalLabel.alpha = desiredPowerOffLabelAlpha
+                    self.backgroundInformationalLabel.alpha = desiredPowerOffLabelAlpha
                 })
             }
         }
