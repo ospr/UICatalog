@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-public class ThumbSliderView: UIView {
+public class ThumbSliderView: UIControl {
     
     @IBOutlet private(set) weak var backgroundView: UIView!
     @IBOutlet private(set) weak var thumbView: UIImageView!
@@ -17,6 +17,22 @@ public class ThumbSliderView: UIView {
     @IBOutlet private(set) weak var backgroundInformationalLabel: UILabel!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
+    public var value: Double = 0 {
+        didSet {
+            let previousValue = min(1, max(0, oldValue))
+            guard previousValue != value else {
+                return
+            }
+            
+            // TODO: duplicate code and hard coded constants
+            let endConstant = backgroundView.superview!.bounds.width - (5 + 5 + thumbView.frame.width)
+            
+            backgroundLeadingConstraint.constant = endConstant * CGFloat(value)
+            sendActionsForControlEvents([.ValueChanged])
+            updatePowerOffLabel()
+        }
+    }
+    
     @IBInspectable var thumbViewImage: UIImage? {
         get { return thumbView.image }
         set { thumbView.image = newValue }
@@ -89,23 +105,32 @@ public class ThumbSliderView: UIView {
         thumbView.roundCornersToFormCircle()
     }
     
+    // MARK: - Working with slider value
+    
+    func updateValue() {
+        let endConstant = backgroundView.superview!.bounds.width - (5 + 5 + thumbView.frame.width)
+        let currentValue = max(0.0, min(1.0, Double(backgroundLeadingConstraint.constant / endConstant)))
+        
+        if value != currentValue {
+            value = currentValue
+            sendActionsForControlEvents([.ValueChanged])
+        }
+    }
+    
+    func updatePowerOffLabel() {
+        // Hide the power off label when the slider is panned
+        let desiredPowerOffLabelAlpha: CGFloat = (value == 0) ? 1.0 : 0.0
+        if self.informationalLabel.alpha != desiredPowerOffLabelAlpha {
+            UIView.animateWithDuration(0.10, animations: {
+                self.informationalLabel.alpha = desiredPowerOffLabelAlpha
+                self.backgroundInformationalLabel.alpha = desiredPowerOffLabelAlpha
+            })
+        }
+    }
+    
     // MARK: - Gesture Handling
     
     func thumbViewWasPanned(recognizer: UIPanGestureRecognizer) {
-        // Note that slider is prevented from sliding past its end by making the
-        // backgroundLeadingConstraint priority lower in the xib 
-
-        let updatePowerOffLabel: () -> () = {
-            // Hide the power off label when the slider is panned
-            let desiredPowerOffLabelAlpha: CGFloat = (self.backgroundLeadingConstraint.constant == 0) ? 1.0 : 0.0
-            if self.informationalLabel.alpha != desiredPowerOffLabelAlpha {
-                UIView.animateWithDuration(0.10, animations: {
-                    self.informationalLabel.alpha = desiredPowerOffLabelAlpha
-                    self.backgroundInformationalLabel.alpha = desiredPowerOffLabelAlpha
-                })
-            }
-        }
-        
         switch recognizer.state {
         case .Possible, .Began:
             break
@@ -115,28 +140,20 @@ public class ThumbSliderView: UIView {
             // the user's pan gesture
             let translation = recognizer.translationInView(self)
             backgroundLeadingConstraint.constant = max(translation.x, 0)
-            updatePowerOffLabel()
+            updateValue()
             
         case .Ended, .Cancelled, .Failed:
             // Determine whether the user slid the slider far enough to
             // either have the slider finish to the end position or slide
             // back to the start position
-            let thumbViewCenterPointInRoot = convertPoint(thumbView.center, fromView: thumbView.superview)
-            let shouldSlideToEnd = thumbViewCenterPointInRoot.x > bounds.midX // Past the middle point?
-            let startConstant = backgroundLeadingConstraint.constant
+            let startValue = value
+            let shouldSlideToEnd = startValue > 0.5
             
             DisplayLinkProgressor.run(withDuration: 0.10, update: { (progress) in
-                // TODO: clean up hardcoded values here
-                let endConstant = shouldSlideToEnd ? self.backgroundView.superview!.bounds.width - (5 + 5 + self.thumbView.frame.width) : 0
+                let finalValue = shouldSlideToEnd ? 1.0 : 0.0
+                let nextValue = startValue + progress * (finalValue - startValue)
                 
-                let constant = startConstant + (endConstant - startConstant) * CGFloat(progress)
-                print("endConstant \(endConstant) dt \(progress), constant \(constant)")
-                
-                self.backgroundLeadingConstraint.constant = constant
-                
-                if progress >= 1 {
-                    updatePowerOffLabel()
-                }
+                self.value = nextValue
             })
         }
     }
