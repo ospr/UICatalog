@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PowerOffViewViewController" customModule="UICatalog" customModuleProvider="target">
             <connections>
+                <outlet property="blurEffectView" destination="M1u-ug-RwU" id="ILS-Ck-3Nj"/>
+                <outlet property="constraint" destination="xus-3j-NF2" id="Wva-zp-hq1"/>
                 <outlet property="dimmingView" destination="DTH-0O-Tmu" id="Vel-Xp-iV4"/>
                 <outlet property="powerOffSliderView" destination="PsQ-b0-T1C" id="kck-U1-SuB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -45,24 +47,34 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsQ-b0-T1C" customClass="ThumbSliderView" customModule="UICatalogElements">
-                                <rect key="frame" x="166.5" y="80" width="266" height="75"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jky-In-F2b">
+                                <rect key="frame" x="167" y="80" width="266" height="75"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsQ-b0-T1C" customClass="ThumbSliderView" customModule="UICatalogElements">
+                                        <rect key="frame" x="0.0" y="0.0" width="266" height="75"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="thumbViewImage" value="OffCircleButton"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="informationalText" value="slide to power off"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="0HZ-gP-KrU"/>
-                                    <constraint firstAttribute="width" constant="266" id="c4t-fB-l4y"/>
+                                    <constraint firstAttribute="width" constant="266" id="Cdz-Gi-yEb"/>
+                                    <constraint firstAttribute="bottom" secondItem="PsQ-b0-T1C" secondAttribute="bottom" id="Jgk-fr-jG7"/>
+                                    <constraint firstItem="PsQ-b0-T1C" firstAttribute="leading" secondItem="Jky-In-F2b" secondAttribute="leading" id="RN1-mh-1aA"/>
+                                    <constraint firstItem="PsQ-b0-T1C" firstAttribute="top" secondItem="Jky-In-F2b" secondAttribute="top" id="abH-gf-wMd"/>
+                                    <constraint firstAttribute="height" constant="75" id="f5m-8p-vfH"/>
+                                    <constraint firstAttribute="trailing" secondItem="PsQ-b0-T1C" secondAttribute="trailing" id="xus-3j-NF2"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="thumbViewImage" value="OffCircleButton"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="informationalText" value="slide to power off"/>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="DTH-0O-Tmu" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" id="3HV-pD-za0"/>
                             <constraint firstItem="asb-1z-fDv" firstAttribute="centerX" secondItem="GGU-Hf-r9t" secondAttribute="centerX" id="FU8-QX-f1T"/>
-                            <constraint firstItem="PsQ-b0-T1C" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" constant="80" id="Niw-Lp-Xqb"/>
-                            <constraint firstItem="PsQ-b0-T1C" firstAttribute="centerX" secondItem="GGU-Hf-r9t" secondAttribute="centerX" id="PUC-X4-pHD"/>
+                            <constraint firstItem="Jky-In-F2b" firstAttribute="centerX" secondItem="GGU-Hf-r9t" secondAttribute="centerX" id="Hnc-jT-CWS"/>
+                            <constraint firstItem="Jky-In-F2b" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" constant="80" id="Out-KJ-YPE"/>
                             <constraint firstItem="DTH-0O-Tmu" firstAttribute="leading" secondItem="GGU-Hf-r9t" secondAttribute="leading" id="V4X-sx-qGS"/>
                             <constraint firstAttribute="bottom" secondItem="asb-1z-fDv" secondAttribute="bottom" constant="40" id="fYx-Xn-ZXS"/>
                             <constraint firstAttribute="bottom" secondItem="DTH-0O-Tmu" secondAttribute="bottom" id="fdv-13-WgG"/>

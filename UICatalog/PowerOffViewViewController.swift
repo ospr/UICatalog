@@ -14,6 +14,8 @@ class PowerOffViewViewController: UIViewController {
     
     @IBOutlet weak var powerOffSliderView: ThumbSliderView!
     @IBOutlet weak var dimmingView: UIView!
+    @IBOutlet weak var blurEffectView: UIVisualEffectView!
+    @IBOutlet weak var constraint: NSLayoutConstraint!
     
     var initialBrightness = CGFloat(0)
     
@@ -31,6 +33,35 @@ class PowerOffViewViewController: UIViewController {
         super.viewDidLoad()
         
         setupPowerOffSliderView()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Setup views to be animated in when the view appears
+        blurEffectView.effect = nil
+        powerOffSliderView.alpha = 0
+        constraint.constant = powerOffSliderView.bounds.width / 2.0
+        view.layoutIfNeeded()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Animate in the views
+        UIView.animateKeyframesWithDuration(0.6, delay: 0, options: [.CalculationModeCubic], animations: {
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.6, animations: { 
+                self.blurEffectView.effect = UIBlurEffect(style: .Dark)
+                self.powerOffSliderView.alpha = 1
+            })
+            
+            UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.8, animations: { 
+                self.constraint.constant = 0
+                self.view.layoutIfNeeded()
+            })
+        }) { (finished) in
+          
+        }
     }
     
     // MARK: - Working with Power Off Slider
