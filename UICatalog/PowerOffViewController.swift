@@ -14,7 +14,7 @@ class PowerOffViewController: UIViewController {
     @IBOutlet weak var powerOffSliderView: ThumbSliderView!
     @IBOutlet weak var dimmingView: UIView!
     @IBOutlet weak var blurEffectView: UIVisualEffectView!
-    @IBOutlet weak var constraint: NSLayoutConstraint!
+    @IBOutlet weak var powerOffSlideViewTrailingConstraint: NSLayoutConstraint!
     
     var initialBrightness = CGFloat(0)
     
@@ -40,7 +40,7 @@ class PowerOffViewController: UIViewController {
         // Setup views to be animated in when the view appears
         blurEffectView.effect = nil
         powerOffSliderView.alpha = 0
-        constraint.constant = powerOffSliderView.bounds.width / 2.0
+        powerOffSlideViewTrailingConstraint.constant = powerOffSliderView.bounds.width / 2.0
         view.layoutIfNeeded()
     }
     
@@ -55,7 +55,7 @@ class PowerOffViewController: UIViewController {
             })
             
             UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.8, animations: { 
-                self.constraint.constant = 0
+                self.powerOffSlideViewTrailingConstraint.constant = 0
                 self.view.layoutIfNeeded()
             })
         }, completion: nil)

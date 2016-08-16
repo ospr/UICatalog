@@ -8,8 +8,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PowerOffViewController" customModule="UICatalog" customModuleProvider="target">
             <connections>
                 <outlet property="blurEffectView" destination="M1u-ug-RwU" id="ILS-Ck-3Nj"/>
-                <outlet property="constraint" destination="xus-3j-NF2" id="Wva-zp-hq1"/>
                 <outlet property="dimmingView" destination="DTH-0O-Tmu" id="Vel-Xp-iV4"/>
+                <outlet property="powerOffSlideViewTrailingConstraint" destination="xus-3j-NF2" id="kXE-xy-ZTM"/>
                 <outlet property="powerOffSliderView" destination="PsQ-b0-T1C" id="kck-U1-SuB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
