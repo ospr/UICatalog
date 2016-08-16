@@ -18,6 +18,7 @@ public class ThumbSliderView: UIControl {
     @IBOutlet private weak var backgroundInformationalLabel: UILabel!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var thumbViewTopPaddingConstraint: NSLayoutConstraint!
     public var value: Double = 0 {
         didSet {
             let previousValue = min(1, max(0, oldValue))
@@ -25,10 +26,7 @@ public class ThumbSliderView: UIControl {
                 return
             }
             
-            // TODO: duplicate code and hard coded constants
-            let endConstant = backgroundView.superview!.bounds.width - (5 + 5 + thumbView.frame.width)
-            
-            backgroundLeadingConstraint.constant = endConstant * CGFloat(value)
+            backgroundLeadingConstraint.constant = maxBackgroundLeadingConstraintConstant() * CGFloat(value)
             sendActionsForControlEvents([.ValueChanged])
             updatePowerOffLabel()
         }
@@ -105,11 +103,15 @@ public class ThumbSliderView: UIControl {
         thumbView.roundCornersToFormCircle()
     }
     
+    func maxBackgroundLeadingConstraintConstant() -> CGFloat {
+        let thumbViewPadding = thumbViewTopPaddingConstraint.constant
+        return backgroundView.superview!.bounds.width - (thumbViewPadding * 2 + thumbView.frame.width)
+    }
+    
     // MARK: - Working with slider value
     
     func updateValue() {
-        let endConstant = backgroundView.superview!.bounds.width - (5 + 5 + thumbView.frame.width)
-        let currentValue = max(0.0, min(1.0, Double(backgroundLeadingConstraint.constant / endConstant)))
+        let currentValue = max(0.0, min(1.0, Double(backgroundLeadingConstraint.constant / maxBackgroundLeadingConstraintConstant())))
         
         if value != currentValue {
             value = currentValue

@@ -13,6 +13,7 @@
                 <outlet property="backgroundView" destination="vEC-WO-fCw" id="yeT-QO-4cZ"/>
                 <outlet property="informationalLabel" destination="Vkb-Vq-xms" id="fmp-gg-bvi"/>
                 <outlet property="thumbView" destination="sty-rf-MIA" id="dHc-V6-RfN"/>
+                <outlet property="thumbViewTopPaddingConstraint" destination="7yZ-Xz-DzS" id="tEk-sf-3G4"/>
                 <outlet property="vibrancyBackgroundView" destination="nIn-5I-LY3" id="tn6-a1-56x"/>
             </connections>
         </placeholder>
