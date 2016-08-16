@@ -72,11 +72,9 @@ public class ThumbSliderView: UIControl {
     }
     
     private func setupInformationalLabel() {
-        // Properly handle changing of view layout for this
-        // TODO: move this to the framework's own assets.xcassests
         // Create a mask for the white informational label to glide through
         // the label to create a shimmer effect
-        let shimmerMaskImage = UIImage(named: "ShimmerMask")!
+        let shimmerMaskImage = UIImage(named: "ShimmerMask", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)!
         let shimmerMaskLayer = CALayer()
         shimmerMaskLayer.contents = shimmerMaskImage.CGImage
         shimmerMaskLayer.contentsGravity = kCAGravityCenter

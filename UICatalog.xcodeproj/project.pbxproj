@@ -21,6 +21,7 @@
 		7C3AC1E71D579815006F56BF /* ThumbSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */; };
 		7C3AC1E91D579E4A006F56BF /* ViewLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */; };
 		7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */; };
+		7C3AC1F31D63DE3E006F56BF /* Assests.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThumbSliderView.xib; sourceTree = "<group>"; };
 		7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLoading.swift; sourceTree = "<group>"; };
 		7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLinkProgressor.swift; sourceTree = "<group>"; };
+		7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assests.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				7C3AC1DB1D579714006F56BF /* Info.plist */,
 				7C3AC1E41D5797F2006F56BF /* ThumbSliderView.swift */,
 				7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */,
+				7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */,
 				7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */,
 				7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */,
 			);
@@ -243,6 +246,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C3AC1F31D63DE3E006F56BF /* Assests.xcassets in Resources */,
 				7C3AC1E71D579815006F56BF /* ThumbSliderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
