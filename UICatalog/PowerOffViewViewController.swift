@@ -15,6 +15,8 @@ class PowerOffViewViewController: UIViewController {
     @IBOutlet weak var powerOffSliderView: ThumbSliderView!
     @IBOutlet weak var dimmingView: UIView!
     
+    var initialBrightness = CGFloat(0)
+    
     required init() {
         super.init(nibName: String(PowerOffViewViewController.self), bundle: nil)
         
@@ -34,10 +36,16 @@ class PowerOffViewViewController: UIViewController {
     // MARK: - Working with Power Off Slider
     
     func setupPowerOffSliderView() {
+        powerOffSliderView.addTarget(self, action: #selector(powerOffSliderDidTouchDown), forControlEvents: [.TouchDown])
         powerOffSliderView.addTarget(self, action: #selector(powerOffSliderValueDidChange), forControlEvents: [.ValueChanged])
     }
     
     func powerOffSliderValueDidChange() {
         dimmingView.alpha = CGFloat(powerOffSliderView.value)
+        UIScreen.mainScreen().brightness = initialBrightness - (initialBrightness * CGFloat(powerOffSliderView.value))
+    }
+    
+    func powerOffSliderDidTouchDown() {
+        initialBrightness = UIScreen.mainScreen().brightness
     }
 }

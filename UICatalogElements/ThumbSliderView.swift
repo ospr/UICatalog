@@ -157,4 +157,10 @@ public class ThumbSliderView: UIControl {
             })
         }
     }
+    
+    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        
+        sendActionsForControlEvents([.TouchDown])
+    }
 }
