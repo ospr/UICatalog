@@ -11,11 +11,11 @@ import UIKit
 @IBDesignable
 public class ThumbSliderView: UIControl {
     
-    @IBOutlet private(set) weak var backgroundView: UIView!
+    @IBOutlet private weak var backgroundView: UIView!
     @IBOutlet private weak var vibrancyBackgroundView: UIView!
-    @IBOutlet private(set) weak var thumbView: UIImageView!
-    @IBOutlet private(set) weak var informationalLabel: UILabel!
-    @IBOutlet private(set) weak var backgroundInformationalLabel: UILabel!
+    @IBOutlet public private(set) weak var thumbView: UIImageView!
+    @IBOutlet private weak var informationalLabel: UILabel!
+    @IBOutlet private weak var backgroundInformationalLabel: UILabel!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
 
     public var value: Double = 0 {
