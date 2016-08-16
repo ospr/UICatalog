@@ -12,6 +12,7 @@ import UIKit
 public class ThumbSliderView: UIControl {
     
     @IBOutlet private(set) weak var backgroundView: UIView!
+    @IBOutlet private weak var vibrancyBackgroundView: UIView!
     @IBOutlet private(set) weak var thumbView: UIImageView!
     @IBOutlet private(set) weak var informationalLabel: UILabel!
     @IBOutlet private(set) weak var backgroundInformationalLabel: UILabel!
@@ -100,8 +101,7 @@ public class ThumbSliderView: UIControl {
     override public func layoutSubviews() {
         super.layoutSubviews()
         
-        // TODO: rounded corners don't look quite right
-        backgroundView.layer.cornerRadius = backgroundView.bounds.size.height / 2.0
+        vibrancyBackgroundView.layer.cornerRadius = vibrancyBackgroundView.bounds.size.height / 2.0
         thumbView.roundCornersToFormCircle()
     }
     
