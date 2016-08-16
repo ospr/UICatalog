@@ -111,10 +111,7 @@
 				7C3AC1B91D578EB8006F56BF /* AppDelegate.swift */,
 				7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */,
 				7C3AC1D11D5790D8006F56BF /* Power Off View */,
-				7C3AC1BF1D578EB8006F56BF /* Main.storyboard */,
-				7C3AC1C21D578EB8006F56BF /* Assets.xcassets */,
-				7C3AC1C41D578EB8006F56BF /* LaunchScreen.storyboard */,
-				7C3AC1C71D578EB8006F56BF /* Info.plist */,
+				7C3AC1F41D63E02C006F56BF /* Supporting Files */,
 			);
 			path = UICatalog;
 			sourceTree = "<group>";
@@ -131,15 +128,42 @@
 		7C3AC1D81D579714006F56BF /* UICatalogElements */ = {
 			isa = PBXGroup;
 			children = (
-				7C3AC1D91D579714006F56BF /* UICatalogElements.h */,
-				7C3AC1DB1D579714006F56BF /* Info.plist */,
 				7C3AC1E41D5797F2006F56BF /* ThumbSliderView.swift */,
-				7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */,
-				7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */,
-				7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */,
-				7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */,
+				7C3AC1F61D63E04B006F56BF /* Extensions */,
+				7C3AC1F51D63E038006F56BF /* Supporting Files */,
 			);
 			path = UICatalogElements;
+			sourceTree = "<group>";
+		};
+		7C3AC1F41D63E02C006F56BF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7C3AC1BF1D578EB8006F56BF /* Main.storyboard */,
+				7C3AC1C21D578EB8006F56BF /* Assets.xcassets */,
+				7C3AC1C41D578EB8006F56BF /* LaunchScreen.storyboard */,
+				7C3AC1C71D578EB8006F56BF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7C3AC1F51D63E038006F56BF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7C3AC1D91D579714006F56BF /* UICatalogElements.h */,
+				7C3AC1DB1D579714006F56BF /* Info.plist */,
+				7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */,
+				7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7C3AC1F61D63E04B006F56BF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */,
+				7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
