@@ -59,9 +59,7 @@ class PowerOffViewViewController: UIViewController {
                 self.constraint.constant = 0
                 self.view.layoutIfNeeded()
             })
-        }) { (finished) in
-          
-        }
+        }, completion: nil)
     }
     
     // MARK: - Working with Power Off Slider
