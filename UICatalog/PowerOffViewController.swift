@@ -1,5 +1,5 @@
 //
-//  PowerOffViewViewController.swift
+//  PowerOffViewController.swift
 //  UICatalog
 //
 //  Created by Kip Nicol on 8/7/16.
@@ -9,8 +9,7 @@
 import UIKit
 import UICatalogElements
 
-// TODO: fix name here
-class PowerOffViewViewController: UIViewController {
+class PowerOffViewController: UIViewController {
     
     @IBOutlet weak var powerOffSliderView: ThumbSliderView!
     @IBOutlet weak var dimmingView: UIView!
@@ -20,7 +19,7 @@ class PowerOffViewViewController: UIViewController {
     var initialBrightness = CGFloat(0)
     
     required init() {
-        super.init(nibName: String(PowerOffViewViewController.self), bundle: nil)
+        super.init(nibName: String(PowerOffViewController.self), bundle: nil)
         
         title = "Power Off"
     }

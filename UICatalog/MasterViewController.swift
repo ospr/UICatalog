@@ -61,7 +61,7 @@ extension MasterViewController {
         func viewController() -> UIViewController {
             switch self {
             case .PowerOff:
-                return PowerOffViewViewController()
+                return PowerOffViewController()
             }
         }
     }

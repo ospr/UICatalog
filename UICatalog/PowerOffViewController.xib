@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PowerOffViewViewController" customModule="UICatalog" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PowerOffViewController" customModule="UICatalog" customModuleProvider="target">
             <connections>
                 <outlet property="blurEffectView" destination="M1u-ug-RwU" id="ILS-Ck-3Nj"/>
                 <outlet property="constraint" destination="xus-3j-NF2" id="Wva-zp-hq1"/>
