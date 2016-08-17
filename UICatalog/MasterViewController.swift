@@ -17,11 +17,8 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // TODO: clean this up here
         let catalogItem = catalogItems[0]
-        let nextViewController = catalogItem.viewController()
-        let vc = splitViewController?.viewControllers[1] as! UINavigationController
-        vc.setViewControllers([nextViewController], animated: true)
+        updateDetailView(withCatalogItem: catalogItem)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -46,11 +43,31 @@ class MasterViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let catalogItem = catalogItems[indexPath.row]
-        let nextViewController = catalogItem.viewController()
 
-        // TODO: clean this up here
-        let vc = splitViewController?.viewControllers[1] as! UINavigationController
-        vc.setViewControllers([nextViewController], animated: true)
+        updateDetailView(withCatalogItem: catalogItem)
+    }
+    
+    // MARK: - Working with Detail View
+    
+    func updateDetailView(withCatalogItem catalogItem: CatalogItem) {
+        guard let splitViewController = splitViewController else {
+            assertionFailure("splitViewController unexpectedly nil.")
+            return
+        }
+        
+        let nextViewController = catalogItem.viewController()
+        let detailNavigationController = splitViewController.viewControllers.last as! UINavigationController
+
+        // TODO: this isn't ideal. Is there a more generic way of doing this?
+        if splitViewController.collapsed {
+            detailNavigationController.pushViewController(nextViewController, animated: true)
+        }
+        else {
+            detailNavigationController.setViewControllers([nextViewController], animated: false)
+        }
+        
+        nextViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        nextViewController.navigationItem.leftItemsSupplementBackButton = true
     }
 }
 
