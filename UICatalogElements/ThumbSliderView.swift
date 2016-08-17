@@ -17,8 +17,8 @@ public class ThumbSliderView: UIControl {
     @IBOutlet private weak var informationalLabel: UILabel!
     @IBOutlet private weak var backgroundInformationalLabel: UILabel!
     @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
-
-    @IBOutlet weak var thumbViewTopPaddingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var thumbViewTopPaddingConstraint: NSLayoutConstraint!
+    
     public var value: Double = 0 {
         didSet {
             let previousValue = min(1, max(0, oldValue))
