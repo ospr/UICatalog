@@ -22,7 +22,6 @@
 		7C3AC1E91D579E4A006F56BF /* ViewLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */; };
 		7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */; };
 		7C3AC1F31D63DE3E006F56BF /* Assests.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */; };
-		7C3AC2181D650353006F56BF /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC2171D650353006F56BF /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,7 +296,6 @@
 			files = (
 				7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */,
 				7C3AC1E51D5797F2006F56BF /* ThumbSliderView.swift in Sources */,
-				7C3AC2181D650353006F56BF /* README.md in Sources */,
 				7C3AC1E91D579E4A006F56BF /* ViewLoading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
