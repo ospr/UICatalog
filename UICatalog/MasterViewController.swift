@@ -36,7 +36,6 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         let catalogItem = catalogItems[indexPath.row]
-        // TODO: really inefficient way of doing this
         cell.textLabel?.text = catalogItem.viewController().title
         return cell
     }
