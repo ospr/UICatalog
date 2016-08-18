@@ -12,6 +12,7 @@ class MasterViewController: UITableViewController {
 
     var catalogItems: [CatalogItem] = [
         .PowerOff,
+        .AppCards,
     ]
 
     override func viewDidLoad() {
@@ -73,11 +74,15 @@ class MasterViewController: UITableViewController {
 extension MasterViewController {
     enum CatalogItem {
         case PowerOff
+        case AppCards
         
         func viewController() -> UIViewController {
             switch self {
             case .PowerOff:
                 return PowerOffViewController()
+                
+            case .AppCards:
+                return AppCardsViewController()
             }
         }
     }

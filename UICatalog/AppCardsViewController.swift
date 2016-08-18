@@ -7,10 +7,39 @@
 //
 
 import UIKit
+import UICatalogElements
 
 class AppCardsViewController: UIViewController {
 
+    @IBOutlet weak var carouselView: CarouselView!
+    
+    required init() {
+        super.init(nibName: String(AppCardsViewController.self), bundle: nil)
+        
+        title = "App Cards"
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented. Use init()")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        carouselView.dataSource = self
+        carouselView.reloadData()
+    }
+}
+
+extension AppCardsViewController: CarouselViewDataSource {
+    
+    // TODO: update this
+    func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int {
+        return 1
+    }
+    
+    // TODO: update this
+    func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView {
+        return CardView()
     }
 }
