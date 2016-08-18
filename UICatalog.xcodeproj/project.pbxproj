@@ -140,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				7C3AC1E41D5797F2006F56BF /* ThumbSliderView.swift */,
+				7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */,
 				7C3AC21E1D66438E006F56BF /* CardView.swift */,
 				7C3AC2201D664433006F56BF /* CardView.xib */,
 				7C3AC1F61D63E04B006F56BF /* Extensions */,
@@ -165,7 +166,6 @@
 				7C3AC1D91D579714006F56BF /* UICatalogElements.h */,
 				7C3AC1DB1D579714006F56BF /* Info.plist */,
 				7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */,
-				7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
