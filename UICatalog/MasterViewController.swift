@@ -67,6 +67,7 @@ class MasterViewController: UITableViewController {
             detailNavigationController.setViewControllers([nextViewController], animated: false)
         }
         
+        nextViewController.edgesForExtendedLayout = .None
         nextViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         nextViewController.navigationItem.leftItemsSupplementBackButton = true
     }
