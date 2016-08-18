@@ -40,6 +40,11 @@ extension AppCardsViewController: CarouselViewDataSource {
     
     // TODO: update this
     func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView {
-        return CardView()
+        let cardView = CardView()
+        cardView.headerLabel.text = "UICatalog"
+        cardView.headerImageView.image = UIImage(named: "OffCircleButton")
+        cardView.mainImageView.image = UIImage(named: "AppCard-Main-1")
+        
+        return cardView
     }
 }

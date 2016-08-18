@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AppCardsViewController" customModule="UICatalog" customModuleProvider="target">
@@ -16,18 +16,40 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundWallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="1pm-mk-iQr">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                </imageView>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkX-OB-75u">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="KXN-yr-65E">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <blurEffect style="light"/>
+                </visualEffectView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4yn-b1-Lb7" customClass="CarouselView" customModule="UICatalogElements">
                     <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="1pm-mk-iQr" secondAttribute="bottom" id="Cpq-xM-86W"/>
+                <constraint firstItem="fkX-OB-75u" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DCQ-iq-c6l"/>
+                <constraint firstItem="fkX-OB-75u" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="IMR-v6-3AL"/>
                 <constraint firstItem="4yn-b1-Lb7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ir8-Tr-TNb"/>
                 <constraint firstAttribute="trailing" secondItem="4yn-b1-Lb7" secondAttribute="trailing" id="UcX-ZY-VYc"/>
+                <constraint firstAttribute="bottom" secondItem="fkX-OB-75u" secondAttribute="bottom" id="ZkR-Z2-tFS"/>
+                <constraint firstItem="1pm-mk-iQr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aF3-Bd-o1Y"/>
+                <constraint firstAttribute="trailing" secondItem="1pm-mk-iQr" secondAttribute="trailing" id="cG4-38-87w"/>
                 <constraint firstAttribute="bottom" secondItem="4yn-b1-Lb7" secondAttribute="bottom" id="dfd-c0-9KH"/>
                 <constraint firstItem="4yn-b1-Lb7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="m3t-hO-HZM"/>
+                <constraint firstItem="1pm-mk-iQr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="sE0-Cm-FxA"/>
+                <constraint firstAttribute="trailing" secondItem="fkX-OB-75u" secondAttribute="trailing" id="t5W-5i-LMA"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="backgroundWallpaper" width="768" height="913"/>
+    </resources>
 </document>
