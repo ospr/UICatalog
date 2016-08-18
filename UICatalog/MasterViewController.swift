@@ -18,7 +18,8 @@ class MasterViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let catalogItem = catalogItems[0]
+        // TODO: revert this back
+        let catalogItem = catalogItems[1]
         updateDetailView(withCatalogItem: catalogItem)
     }
 
