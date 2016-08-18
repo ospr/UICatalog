@@ -22,6 +22,8 @@
 		7C3AC1E91D579E4A006F56BF /* ViewLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */; };
 		7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */; };
 		7C3AC1F31D63DE3E006F56BF /* Assests.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */; };
+		7C3AC21C1D664315006F56BF /* AppCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC21A1D664315006F56BF /* AppCardsViewController.swift */; };
+		7C3AC21D1D664315006F56BF /* AppCardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLinkProgressor.swift; sourceTree = "<group>"; };
 		7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assests.xcassets; sourceTree = "<group>"; };
 		7C3AC2171D650353006F56BF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7C3AC21A1D664315006F56BF /* AppCardsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCardsViewController.swift; sourceTree = "<group>"; };
+		7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppCardsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,7 @@
 			children = (
 				7C3AC1B91D578EB8006F56BF /* AppDelegate.swift */,
 				7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */,
+				7C3AC2191D6642E5006F56BF /* App Cards View */,
 				7C3AC1D11D5790D8006F56BF /* Power Off View */,
 				7C3AC1F41D63E02C006F56BF /* Supporting Files */,
 			);
@@ -166,6 +171,15 @@
 				7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		7C3AC2191D6642E5006F56BF /* App Cards View */ = {
+			isa = PBXGroup;
+			children = (
+				7C3AC21A1D664315006F56BF /* AppCardsViewController.swift */,
+				7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */,
+			);
+			name = "App Cards View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C3AC21D1D664315006F56BF /* AppCardsViewController.xib in Resources */,
 				7C3AC1C61D578EB8006F56BF /* LaunchScreen.storyboard in Resources */,
 				7C3AC1D01D5790B1006F56BF /* PowerOffViewController.xib in Resources */,
 				7C3AC1C31D578EB8006F56BF /* Assets.xcassets in Resources */,
@@ -284,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C3AC21C1D664315006F56BF /* AppCardsViewController.swift in Sources */,
 				7C3AC1BC1D578EB8006F56BF /* MasterViewController.swift in Sources */,
 				7C3AC1CF1D5790B1006F56BF /* PowerOffViewController.swift in Sources */,
 				7C3AC1BA1D578EB8006F56BF /* AppDelegate.swift in Sources */,
