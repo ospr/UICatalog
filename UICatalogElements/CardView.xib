@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardView" customModule="UICatalogElements" customModuleProvider="target">
+            <connections>
+                <outlet property="headerImageView" destination="MSE-Ul-TYL" id="EDL-Si-kNW"/>
+                <outlet property="headerLabel" destination="src-zp-hRl" id="Ht7-KM-5kz"/>
+                <outlet property="mainImageView" destination="6Fi-7E-Ppu" id="K0e-ra-7VK"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view opaque="NO" contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="365" height="553"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tO2-am-484" userLabel="Card Stack View">
+                    <rect key="frame" x="0.0" y="0.0" width="365" height="553"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KOF-5X-B0j" userLabel="Header Stack View">
+                            <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mIx-KP-zI7">
+                                    <rect key="frame" x="0.0" y="0.0" width="10" height="40"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="10" id="2l9-qU-fIH"/>
+                                    </constraints>
+                                </view>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MSE-Ul-TYL">
+                                    <rect key="frame" x="20" y="0.0" width="40" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" secondItem="MSE-Ul-TYL" secondAttribute="height" multiplier="1:1" id="7iH-ez-xMG"/>
+                                        <constraint firstAttribute="width" constant="40" id="Oah-9q-mqR"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="src-zp-hRl">
+                                    <rect key="frame" x="70" y="12" width="295" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="MSE-Ul-TYL" firstAttribute="top" secondItem="KOF-5X-B0j" secondAttribute="top" id="Dkn-63-eRR"/>
+                                <constraint firstAttribute="bottom" secondItem="MSE-Ul-TYL" secondAttribute="bottom" id="z8c-ez-mMn"/>
+                            </constraints>
+                        </stackView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Fi-7E-Ppu">
+                            <rect key="frame" x="0.0" y="50" width="365" height="503"/>
+                        </imageView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="tO2-am-484" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="W41-R4-dTO"/>
+                <constraint firstAttribute="trailing" secondItem="tO2-am-484" secondAttribute="trailing" id="WZN-QO-q9N"/>
+                <constraint firstAttribute="bottom" secondItem="tO2-am-484" secondAttribute="bottom" id="sAQ-9h-fu4"/>
+                <constraint firstItem="tO2-am-484" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tai-4Q-3Vh"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="381.5" y="381.5"/>
+        </view>
+    </objects>
+</document>
