@@ -26,6 +26,7 @@
 		7C3AC21D1D664315006F56BF /* AppCardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */; };
 		7C3AC21F1D66438E006F56BF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC21E1D66438E006F56BF /* CardView.swift */; };
 		7C3AC2211D664433006F56BF /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC2201D664433006F56BF /* CardView.xib */; };
+		7C3AC2231D664805006F56BF /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC2221D664805006F56BF /* CarouselView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppCardsViewController.xib; sourceTree = "<group>"; };
 		7C3AC21E1D66438E006F56BF /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		7C3AC2201D664433006F56BF /* CardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
+		7C3AC2221D664805006F56BF /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */,
 				7C3AC21E1D66438E006F56BF /* CardView.swift */,
 				7C3AC2201D664433006F56BF /* CardView.xib */,
+				7C3AC2221D664805006F56BF /* CarouselView.swift */,
 				7C3AC1F61D63E04B006F56BF /* Extensions */,
 				7C3AC1F51D63E038006F56BF /* Supporting Files */,
 			);
@@ -317,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C3AC2231D664805006F56BF /* CarouselView.swift in Sources */,
 				7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */,
 				7C3AC1E51D5797F2006F56BF /* ThumbSliderView.swift in Sources */,
 				7C3AC21F1D66438E006F56BF /* CardView.swift in Sources */,
