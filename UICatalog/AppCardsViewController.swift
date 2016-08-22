@@ -35,7 +35,7 @@ extension AppCardsViewController: CarouselViewDataSource {
     
     // TODO: update this
     func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int {
-        return 1
+        return 3
     }
     
     // TODO: update this

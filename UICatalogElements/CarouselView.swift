@@ -14,6 +14,47 @@ public class CarouselView: UIView {
     
     private var itemViews: [UIView] = []
     
+    override public init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setup()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        setup()
+    }
+    
+    private func setup() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
+        addGestureRecognizer(panGesture)
+        panGesture.enabled = true
+    }
+    
+    // MARK: - Handling gestures
+    
+    var animator: UIDynamicAnimator?
+    
+    func viewWasPanned(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .Possible, .Began:
+            break
+            
+        case .Changed:
+            let translation = recognizer.translationInView(self)
+            recognizer.setTranslation(CGPointZero, inView: self)
+            shiftItemViews(byOffset: translation.x)
+            
+        case .Ended, .Cancelled, .Failed:
+            // TODO: have views settle back to their desired location based on where they currently are
+            break
+        }
+
+    }
+    
+    // MARK: - Working with Data
+    
     public func reloadData() {
         for itemView in itemViews {
             itemView.removeFromSuperview()
@@ -40,7 +81,13 @@ public class CarouselView: UIView {
         layoutItemViews()
     }
     
-    func layoutItemViews() {
+    private func shiftItemViews(byOffset offset: CGFloat) {
+        for itemView in itemViews {
+            itemView.frame.origin.x += offset
+        }
+    }
+    
+    private func layoutItemViews() {
         for (index, itemView) in itemViews.enumerate() {
             itemView.center = center
             itemView.frame.origin.x = bounds.origin.x + CGFloat(index * 200) // TODO: change this hardcoded value
