@@ -7,14 +7,33 @@
 //
 
 import UIKit
+import QuartzCore
+
+// TODO: remove this?
+class TransformView: UIView {
+//    override var layer: CALayer {
+//        return CATransformLayer()
+//    }
+}
+
+// TODO: use exsiting struct for this?
+struct Point3D {
+    var x: CGFloat
+    var y: CGFloat
+    var z: CGFloat
+}
 
 public class CarouselView: UIView {
 
     public weak var dataSource: CarouselViewDataSource?
     
     private var itemViews: [UIView] = []
+    // TODO: clean up property names here
+    private var transformView = TransformView()
+    private var rootOffset = CGFloat(0)
+    private var viewPositions: [Point3D] = []
     
-    override public init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         
         setup()
@@ -27,6 +46,10 @@ public class CarouselView: UIView {
     }
     
     private func setup() {
+        addSubview(transformView)
+        transformView.translatesAutoresizingMaskIntoConstraints = false
+        transformView.anchorConstraintsToFitSuperview()
+        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
         addGestureRecognizer(panGesture)
         panGesture.enabled = true
@@ -74,7 +97,7 @@ public class CarouselView: UIView {
         }()
         
         for itemView in itemViews {
-            addSubview(itemView)
+            transformView.addSubview(itemView)
             itemView.frame.size = CGSize(width: 300, height: 500) // TODO: change hardcoded values
         }
         
@@ -82,15 +105,30 @@ public class CarouselView: UIView {
     }
     
     private func shiftItemViews(byOffset offset: CGFloat) {
-        for itemView in itemViews {
-            itemView.frame.origin.x += offset
+        // TODO: clean this up
+        
+        rootOffset += offset
+        
+        for (index, itemView) in itemViews.enumerate() {
+            var transform = CATransform3DIdentity
+            transform.m34 = 1.0 / -1000.0
+            
+            var point = viewPositions[index]
+            point.z = min(itemView.bounds.size.width, -CGFloat(index * 50) + rootOffset)
+            point.x = point.z >= 0 ? point.x + offset : 0
+            transform = CATransform3DTranslate(transform, point.x, point.y, point.z)
+            
+            itemView.layer.transform = transform
+            viewPositions[index] = point
         }
     }
     
     private func layoutItemViews() {
-        for (index, itemView) in itemViews.enumerate() {
-            itemView.center = center
-            itemView.frame.origin.x = bounds.origin.x + CGFloat(index * 200) // TODO: change this hardcoded value
+        for itemView in itemViews {
+            itemView.center.y = center.y
+            itemView.frame.origin.x = bounds.origin.x
+            
+            viewPositions.append(Point3D(x: 0, y: 0, z: 0))
         }
     }
 
