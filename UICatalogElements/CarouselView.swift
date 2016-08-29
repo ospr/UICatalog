@@ -48,13 +48,14 @@ public class CarouselView: UIView {
     }
     
     private func setup() {
+        // TODO: remove the transform view??
         addSubview(transformView)
         transformView.translatesAutoresizingMaskIntoConstraints = false
         transformView.anchorConstraintsToFitSuperview()
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
-        addGestureRecognizer(panGesture)
-        panGesture.enabled = true
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
+//        addGestureRecognizer(panGesture)
+//        panGesture.enabled = true
     }
     
     // MARK: - Handling gestures
@@ -62,6 +63,8 @@ public class CarouselView: UIView {
     var animator: UIDynamicAnimator?
     
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
+        print("view was panned: \(recognizer.view!.tag), view: \(recognizer.view!)")
+        
         switch recognizer.state {
         case .Possible, .Began:
             decelerateDisplayLinkProgressor = nil
@@ -70,6 +73,8 @@ public class CarouselView: UIView {
             let translation = recognizer.translationInView(self)
             recognizer.setTranslation(CGPointZero, inView: self)
             shiftItemViews(byOffset: translation.x)
+            
+            print("translation: \(translation)")
             
         case .Ended, .Cancelled, .Failed:
             // TODO: have views settle back to their desired location based on where they currently are
@@ -100,6 +105,7 @@ public class CarouselView: UIView {
         for itemView in itemViews {
             itemView.removeFromSuperview()
         }
+        viewPositions.removeAll()
         
         itemViews = {
             guard let dataSource = dataSource else {
@@ -114,9 +120,17 @@ public class CarouselView: UIView {
             }
         }()
         
-        for itemView in itemViews {
-            transformView.addSubview(itemView)
+        for (index, itemView) in itemViews.enumerate() {
+            transformView.insertSubview(itemView, atIndex: 0)
             itemView.frame.size = CGSize(width: 300, height: 500) // TODO: change hardcoded values
+            
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
+            itemView.addGestureRecognizer(panGesture)
+            panGesture.enabled = true
+            
+             // TODO: remove this? useful for debugging
+            itemView.tag = index + 1
+            print("tag: \(itemView.tag), view: \(itemView)")
         }
         
         layoutItemViews()
