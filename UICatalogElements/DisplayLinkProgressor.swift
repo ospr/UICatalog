@@ -19,7 +19,11 @@ internal class DisplayLinkProgressor: NSObject {
     private let deterministicUpdateBlock: ((progress: Double) -> Void)?
     
     private var startTimestamp: CFTimeInterval?
+    private var lastFrameTimestamp: CFTimeInterval?
     
+    deinit {
+        displayLink.invalidate()
+    }
     
     private init(duration: NSTimeInterval,
                  deterministicUpdateBlock: ((progress: Double) -> Void)?,
@@ -34,35 +38,37 @@ internal class DisplayLinkProgressor: NSObject {
         displayLink = CADisplayLink(target: self, selector: #selector(displayLinkDidUpdate))
     }
     
-    static func run(withDuration duration: NSTimeInterval, update: (progress: Double) -> Void) {
+    static func run(withDuration duration: NSTimeInterval, update: (progress: Double) -> Void) -> DisplayLinkProgressor {
         let displayLinkProgressor = DisplayLinkProgressor(duration: duration, deterministicUpdateBlock: update, indeterministicUpdateBlock: nil)
         
         displayLinkProgressor.start()
+        
+        return displayLinkProgressor
     }
     
-    static func run(update: (timeDelta: Double) -> Bool) {
+    static func run(update: (timeDelta: Double) -> Bool) -> DisplayLinkProgressor {
         let displayLinkProgressor = DisplayLinkProgressor(duration: 0, deterministicUpdateBlock: nil, indeterministicUpdateBlock: update)
         
         displayLinkProgressor.start()
+        
+        return displayLinkProgressor
     }
     
     private func start() {
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
         startTimestamp = CACurrentMediaTime()
+        lastFrameTimestamp = startTimestamp
     }
     
-    private func stop() {
+    func stop() {
         displayLink.invalidate()
     }
     
     @objc func displayLinkDidUpdate(displayLink: CADisplayLink) {
-        guard let startTimestamp = self.startTimestamp else {
-            return
-        }
-        
-        let timeDelta = displayLink.timestamp - startTimestamp
-        
-        if let deterministicUpdateBlock = deterministicUpdateBlock {
+        if let deterministicUpdateBlock = deterministicUpdateBlock,
+           let startTimestamp = self.startTimestamp {
+           
+            let timeDelta = displayLink.timestamp - startTimestamp
             let progress = min(timeDelta / duration, 1.0)
             
             deterministicUpdateBlock(progress: progress)
@@ -70,12 +76,17 @@ internal class DisplayLinkProgressor: NSObject {
                 stop()
             }
         }
-        if let indeterministicUpdateBlock = indeterministicUpdateBlock {
-            let shouldContinue = indeterministicUpdateBlock(timeDelta: timeDelta)
+        if let indeterministicUpdateBlock = indeterministicUpdateBlock,
+           let lastTimestamp = self.lastFrameTimestamp {
+            
+            let timeDeltaSinceLastFrame = displayLink.timestamp - lastTimestamp
+            let shouldContinue = indeterministicUpdateBlock(timeDelta: timeDeltaSinceLastFrame)
             
             if !shouldContinue {
                 stop()
             }
+            
+            self.lastFrameTimestamp = displayLink.timestamp
         }
     }
 }

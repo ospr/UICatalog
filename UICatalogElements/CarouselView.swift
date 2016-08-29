@@ -33,6 +33,8 @@ public class CarouselView: UIView {
     private var rootOffset = CGFloat(0)
     private var viewPositions: [Point3D] = []
     
+    var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -62,9 +64,7 @@ public class CarouselView: UIView {
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .Possible, .Began:
-            displayLink?.invalidate()
-            displayLink = nil
-            break
+            decelerateDisplayLinkProgressor = nil
             
         case .Changed:
             let translation = recognizer.translationInView(self)
@@ -73,41 +73,24 @@ public class CarouselView: UIView {
             
         case .Ended, .Cancelled, .Failed:
             // TODO: have views settle back to their desired location based on where they currently are
-            
-            displayLink = {
-                let displayLink = CADisplayLink(target: self, selector: #selector(tick))
-                displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
-                return displayLink
-            }()
-            
-            velocity = recognizer.velocityInView(self)
-            
-            break
-        }
 
-    }
+            var velocityX = Double(recognizer.velocityInView(self).x)
+            
+            decelerateDisplayLinkProgressor = DisplayLinkProgressor.run({ [weak self] (timeDelta) -> Bool in
+                guard let `self` = self else { return false }
+                
+                let frictionConstant = -4.0
+                
+                let force = velocityX * frictionConstant
+                velocityX += force * timeDelta
+                let offset = velocityX * timeDelta
+                
+                self.shiftItemViews(byOffset: CGFloat(offset))
+                
+                print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
 
-    // TODO: clean this up: support better closure for displaylink progressor to contain all this
-    var velocity: CGPoint = CGPointZero
-    var displayLink: CADisplayLink?
-    
-    func tick(displayLink: CADisplayLink) {
-        let dt = displayLink.duration
-        
-        // TODO: clean this up
-        let frictionConstant: CGFloat = -4
-        let time: CGFloat = CGFloat(dt)
-        let initialVelocity = velocity.x
-        let force = initialVelocity * frictionConstant
-        self.velocity.x = initialVelocity + force * time
-        
-        let offset = self.velocity.x * time
-        shiftItemViews(byOffset: offset)
-        
-        print("velocity.x: \(initialVelocity), force: \(force), time: \(time), offset: \(offset), speed: \(velocity.x)")
-        
-        if abs(velocity.x) < 0.1 {
-            displayLink.invalidate()
+                return abs(velocityX) > 0.1
+            })
         }
     }
     
