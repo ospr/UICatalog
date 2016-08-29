@@ -52,10 +52,6 @@ public class CarouselView: UIView {
         addSubview(transformView)
         transformView.translatesAutoresizingMaskIntoConstraints = false
         transformView.anchorConstraintsToFitSuperview()
-        
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
-//        addGestureRecognizer(panGesture)
-//        panGesture.enabled = true
     }
     
     // MARK: - Handling gestures
