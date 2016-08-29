@@ -143,7 +143,7 @@ public class CarouselView: UIView {
             
             // Use the current root offset to determine progress through animation
             // We subtract from the root offset to put cards further behind each other
-            let progress = ((rootOffset - CGFloat(index * 50)) / 10.0)
+            let progress = (rootOffset - CGFloat(index * 50)) / 10.0
             
             var point = viewPositions[index]
             // Z grows linearly when progress is past 0
@@ -151,7 +151,7 @@ public class CarouselView: UIView {
             // X grows using an exponential function to ensure that as progress
             // goes further negative that we only ever get closer to 0
             // TODO: should probably just have it stop around 0 like we do with Z
-            point.x = pow(2, ((rootOffset - CGFloat(index * 50)) / 25.0))
+            point.x = pow(2, progress / 2.5)
             transform = CATransform3DTranslate(transform, point.x, point.y, point.z)
             
             itemView.layer.transform = transform
