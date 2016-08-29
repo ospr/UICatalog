@@ -62,6 +62,8 @@ public class CarouselView: UIView {
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .Possible, .Began:
+            displayLink?.invalidate()
+            displayLink = nil
             break
             
         case .Changed:
@@ -71,9 +73,42 @@ public class CarouselView: UIView {
             
         case .Ended, .Cancelled, .Failed:
             // TODO: have views settle back to their desired location based on where they currently are
+            
+            displayLink = {
+                let displayLink = CADisplayLink(target: self, selector: #selector(tick))
+                displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+                return displayLink
+            }()
+            
+            velocity = recognizer.velocityInView(self)
+            
             break
         }
 
+    }
+
+    // TODO: clean this up: support better closure for displaylink progressor to contain all this
+    var velocity: CGPoint = CGPointZero
+    var displayLink: CADisplayLink?
+    
+    func tick(displayLink: CADisplayLink) {
+        let dt = displayLink.duration
+        
+        // TODO: clean this up
+        let frictionConstant: CGFloat = -4
+        let time: CGFloat = CGFloat(dt)
+        let initialVelocity = velocity.x
+        let force = initialVelocity * frictionConstant
+        self.velocity.x = initialVelocity + force * time
+        
+        let offset = self.velocity.x * time
+        shiftItemViews(byOffset: offset)
+        
+        print("velocity.x: \(initialVelocity), force: \(force), time: \(time), offset: \(offset), speed: \(velocity.x)")
+        
+        if abs(velocity.x) < 0.1 {
+            displayLink.invalidate()
+        }
     }
     
     // MARK: - Working with Data
