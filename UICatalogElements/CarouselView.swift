@@ -31,7 +31,7 @@ public class CarouselView: UIView {
     // TODO: clean up property names here
     private var transformView = TransformView()
     private var rootOffset = CGFloat(0)
-    private var viewPositions: [Point3D] = []
+    private var viewPositions: [UIView: Point3D] = [:]
     
     var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
     
@@ -59,7 +59,7 @@ public class CarouselView: UIView {
     var animator: UIDynamicAnimator?
     
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
-        print("view was panned: \(recognizer.view!.tag), view: \(recognizer.view!)")
+        let gesturedView = recognizer.view!
         
         switch recognizer.state {
         case .Possible, .Began:
@@ -68,9 +68,7 @@ public class CarouselView: UIView {
         case .Changed:
             let translation = recognizer.translationInView(self)
             recognizer.setTranslation(CGPointZero, inView: self)
-            shiftItemViews(byOffset: translation.x)
-            
-            print("translation: \(translation)")
+            viewDidPanHorizontally(gesturedView, byOffset: translation.x)
             
         case .Ended, .Cancelled, .Failed:
             // TODO: have views settle back to their desired location based on where they currently are
@@ -86,7 +84,7 @@ public class CarouselView: UIView {
                 velocityX += force * timeDelta
                 let offset = velocityX * timeDelta
                 
-                self.shiftItemViews(byOffset: CGFloat(offset))
+                self.viewDidPanHorizontally(gesturedView, byOffset: CGFloat(offset))
                 
                 print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
 
@@ -116,26 +114,32 @@ public class CarouselView: UIView {
             }
         }()
         
-        for (index, itemView) in itemViews.enumerate() {
+        for itemView in itemViews {
             transformView.insertSubview(itemView, atIndex: 0)
             itemView.frame.size = CGSize(width: 300, height: 500) // TODO: change hardcoded values
             
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
             itemView.addGestureRecognizer(panGesture)
             panGesture.enabled = true
-            
-             // TODO: remove this? useful for debugging
-            itemView.tag = index + 1
-            print("tag: \(itemView.tag), view: \(itemView)")
         }
         
         layoutItemViews()
     }
     
-    private func shiftItemViews(byOffset offset: CGFloat) {
+    private func viewDidPanHorizontally(view: UIView, byOffset offset: CGFloat) {
         // TODO: clean this up
         
-        rootOffset += offset
+        // Calculate the new x origin point for the view that was panned.
+        // Then use that value to backwards calculate the new root offset
+        // based on the view that was actually panned. This allows us to 
+        // keep the currently "selected" view under the user's finger 
+        // while it's being panned, but still allow for the other card
+        // animations to behave properly
+        // TODO: some better way to abstract this. If a value below changes it
+        //       needs to change here as well
+        let viewIndex = itemViews.indexOf(view)!
+        let nextViewXPoint = viewPositions[view]!.x + offset
+        rootOffset = (2.5 * log2(nextViewXPoint)) * 10 + (CGFloat(viewIndex) * 50)
         
         for (index, itemView) in itemViews.enumerate() {
             var transform = CATransform3DIdentity
@@ -145,7 +149,7 @@ public class CarouselView: UIView {
             // We subtract from the root offset to put cards further behind each other
             let progress = (rootOffset - CGFloat(index * 50)) / 10.0
             
-            var point = viewPositions[index]
+            var point = viewPositions[itemView]!
             // Z grows linearly when progress is past 0
             point.z = progress > 0 ? 3 * progress : 0
             // X grows using an exponential function to ensure that as progress
@@ -155,7 +159,7 @@ public class CarouselView: UIView {
             transform = CATransform3DTranslate(transform, point.x, point.y, point.z)
             
             itemView.layer.transform = transform
-            viewPositions[index] = point
+            viewPositions[itemView] = point
         }
     }
     
@@ -164,7 +168,8 @@ public class CarouselView: UIView {
             itemView.center.y = center.y
             itemView.frame.origin.x = bounds.origin.x
             
-            viewPositions.append(Point3D(x: 0, y: 0, z: 0))
+            // TODO: do the frames update properly such that we don't actually need this?
+            viewPositions[itemView] = Point3D(x: 0, y: 0, z: 0)
         }
     }
 
