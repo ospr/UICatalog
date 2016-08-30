@@ -30,7 +30,7 @@ public class CarouselView: UIView {
     private var itemViews: [UIView] = []
     // TODO: clean up property names here
     private var transformView = TransformView()
-    private var rootOffset = CGFloat(0)
+    private var absoluteOffset = CGFloat(0)
     private var viewPositions: [UIView: Point3D] = [:]
     
     var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
@@ -84,7 +84,7 @@ public class CarouselView: UIView {
                 velocityX += force * timeDelta
                 let offset = velocityX * timeDelta
                 
-                self.viewDidPanHorizontally(gesturedView, byOffset: CGFloat(offset))
+                self.viewDidPanHorizontally(nil, byOffset: CGFloat(offset))
                 
                 print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
 
@@ -126,7 +126,8 @@ public class CarouselView: UIView {
         layoutItemViews()
     }
     
-    private func viewDidPanHorizontally(view: UIView, byOffset offset: CGFloat) {
+    // TODO: change name now that view can be nil
+    private func viewDidPanHorizontally(view: UIView?, byOffset offset: CGFloat) {
         // TODO: clean this up
         
         // Calculate the new x origin point for the view that was panned.
@@ -137,9 +138,24 @@ public class CarouselView: UIView {
         // animations to behave properly
         // TODO: some better way to abstract this. If a value below changes it
         //       needs to change here as well
-        let viewIndex = itemViews.indexOf(view)!
-        let nextViewXPoint = viewPositions[view]!.x + offset
-        rootOffset = (2.5 * log2(nextViewXPoint)) * 10 + (CGFloat(viewIndex) * 50)
+        if let view = view {
+            // TODO: clean this up
+            let viewIndex = itemViews.indexOf(view)!
+            let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
+            let v: CGFloat = nextViewXPoint == 0 ? 0 : log2(nextViewXPoint)
+            absoluteOffset = (25 * v) + (CGFloat(viewIndex) * 50)
+            
+            print("nextViewXPoint: \(nextViewXPoint), view index: \(viewIndex), absOffset: \(absoluteOffset)")
+        }
+        else {
+            absoluteOffset += offset
+        }
+
+        let nextViewXPoint = bounds.midX
+        let v: CGFloat = nextViewXPoint == 0 ? 0 : log2(nextViewXPoint)
+        let lastAbsoluteOffset = (25 * v) + (CGFloat(itemViews.count - 1) * 50)
+        
+        absoluteOffset = min(lastAbsoluteOffset, absoluteOffset)
         
         for (index, itemView) in itemViews.enumerate() {
             var transform = CATransform3DIdentity
@@ -147,15 +163,16 @@ public class CarouselView: UIView {
             
             // Use the current root offset to determine progress through animation
             // We subtract from the root offset to put cards further behind each other
-            let progress = (rootOffset - CGFloat(index * 50)) / 10.0
+            let itemOffset = 50
+            let localOffset = (absoluteOffset - CGFloat(index * itemOffset))
             
             var point = viewPositions[itemView]!
             // Z grows linearly when progress is past 0
-            point.z = progress > 0 ? 3 * progress : 0
+            point.z = localOffset > 0 ? 0.3 * localOffset : 0
             // X grows using an exponential function to ensure that as progress
             // goes further negative that we only ever get closer to 0
             // TODO: should probably just have it stop around 0 like we do with Z
-            point.x = pow(2, progress / 2.5)
+            point.x = localOffset > 0 ? pow(2, localOffset / 25.0) : 0
             transform = CATransform3DTranslate(transform, point.x, point.y, point.z)
             
             itemView.layer.transform = transform
