@@ -142,8 +142,7 @@ public class CarouselView: UIView {
             // TODO: clean this up
             let viewIndex = itemViews.indexOf(view)!
             let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
-            let v: CGFloat = nextViewXPoint == 0 ? 0 : log2(nextViewXPoint)
-            absoluteOffset = (25 * v) + (CGFloat(viewIndex) * 50)
+            absoluteOffset = (25 * log2orZero(nextViewXPoint)) + (CGFloat(viewIndex) * 50)
             
             print("nextViewXPoint: \(nextViewXPoint), view index: \(viewIndex), absOffset: \(absoluteOffset)")
         }
@@ -196,4 +195,9 @@ public protocol CarouselViewDataSource: class {
     
     func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int
     func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView
+}
+
+// TODO: move to math extension?
+func log2orZero(d: CGFloat) -> CGFloat {
+    return d <= 0 ? 0 : log2(d)
 }
