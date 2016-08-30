@@ -59,8 +59,6 @@ public class CarouselView: UIView {
     var animator: UIDynamicAnimator?
     
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
-        let gesturedView = recognizer.view!
-        
         switch recognizer.state {
         case .Possible, .Began:
             decelerateDisplayLinkProgressor = nil
@@ -68,7 +66,7 @@ public class CarouselView: UIView {
         case .Changed:
             let translation = recognizer.translationInView(self)
             recognizer.setTranslation(CGPointZero, inView: self)
-            viewDidPanHorizontally(gesturedView, byOffset: translation.x)
+            didPanHorizontally(byOffset: translation.x, forView: recognizer.view)
             
         case .Ended, .Cancelled, .Failed:
             // TODO: have views settle back to their desired location based on where they currently are
@@ -84,7 +82,7 @@ public class CarouselView: UIView {
                 velocityX += force * timeDelta
                 let offset = velocityX * timeDelta
                 
-                self.viewDidPanHorizontally(nil, byOffset: CGFloat(offset))
+                self.didPanHorizontally(byOffset: CGFloat(offset))
                 
                 print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
 
@@ -126,8 +124,7 @@ public class CarouselView: UIView {
         layoutItemViews()
     }
     
-    // TODO: change name now that view can be nil
-    private func viewDidPanHorizontally(view: UIView?, byOffset offset: CGFloat) {
+    private func didPanHorizontally(byOffset offset: CGFloat, forView view: UIView? = nil) {
         // TODO: clean this up
         
         // Calculate the new x origin point for the view that was panned.
