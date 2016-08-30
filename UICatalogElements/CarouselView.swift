@@ -136,22 +136,22 @@ public class CarouselView: UIView {
         // TODO: some better way to abstract this. If a value below changes it
         //       needs to change here as well
         if let view = view {
-            // TODO: clean this up
-            let viewIndex = itemViews.indexOf(view)!
             let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
-            absoluteOffset = (25 * log2orZero(nextViewXPoint)) + (CGFloat(viewIndex) * 50)
+            absoluteOffset = absoluteOffsetForItemView(view, atXPosition: nextViewXPoint)
             
-            print("nextViewXPoint: \(nextViewXPoint), view index: \(viewIndex), absOffset: \(absoluteOffset)")
+            print("nextViewXPoint: \(nextViewXPoint), view index: \(itemViews.indexOf(view)!), absOffset: \(absoluteOffset)")
         }
         else {
             absoluteOffset += offset
         }
 
-        let nextViewXPoint = bounds.midX
-        let v: CGFloat = nextViewXPoint == 0 ? 0 : log2(nextViewXPoint)
-        let lastAbsoluteOffset = (25 * v) + (CGFloat(itemViews.count - 1) * 50)
-        
-        absoluteOffset = min(lastAbsoluteOffset, absoluteOffset)
+        // Force the last view to only ever get to the mid point of the carousel view
+        if let lastItemView = itemViews.last {
+            let finalViewXPoint = bounds.midX
+            let lastAbsoluteOffset = absoluteOffsetForItemView(lastItemView, atXPosition: finalViewXPoint)
+            
+            absoluteOffset = min(lastAbsoluteOffset, absoluteOffset)
+        }
         
         for (index, itemView) in itemViews.enumerate() {
             var transform = CATransform3DIdentity
@@ -186,6 +186,10 @@ public class CarouselView: UIView {
         }
     }
 
+    private func absoluteOffsetForItemView(itemView: UIView, atXPosition xPosition: CGFloat) -> CGFloat {
+        let viewIndex = itemViews.indexOf(itemView)!
+        return (25 * log2orZero(xPosition)) + (CGFloat(viewIndex) * 50)
+    }
 }
 
 public protocol CarouselViewDataSource: class {
