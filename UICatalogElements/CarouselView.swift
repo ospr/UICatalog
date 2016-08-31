@@ -26,6 +26,7 @@ struct Point3D {
 public class CarouselView: UIView {
 
     public weak var dataSource: CarouselViewDataSource?
+    public weak var delegate: CarouselViewDelegate?
     
     private var itemViews: [UIView] = []
     // TODO: clean up property names here
@@ -187,6 +188,8 @@ public class CarouselView: UIView {
             
             itemView.layer.transform = transform
             viewPositions[itemView] = point
+            
+            delegate?.carouselView(self, didUpdateItemView: itemView)
         }
     }
     
@@ -197,6 +200,8 @@ public class CarouselView: UIView {
             
             // TODO: do the frames update properly such that we don't actually need this?
             viewPositions[itemView] = Point3D(x: 0, y: 0, z: 0)
+            
+            delegate?.carouselView(self, didUpdateItemView: itemView)
         }
     }
 
@@ -210,6 +215,11 @@ public protocol CarouselViewDataSource: class {
     
     func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int
     func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView
+}
+
+public protocol CarouselViewDelegate: class {
+    
+    func carouselView(carouselView: CarouselView, didUpdateItemView itemView: UIView)
 }
 
 // TODO: move to math extension?
