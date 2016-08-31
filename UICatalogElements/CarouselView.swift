@@ -52,6 +52,10 @@ public class CarouselView: UIView {
         addSubview(transformView)
         transformView.translatesAutoresizingMaskIntoConstraints = false
         transformView.anchorConstraintsToFitSuperview()
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
+        addGestureRecognizer(panGesture)
+        panGesture.enabled = true
     }
     
     // MARK: - Handling gestures
@@ -66,7 +70,21 @@ public class CarouselView: UIView {
         case .Changed:
             let translation = recognizer.translationInView(self)
             recognizer.setTranslation(CGPointZero, inView: self)
-            didPanHorizontally(byOffset: translation.x, forView: recognizer.view)
+
+            // Find which view the user's finger is currently panning over
+            // and shift all views relative to that view
+            // TODO: Bug where if you slide item to the left, so that it catches
+            //       the item just to the right of it, then slide that new right
+            //       card to the right, somehow you lose that right card and we
+            //       start shifting relative to the left card again.
+            let pannedView = itemViews.findFirst({ (view) -> Bool in
+                let localPoint = recognizer.locationInView(view)
+                return view.pointInside(localPoint, withEvent: nil)
+            })
+
+            if let pannedView = pannedView {
+                didPanHorizontally(byOffset: translation.x, forView: pannedView)
+            }
             
         case .Ended, .Cancelled, .Failed:
             // TODO: have views settle back to their desired location based on where they currently are
@@ -115,10 +133,6 @@ public class CarouselView: UIView {
         for itemView in itemViews {
             transformView.insertSubview(itemView, atIndex: 0)
             itemView.frame.size = CGSize(width: 300, height: 500) // TODO: change hardcoded values
-            
-            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
-            itemView.addGestureRecognizer(panGesture)
-            panGesture.enabled = true
         }
         
         layoutItemViews()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */; };
 		7C3AC1BA1D578EB8006F56BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1B91D578EB8006F56BF /* AppDelegate.swift */; };
 		7C3AC1BC1D578EB8006F56BF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */; };
 		7C3AC1C11D578EB8006F56BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1BF1D578EB8006F56BF /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		7C3AC1B61D578EB8006F56BF /* UICatalog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UICatalog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3AC1B91D578EB8006F56BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				7C3AC21E1D66438E006F56BF /* CardView.swift */,
 				7C3AC2201D664433006F56BF /* CardView.xib */,
 				7C3AC2221D664805006F56BF /* CarouselView.swift */,
+				7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */,
 				7C3AC1F61D63E04B006F56BF /* Extensions */,
 				7C3AC1F51D63E038006F56BF /* Supporting Files */,
 			);
@@ -324,6 +327,7 @@
 				7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */,
 				7C3AC1E51D5797F2006F56BF /* ThumbSliderView.swift in Sources */,
 				7C3AC21F1D66438E006F56BF /* CardView.swift in Sources */,
+				7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */,
 				7C3AC1E91D579E4A006F56BF /* ViewLoading.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
