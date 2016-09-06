@@ -23,7 +23,7 @@ struct Point3D {
     var z: CGFloat
 }
 
-public class CarouselView: UIView {
+public class CarouselView: UIView, UIGestureRecognizerDelegate {
 
     public weak var dataSource: CarouselViewDataSource?
     public weak var delegate: CarouselViewDelegate?
@@ -33,6 +33,7 @@ public class CarouselView: UIView {
     private var transformView = TransformView()
     private var absoluteOffset = CGFloat(0)
     private var viewPositions: [UIView: Point3D] = [:]
+    private var horizontalPanGesture: UIPanGestureRecognizer!
     
     var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
     
@@ -54,9 +55,10 @@ public class CarouselView: UIView {
         transformView.translatesAutoresizingMaskIntoConstraints = false
         transformView.anchorConstraintsToFitSuperview()
         
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
-        addGestureRecognizer(panGesture)
-        panGesture.enabled = true
+        horizontalPanGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
+        addGestureRecognizer(horizontalPanGesture)
+        horizontalPanGesture.enabled = true
+        horizontalPanGesture.delegate = self
     }
     
     // MARK: - Handling gestures
@@ -65,7 +67,10 @@ public class CarouselView: UIView {
     
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-        case .Possible, .Began:
+        case .Possible:
+             break
+            
+        case .Began:
             decelerateDisplayLinkProgressor = nil
             
         case .Changed:
@@ -87,7 +92,7 @@ public class CarouselView: UIView {
                 didPanHorizontally(byOffset: translation.x, forView: pannedView)
             }
             
-        case .Ended, .Cancelled, .Failed:
+        case .Ended:
             // TODO: have views settle back to their desired location based on where they currently are
 
             var velocityX = Double(recognizer.velocityInView(self).x)
@@ -107,6 +112,9 @@ public class CarouselView: UIView {
 
                 return abs(velocityX) > 0.1
             })
+            
+        case .Cancelled, .Failed:
+            break
         }
     }
     
@@ -134,6 +142,12 @@ public class CarouselView: UIView {
         for itemView in itemViews {
             transformView.insertSubview(itemView, atIndex: 0)
             itemView.frame.size = CGSize(width: 300, height: 500) // TODO: change hardcoded values
+            
+            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(itemViewDidPan))
+            itemView.addGestureRecognizer(panGesture)
+            panGesture.enabled = true
+            // Give presedence to the horizontal pan gesture 
+            panGesture.requireGestureRecognizerToFail(horizontalPanGesture)
         }
         
         layoutItemViews()
@@ -169,45 +183,110 @@ public class CarouselView: UIView {
         }
         
         for (index, itemView) in itemViews.enumerate() {
-            var transform = CATransform3DIdentity
-            transform.m34 = 1.0 / -1000.0
-            
             // Use the current root offset to determine progress through animation
             // We subtract from the root offset to put cards further behind each other
             let itemOffset = 50
             let localOffset = (absoluteOffset - CGFloat(index * itemOffset))
             
-            var point = viewPositions[itemView]!
+            var itemPosition = viewPositions[itemView]!
             // Z grows linearly when progress is past 0
-            point.z = localOffset > 0 ? 0.3 * localOffset : 0
+            itemPosition.z = localOffset > 0 ? 0.3 * localOffset : 0
             // X grows using an exponential function to ensure that as progress
             // goes further negative that we only ever get closer to 0
             // TODO: should probably just have it stop around 0 like we do with Z
-            point.x = localOffset > 0 ? pow(2, localOffset / 25.0) : 0
-            transform = CATransform3DTranslate(transform, point.x, point.y, point.z)
-            
-            itemView.layer.transform = transform
-            viewPositions[itemView] = point
+            itemPosition.x = localOffset > 0 ? pow(2, localOffset / 25.0) : 0
+
+            updateItemView(itemView, withPosition: itemPosition)
             
             delegate?.carouselView(self, didUpdateItemView: itemView)
         }
     }
     
+    func itemViewDidPan(recognizer: UIPanGestureRecognizer) {
+        let pannedView = recognizer.view!
+        let viewPosition = viewPositions[pannedView]!
+        
+        switch recognizer.state {
+        case .Possible:
+            break
+            
+        case .Began:
+            break
+            
+        case .Changed:
+            let translation = recognizer.translationInView(self)
+            recognizer.setTranslation(CGPointZero, inView: self)
+            
+            var newPosition = viewPosition
+            newPosition.y += translation.y
+            
+            updateItemView(pannedView, withPosition: newPosition)
+            
+            print("\(pannedView.frame)")
+            
+        case .Ended:
+            let velocity = recognizer.velocityInView(self)
+            
+            // TODO: move constant here and clean up
+            if velocity.y < -5 {
+                var newPosition = viewPosition
+                newPosition.y = -pannedView.frame.height
+                
+                // TODO: move constant here
+                // TODO: move to a separate method for animating out a view
+                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveLinear], animations: {
+                    self.updateItemView(pannedView, withPosition: newPosition)
+                    
+                    }, completion: { (finished) in
+                        if finished {
+                            pannedView.removeFromSuperview()
+                            self.itemViews.removeAtIndex(self.itemViews.indexOf(pannedView)!)
+                            self.viewPositions.removeValueForKey(pannedView)
+                        }
+                })
+            }
+            
+        case .Cancelled, .Failed:
+            break
+        }
+    }
+    
     private func layoutItemViews() {
         for itemView in itemViews {
-            itemView.center.y = center.y
-            itemView.frame.origin.x = bounds.origin.x
+            itemView.frame.origin = bounds.origin
             
-            // TODO: do the frames update properly such that we don't actually need this?
-            viewPositions[itemView] = Point3D(x: 0, y: 0, z: 0)
+            let position = Point3D(x: 0, y: bounds.height / 2.0 - itemView.bounds.height / 2.0, z: 0)
+            updateItemView(itemView, withPosition: position)
             
             delegate?.carouselView(self, didUpdateItemView: itemView)
         }
     }
 
+    private func updateItemView(itemView: UIView, withPosition position: Point3D) {
+        var transform = CATransform3DIdentity
+        transform.m34 = 1.0 / -1000.0
+        transform = CATransform3DTranslate(transform, position.x, position.y, position.z)
+        
+        itemView.layer.transform = transform
+        viewPositions[itemView] = position
+    }
+    
     private func absoluteOffsetForItemView(itemView: UIView, atXPosition xPosition: CGFloat) -> CGFloat {
         let viewIndex = itemViews.indexOf(itemView)!
         return (25 * log2orZero(xPosition)) + (CGFloat(viewIndex) * 50)
+    }
+    
+    // MARK: - UIGestureRecognizerDelegate
+    
+    public override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Fail the horizontal gesture recognizer if the user is swiping up/down with
+        // a greater velocity to allow the per-itemView recognizers to handle that
+        if gestureRecognizer === horizontalPanGesture {
+            let velocity = horizontalPanGesture.velocityInView(self)
+            return fabs(velocity.x) > fabs(velocity.y)
+        }
+        
+        return true
     }
 }
 
