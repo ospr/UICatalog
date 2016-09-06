@@ -143,21 +143,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             
             // TODO: move constant here and clean up
             if velocity.y < -5 {
-                var newPosition = viewPosition
-                newPosition.y = -pannedView.frame.height
-                
-                // TODO: move constant here
-                // TODO: move to a separate method for animating out a view
-                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveLinear], animations: {
-                    self.updateItemView(pannedView, withPosition: newPosition)
-                    
-                    }, completion: { (finished) in
-                        if finished {
-                            pannedView.removeFromSuperview()
-                            self.itemViews.removeAtIndex(self.itemViews.indexOf(pannedView)!)
-                            self.viewPositions.removeValueForKey(pannedView)
-                        }
-                })
+                animateRemoval(ofItemView: pannedView)
             }
             
         case .Cancelled, .Failed:
@@ -249,6 +235,24 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             
             delegate?.carouselView(self, didUpdateItemView: itemView)
         }
+    }
+    
+    func animateRemoval(ofItemView itemView: UIView) {
+        var position = viewPositions[itemView]!
+        position.y = -itemView.frame.height
+        
+        // TODO: move constant here
+        UIView.animateWithDuration(0.15, delay: 0, options: [.CurveLinear], animations: {
+            self.updateItemView(itemView, withPosition: position)
+            
+            }, completion: { (finished) in
+                if finished {
+                    itemView.removeFromSuperview()
+                    self.itemViews.removeAtIndex(self.itemViews.indexOf(itemView)!)
+                    self.viewPositions.removeValueForKey(itemView)
+                }
+        })
+
     }
     
     private func layoutItemViews() {
