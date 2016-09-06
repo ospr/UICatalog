@@ -118,6 +118,55 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    func itemViewDidPan(recognizer: UIPanGestureRecognizer) {
+        let pannedView = recognizer.view!
+        let viewPosition = viewPositions[pannedView]!
+        
+        switch recognizer.state {
+        case .Possible:
+            break
+            
+        case .Began:
+            break
+            
+        case .Changed:
+            let translation = recognizer.translationInView(self)
+            recognizer.setTranslation(CGPointZero, inView: self)
+            
+            var newPosition = viewPosition
+            newPosition.y += translation.y
+            
+            updateItemView(pannedView, withPosition: newPosition)
+            
+            print("\(pannedView.frame)")
+            
+        case .Ended:
+            let velocity = recognizer.velocityInView(self)
+            
+            // TODO: move constant here and clean up
+            if velocity.y < -5 {
+                var newPosition = viewPosition
+                newPosition.y = -pannedView.frame.height
+                
+                // TODO: move constant here
+                // TODO: move to a separate method for animating out a view
+                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveLinear], animations: {
+                    self.updateItemView(pannedView, withPosition: newPosition)
+                    
+                    }, completion: { (finished) in
+                        if finished {
+                            pannedView.removeFromSuperview()
+                            self.itemViews.removeAtIndex(self.itemViews.indexOf(pannedView)!)
+                            self.viewPositions.removeValueForKey(pannedView)
+                        }
+                })
+            }
+            
+        case .Cancelled, .Failed:
+            break
+        }
+    }
+    
     // MARK: - Working with Data
     
     public func reloadData() {
@@ -152,6 +201,8 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         
         layoutItemViews()
     }
+    
+    // MARK: - Updating item views
     
     private func didPanHorizontally(byOffset offset: CGFloat, forView view: UIView? = nil) {
         // TODO: clean this up
@@ -199,55 +250,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             updateItemView(itemView, withPosition: itemPosition)
             
             delegate?.carouselView(self, didUpdateItemView: itemView)
-        }
-    }
-    
-    func itemViewDidPan(recognizer: UIPanGestureRecognizer) {
-        let pannedView = recognizer.view!
-        let viewPosition = viewPositions[pannedView]!
-        
-        switch recognizer.state {
-        case .Possible:
-            break
-            
-        case .Began:
-            break
-            
-        case .Changed:
-            let translation = recognizer.translationInView(self)
-            recognizer.setTranslation(CGPointZero, inView: self)
-            
-            var newPosition = viewPosition
-            newPosition.y += translation.y
-            
-            updateItemView(pannedView, withPosition: newPosition)
-            
-            print("\(pannedView.frame)")
-            
-        case .Ended:
-            let velocity = recognizer.velocityInView(self)
-            
-            // TODO: move constant here and clean up
-            if velocity.y < -5 {
-                var newPosition = viewPosition
-                newPosition.y = -pannedView.frame.height
-                
-                // TODO: move constant here
-                // TODO: move to a separate method for animating out a view
-                UIView.animateWithDuration(0.15, delay: 0, options: [.CurveLinear], animations: {
-                    self.updateItemView(pannedView, withPosition: newPosition)
-                    
-                    }, completion: { (finished) in
-                        if finished {
-                            pannedView.removeFromSuperview()
-                            self.itemViews.removeAtIndex(self.itemViews.indexOf(pannedView)!)
-                            self.viewPositions.removeValueForKey(pannedView)
-                        }
-                })
-            }
-            
-        case .Cancelled, .Failed:
-            break
         }
     }
     
