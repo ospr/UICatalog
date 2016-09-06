@@ -66,7 +66,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .Possible:
-             break
+            break
             
         case .Began:
             decelerateDisplayLinkProgressor = nil
