@@ -63,8 +63,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     
     // MARK: - Handling gestures
     
-    var animator: UIDynamicAnimator?
-    
     func viewWasPanned(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .Possible:
