@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -49,7 +49,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jky-In-F2b">
-                                <rect key="frame" x="167" y="80" width="266" height="75"/>
+                                <rect key="frame" x="167" y="40" width="266" height="75"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsQ-b0-T1C" customClass="ThumbSliderView" customModule="UICatalogElements">
                                         <rect key="frame" x="0.0" y="0.0" width="266" height="75"/>
@@ -75,7 +75,7 @@
                             <constraint firstItem="DTH-0O-Tmu" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" id="3HV-pD-za0"/>
                             <constraint firstItem="asb-1z-fDv" firstAttribute="centerX" secondItem="GGU-Hf-r9t" secondAttribute="centerX" id="FU8-QX-f1T"/>
                             <constraint firstItem="Jky-In-F2b" firstAttribute="centerX" secondItem="GGU-Hf-r9t" secondAttribute="centerX" id="Hnc-jT-CWS"/>
-                            <constraint firstItem="Jky-In-F2b" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" constant="80" id="Out-KJ-YPE"/>
+                            <constraint firstItem="Jky-In-F2b" firstAttribute="top" secondItem="GGU-Hf-r9t" secondAttribute="top" constant="40" id="Out-KJ-YPE"/>
                             <constraint firstItem="DTH-0O-Tmu" firstAttribute="leading" secondItem="GGU-Hf-r9t" secondAttribute="leading" id="V4X-sx-qGS"/>
                             <constraint firstAttribute="bottom" secondItem="asb-1z-fDv" secondAttribute="bottom" constant="40" id="fYx-Xn-ZXS"/>
                             <constraint firstAttribute="bottom" secondItem="DTH-0O-Tmu" secondAttribute="bottom" id="fdv-13-WgG"/>
