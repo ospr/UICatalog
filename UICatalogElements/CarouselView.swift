@@ -266,7 +266,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
                     self.viewPositions.removeValueForKey(itemView)
                 }
         })
-
     }
     
     private func animateDeceleration(withVelocity velocity: CGPoint) {
