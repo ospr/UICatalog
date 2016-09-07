@@ -131,19 +131,44 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             let translation = recognizer.translationInView(self)
             recognizer.setTranslation(CGPointZero, inView: self)
             
+            let resistance: CGFloat = {
+                // If the view is being pulled down past the resting spot,
+                // add a non-linear resistance to the draggin to simulate
+                // it being on a rubber band
+                // TODO: make the resting location common code
+                if translation.y >= 0 && pannedView.frame.midY > bounds.midY {
+                    let distance = pannedView.frame.midY - bounds.midY
+                    // TODO: clean up this resistance
+                    return (1 - 0.006 * distance)
+                }
+                return 1.0
+            }()
+            
             var newPosition = viewPosition
-            newPosition.y += translation.y
+            newPosition.y += translation.y * resistance
             
             updateItemView(pannedView, withPosition: newPosition)
-            
-            print("\(pannedView.frame)")
             
         case .Ended:
             let velocity = recognizer.velocityInView(self)
             
+            print("velocity: \(velocity)")
+            
             // TODO: move constant here and clean up
-            if velocity.y < -5 {
+            // If the user swipes up with a great enough velocity or
+            // if the panned view has been moved up enough, then remove it
+            if velocity.y < -100 || pannedView.frame.maxY < center.y {
                 animateRemoval(ofItemView: pannedView)
+            }
+            // Otherwise animate a snapping back of the view into its position
+            else {
+                // TODO: add constant for this duration
+                UIView.animateWithDuration(0.25, animations: {
+                    var newPosition = viewPosition
+                    // TODO: make the resting location common code
+                    newPosition.y = self.bounds.height / 2.0 - pannedView.bounds.height / 2.0
+                    self.updateItemView(pannedView, withPosition: newPosition)
+                })
             }
             
         case .Cancelled, .Failed:
