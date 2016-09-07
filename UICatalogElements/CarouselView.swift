@@ -295,7 +295,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         decelerateDisplayLinkProgressor.stop()
         self.decelerateDisplayLinkProgressor = nil
     }
-
     
     private func layoutItemViews() {
         for itemView in itemViews {
