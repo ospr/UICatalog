@@ -251,7 +251,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-    func animateRemoval(ofItemView itemView: UIView) {
+    private func animateRemoval(ofItemView itemView: UIView) {
         var position = viewPositions[itemView]!
         position.y = -itemView.frame.height
         
@@ -269,7 +269,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
 
     }
     
-    func animateDeceleration(withVelocity velocity: CGPoint) {
+    private func animateDeceleration(withVelocity velocity: CGPoint) {
         var velocityX = Double(velocity.x)
         
         decelerateDisplayLinkProgressor = DisplayLinkProgressor.run({ [weak self] (timeDelta) -> Bool in
