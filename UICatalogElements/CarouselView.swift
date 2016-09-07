@@ -69,7 +69,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             break
             
         case .Began:
-            decelerateDisplayLinkProgressor = nil
+            stopDecelerationAnimation()
             
         case .Changed:
             let translation = recognizer.translationInView(self)
@@ -93,23 +93,8 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         case .Ended:
             // TODO: have views settle back to their desired location based on where they currently are
 
-            var velocityX = Double(recognizer.velocityInView(self).x)
-            
-            decelerateDisplayLinkProgressor = DisplayLinkProgressor.run({ [weak self] (timeDelta) -> Bool in
-                guard let `self` = self else { return false }
-                
-                let frictionConstant = -4.0
-                
-                let force = velocityX * frictionConstant
-                velocityX += force * timeDelta
-                let offset = velocityX * timeDelta
-                
-                self.didPanHorizontally(byOffset: CGFloat(offset))
-                
-                print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
-
-                return abs(velocityX) > 0.1
-            })
+            let velocity = recognizer.velocityInView(self)
+            animateDeceleration(withVelocity: velocity)
             
         case .Cancelled, .Failed:
             break
@@ -174,6 +159,10 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         case .Cancelled, .Failed:
             break
         }
+    }
+    
+    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        stopDecelerationAnimation()
     }
     
     // MARK: - Working with Data
@@ -279,6 +268,34 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         })
 
     }
+    
+    func animateDeceleration(withVelocity velocity: CGPoint) {
+        var velocityX = Double(velocity.x)
+        
+        decelerateDisplayLinkProgressor = DisplayLinkProgressor.run({ [weak self] (timeDelta) -> Bool in
+            guard let `self` = self else { return false }
+            
+            let frictionConstant = -4.0
+            
+            let force = velocityX * frictionConstant
+            velocityX += force * timeDelta
+            let offset = velocityX * timeDelta
+            
+            self.didPanHorizontally(byOffset: CGFloat(offset))
+            
+            print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
+            
+            return abs(velocityX) > 0.1
+        })
+    }
+    
+    func stopDecelerationAnimation() {
+        guard let decelerateDisplayLinkProgressor = decelerateDisplayLinkProgressor else { return }
+        
+        decelerateDisplayLinkProgressor.stop()
+        self.decelerateDisplayLinkProgressor = nil
+    }
+
     
     private func layoutItemViews() {
         for itemView in itemViews {

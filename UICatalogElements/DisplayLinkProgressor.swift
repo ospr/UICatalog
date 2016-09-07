@@ -21,10 +21,6 @@ internal class DisplayLinkProgressor: NSObject {
     private var startTimestamp: CFTimeInterval?
     private var lastFrameTimestamp: CFTimeInterval?
     
-    deinit {
-        displayLink.invalidate()
-    }
-    
     private init(duration: NSTimeInterval,
                  deterministicUpdateBlock: ((progress: Double) -> Void)?,
                  indeterministicUpdateBlock: ((timeDelta: NSTimeInterval) -> Bool)?) {
