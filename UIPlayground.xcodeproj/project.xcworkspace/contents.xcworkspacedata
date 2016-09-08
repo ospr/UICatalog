@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:UICatalog.xcodeproj">
+      location = "self:/Users/knicol/Desktop/UIPlayground/UIPlayground.xcodeproj">
    </FileRef>
 </Workspace>

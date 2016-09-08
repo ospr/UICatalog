@@ -6,7 +6,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardView" customModule="UICatalogElements" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardView" customModule="UIPlaygroundElements" customModuleProvider="target">
             <connections>
                 <outlet property="headerImageView" destination="MSE-Ul-TYL" id="EDL-Si-kNW"/>
                 <outlet property="headerLabel" destination="src-zp-hRl" id="Ht7-KM-5kz"/>

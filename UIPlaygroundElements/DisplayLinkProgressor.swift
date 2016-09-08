@@ -1,12 +1,13 @@
 //
 //  CADisplayLink+Additions.swift
-//  UICatalog
+//  UIPlayground
 //
 //  Created by Kip Nicol on 8/12/16.
 //  Copyright © 2016 Kip Nicol. All rights reserved.
 //
 
 import Foundation
+import QuartzCore
 
 // TODO: consider splitting this up so that one class doesn't handle both indeterminate and determinate progress
 //       perhaps have a protocol that gets called to update its own closure

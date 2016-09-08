@@ -6,7 +6,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThumbSliderView" customModule="UICatalogElements" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ThumbSliderView" customModule="UIPlaygroundElements" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundInformationalLabel" destination="3cI-Tn-448" id="lNn-as-I2f"/>
                 <outlet property="backgroundLeadingConstraint" destination="8bP-Kp-MUb" id="YJr-1L-0kB"/>

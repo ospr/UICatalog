@@ -1,13 +1,13 @@
 //
 //  PowerOffViewController.swift
-//  UICatalog
+//  UIPlayground
 //
 //  Created by Kip Nicol on 8/7/16.
 //  Copyright © 2016 Kip Nicol. All rights reserved.
 //
 
 import UIKit
-import UICatalogElements
+import UIPlaygroundElements
 
 class PowerOffViewController: UIViewController {
     

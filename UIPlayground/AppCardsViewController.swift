@@ -1,13 +1,13 @@
 //
 //  AppCardsViewController.swift
-//  UICatalog
+//  UIPlayground
 //
 //  Created by Kip Nicol on 8/18/16.
 //  Copyright © 2016 Kip Nicol. All rights reserved.
 //
 
 import UIKit
-import UICatalogElements
+import UIPlaygroundElements
 
 class AppCardsViewController: UIViewController {
 
@@ -42,7 +42,7 @@ extension AppCardsViewController: CarouselViewDataSource {
     // TODO: update this and fix the name (label for the index)
     func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView {
         let cardView = CardView()
-        cardView.headerLabel.text = "UICatalog"
+        cardView.headerLabel.text = "UIPlayground"
         cardView.mainImageView.image = UIImage(named: "AppCard-Main-1")
         
         cardView.headerImageView.image = UIImage(named: "AppCard-Icon-1")

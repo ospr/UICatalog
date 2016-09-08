@@ -1,6 +1,6 @@
 //
 //  CarouselView.swift
-//  UICatalog
+//  UIPlayground
 //
 //  Created by Kip Nicol on 8/18/16.
 //  Copyright © 2016 Kip Nicol. All rights reserved.

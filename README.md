@@ -1,4 +1,4 @@
-UICatalog
+UIPlayground
 =========
 
 A collection of UI elements seen in iOS.
