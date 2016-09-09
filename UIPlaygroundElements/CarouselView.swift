@@ -239,8 +239,8 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         for (index, itemView) in itemViews.enumerate() {
             // Use the current root offset to determine progress through animation
             // We subtract from the root offset to put cards further behind each other
-            let itemOffset = 50
-            let localOffset = (absoluteOffset - CGFloat(index * itemOffset))
+            let itemOffset = CGFloat(50)
+            let localOffset = absoluteOffset - (CGFloat(index) * itemOffset)
             
             var itemPosition = viewPositions[itemView]!
             // Z grows linearly when progress is past 0
@@ -250,6 +250,18 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             // TODO: should probably just have it stop around 0 like we do with Z
             itemPosition.x = localOffset > 0 ? pow(2, localOffset / 25.0) : 0
 
+            // Hide views when they are no longer visible (far behind in the deck)
+            itemView.alpha = {
+                if localOffset < -itemOffset {
+                    return 0
+                }
+                else if localOffset >= 0 {
+                    return 1
+                }
+                
+                return localOffset / itemOffset + 1
+            }()
+            
             updateItemView(itemView, withPosition: itemPosition)
             
             delegate?.carouselView(self, didUpdateItemView: itemView)
