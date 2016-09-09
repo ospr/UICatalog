@@ -56,14 +56,12 @@ class AppCardsViewController: UIViewController {
 
 extension AppCardsViewController: CarouselViewDataSource {
     
-    // TODO: update this
     func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int {
         return self.dynamicType.cardInfos.count
     }
     
-    // TODO: update this and fix the name (label for the index)
-    func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView {
-        let cardInfo = self.dynamicType.cardInfos[viewForItemAtIndex]
+    func carouselView(carouselView: CarouselView, viewForItemAtIndex index: Int) -> UIView {
+        let cardInfo = self.dynamicType.cardInfos[index]
         
         let cardView = CardView()
         let cardImage = UIImage(named: "AppCard-\(cardInfo.cardName)-Main")!

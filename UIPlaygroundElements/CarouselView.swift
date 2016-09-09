@@ -356,7 +356,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
 public protocol CarouselViewDataSource: class {
     
     func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int
-    func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView
+    func carouselView(carouselView: CarouselView, viewForItemAtIndex index: Int) -> UIView
 }
 
 public protocol CarouselViewDelegate: class {
