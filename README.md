@@ -1,7 +1,7 @@
 UIPlayground
 =========
 
-A collection of UI elements seen in iOS.
+A collection of user interfaces seen in iOS.
 
 
 Power Off
