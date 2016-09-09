@@ -10,10 +10,22 @@ import UIKit
 import UIPlaygroundElements
 
 class AppCardsViewController: UIViewController {
+    
+    struct CardInfo {
+        let cardName: String
+        let showAuxInfo: Bool
+    }
 
     @IBOutlet weak var carouselView: CarouselView!
     
     var needsCarouselViewReload = true
+    
+    static let cardInfos = [
+        CardInfo(cardName: "SpringBoard", showAuxInfo: false),
+        CardInfo(cardName: "UIPlayground", showAuxInfo: true),
+        CardInfo(cardName: "DavisTrans", showAuxInfo: true),
+        CardInfo(cardName: "Overcast", showAuxInfo: true),
+    ]
     
     required init() {
         super.init(nibName: String(AppCardsViewController.self), bundle: nil)
@@ -46,19 +58,24 @@ extension AppCardsViewController: CarouselViewDataSource {
     
     // TODO: update this
     func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int {
-        return 10
+        return self.dynamicType.cardInfos.count
     }
     
     // TODO: update this and fix the name (label for the index)
     func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView {
+        let cardInfo = self.dynamicType.cardInfos[viewForItemAtIndex]
+        
         let cardView = CardView()
-        cardView.headerLabel.text = "UIPlayground"
-        let cardImage = UIImage(named: "AppCard-Main-1")!
+        let cardImage = UIImage(named: "AppCard-\(cardInfo.cardName)-Main")!
         cardView.mainImageView.image = cardImage
         
-        cardView.headerImageView.image = UIImage(named: "AppCard-Icon-1")
-        cardView.headerImageView.clipsToBounds = true
-        cardView.headerImageView.layer.cornerRadius = 7.5
+        if cardInfo.showAuxInfo {
+            cardView.headerLabel.text = cardInfo.cardName
+            
+            cardView.headerImageView.image = UIImage(named: "AppCard-\(cardInfo.cardName)-Icon")
+            cardView.headerImageView.clipsToBounds = true
+            cardView.headerImageView.layer.cornerRadius = 7.5
+        }
         
         // Size the cards properly so that the app screenshot image stays
         // proportional to its original size on different screen sizes

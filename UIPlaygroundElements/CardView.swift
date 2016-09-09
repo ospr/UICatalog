@@ -40,6 +40,7 @@ public class CardView: UIView {
         shadowView.layer.shadowOpacity = 0.1
         shadowView.layer.shadowRadius = 6.0
         
+        headerLabel.text = nil
         headerLabel.textColor = .whiteColor()
     }
 
