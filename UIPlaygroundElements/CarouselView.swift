@@ -137,8 +137,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         case .Ended:
             let velocity = recognizer.velocityInView(self)
             
-            print("velocity: \(velocity)")
-            
             // TODO: move constant here and clean up
             // If the user swipes up with a great enough velocity or
             // if the panned view has been moved up enough, then remove it
@@ -197,6 +195,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         }
         
         layoutItemViews()
+        didPanHorizontally(byOffset: 0)
     }
     
     // MARK: - Updating item views
@@ -216,7 +215,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
             absoluteOffset = absoluteOffsetForItemView(view, atXPosition: nextViewXPoint)
             
-            print("nextViewXPoint: \(nextViewXPoint), view index: \(itemViews.indexOf(view)!), absOffset: \(absoluteOffset)")
+//            print("nextViewXPoint: \(nextViewXPoint), view index: \(itemViews.indexOf(view)!), absOffset: \(absoluteOffset)")
         }
         else {
             absoluteOffset += offset
@@ -288,7 +287,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             
             self.didPanHorizontally(byOffset: CGFloat(offset))
             
-            print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
+//            print("force: \(force), time: \(timeDelta), offset: \(offset), speed: \(velocityX)")
             
             return abs(velocityX) > 0.1
         })
