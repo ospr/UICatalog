@@ -13,6 +13,8 @@ class AppCardsViewController: UIViewController {
 
     @IBOutlet weak var carouselView: CarouselView!
     
+    var needsCarouselViewReload = true
+    
     required init() {
         super.init(nibName: String(AppCardsViewController.self), bundle: nil)
         
@@ -33,7 +35,10 @@ class AppCardsViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        carouselView.reloadData()
+        if needsCarouselViewReload {
+            carouselView.reloadData()
+            needsCarouselViewReload = false
+        }
     }
 }
 
