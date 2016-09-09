@@ -293,7 +293,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         decelerateDisplayLinkProgressor = DisplayLinkProgressor.run({ [weak self] (timeDelta) -> Bool in
             guard let `self` = self else { return false }
             
-            let frictionConstant = -4.0
+            let frictionConstant = -6.0
             
             let force = velocityX * frictionConstant
             velocityX += force * timeDelta
