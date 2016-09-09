@@ -52,8 +52,9 @@ extension AppCardsViewController: CarouselViewDataSource {
         cardView.mainImageView.image = cardImage
         
         cardView.headerImageView.image = UIImage(named: "AppCard-Icon-1")
+        cardView.headerImageView.clipsToBounds = true
         cardView.headerImageView.layer.cornerRadius = 7.5
-
+        
         // Size the cards properly so that the app screenshot image stays
         // proportional to its original size on different screen sizes
         let carouselHeight = carouselView.frame.height
