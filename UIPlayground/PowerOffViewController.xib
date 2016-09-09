@@ -101,6 +101,6 @@
     <resources>
         <image name="CancelCircleButton" width="66" height="66"/>
         <image name="OffCircleButton" width="66" height="66"/>
-        <image name="backgroundWallpaper" width="768" height="913"/>
+        <image name="backgroundWallpaper" width="1134" height="1512"/>
     </resources>
 </document>
