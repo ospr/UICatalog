@@ -94,7 +94,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             // TODO: have views settle back to their desired location based on where they currently are
 
             let velocity = recognizer.velocityInView(self)
-            animateDeceleration(withVelocity: velocity)
+            animatePanEndDeceleration(withVelocity: velocity)
             
         case .Cancelled, .Failed:
             break
@@ -287,7 +287,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         })
     }
     
-    private func animateDeceleration(withVelocity velocity: CGPoint) {
+    private func animatePanEndDeceleration(withVelocity velocity: CGPoint) {
         var velocityX = Double(velocity.x)
         
         decelerateDisplayLinkProgressor = DisplayLinkProgressor.run({ [weak self] (timeDelta) -> Bool in
