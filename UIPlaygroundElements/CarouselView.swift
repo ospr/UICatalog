@@ -224,10 +224,17 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
 
         // Force the last view to only ever get to the mid point of the carousel view
         if let lastItemView = itemViews.last {
-            let finalViewXPoint = bounds.midX
-            let lastAbsoluteOffset = absoluteOffsetForItemView(lastItemView, atXPosition: finalViewXPoint)
+            let finalLastViewXPoint = bounds.midX
+            let finalLastAbsoluteOffset = absoluteOffsetForItemView(lastItemView, atXPosition: finalLastViewXPoint)
             
-            absoluteOffset = min(lastAbsoluteOffset, absoluteOffset)
+            absoluteOffset = min(finalLastAbsoluteOffset, absoluteOffset)
+        }
+        // Force the first view to only ever get to the far left of the carousel view
+        if let firstItemView = itemViews.first {
+            let finalFirstViewXPoint = bounds.minX
+            let finalFirstAbsoluteOffset = absoluteOffsetForItemView(firstItemView, atXPosition: finalFirstViewXPoint)
+            
+            absoluteOffset = max(finalFirstAbsoluteOffset, absoluteOffset)
         }
         
         for (index, itemView) in itemViews.enumerate() {
