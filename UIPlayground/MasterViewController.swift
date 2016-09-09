@@ -17,6 +17,8 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        splitViewController?.presentsWithGesture = false
 
         // TODO: revert this back
         let catalogItem = catalogItems[1]
