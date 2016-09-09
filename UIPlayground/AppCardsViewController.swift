@@ -28,6 +28,11 @@ class AppCardsViewController: UIViewController {
         
         carouselView.dataSource = self
         carouselView.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
         carouselView.reloadData()
     }
 }
@@ -43,10 +48,25 @@ extension AppCardsViewController: CarouselViewDataSource {
     func carouselView(carouselView: CarouselView, viewForItemAtIndex: Int) -> UIView {
         let cardView = CardView()
         cardView.headerLabel.text = "UIPlayground"
-        cardView.mainImageView.image = UIImage(named: "AppCard-Main-1")
+        let cardImage = UIImage(named: "AppCard-Main-1")!
+        cardView.mainImageView.image = cardImage
         
         cardView.headerImageView.image = UIImage(named: "AppCard-Icon-1")
         cardView.headerImageView.layer.cornerRadius = 7.5
+
+        // Size the cards properly so that the app screenshot image stays
+        // proportional to its original size on different screen sizes
+        let carouselHeight = carouselView.frame.height
+        let cardOriginalWidth = cardImage.size.width
+        let cardOriginalHeight = cardImage.size.height
+        let cardAuxViewHeight = CGFloat(40) // TODO: don't hardcode here
+        
+        let relativePadding = CGFloat(0.30)
+        let cardProportionalHeight = carouselHeight - (carouselHeight * relativePadding)
+        let cardViewProportionalWidth = cardProportionalHeight * (cardOriginalWidth / cardOriginalHeight)
+        let cardViewProportionalHeight = cardProportionalHeight + cardAuxViewHeight
+        
+        cardView.frame.size = CGSize(width: cardViewProportionalWidth, height: cardViewProportionalHeight)
         
         return cardView
     }

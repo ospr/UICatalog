@@ -188,7 +188,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         
         for itemView in itemViews {
             transformView.insertSubview(itemView, atIndex: 0)
-            itemView.frame.size = CGSize(width: 300, height: 500) // TODO: change hardcoded values
             
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(itemViewDidPan))
             itemView.addGestureRecognizer(panGesture)
