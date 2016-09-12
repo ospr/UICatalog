@@ -16,9 +16,13 @@ Improvements/Bugs:
 - The "slide to power off" shimmer should begin at the beginning immediately after the slider animates back to the start position.
 - The power off thumb button should animate to black after/while slider moves to the end position.
 
+![Assets/Screenshots/PowerOffScreenshot.png](Assets/Screenshots/PowerOffScreenshot.png)
+
 App Cards
 ---------
 
 Mimics the iOS app switcher view.
 
 Implementation of this is still very much in progress.
+
+![Assets/Screenshots/PowerOffScreenshot.png](Assets/Screenshots/AppCardsScreenshot.png)
