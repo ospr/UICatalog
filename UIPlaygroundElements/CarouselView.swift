@@ -19,6 +19,10 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     public var itemViewPanDownResistanceMax = CGFloat(0.9)
     public var itemViewPanDownResistanceMin = CGFloat(0.0)
     
+    public var itemViewRemovalEscapeVelocity = CGFloat(-100)
+    public var itemViewRemovalAnimationDuration = 0.15
+    public var itemViewRemovalFailureAnimationDuration = 0.25
+    
     private var itemViews: [UIView] = []
     private var absoluteOffset = CGFloat(0)
     private var viewPositions: [UIView: Point3D] = [:]
@@ -116,16 +120,14 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         case .Ended:
             let velocity = recognizer.velocityInView(self)
             
-            // TODO: move constant here and clean up
             // If the user swipes up with a great enough velocity or
             // if the panned view has been moved up enough, then remove it
-            if velocity.y < -100 || pannedView.frame.maxY < center.y {
+            if velocity.y < itemViewRemovalEscapeVelocity || pannedView.frame.maxY < center.y {
                 animateRemoval(ofItemView: pannedView)
             }
             // Otherwise animate a snapping back of the view into its position
             else {
-                // TODO: add constant for this duration
-                UIView.animateWithDuration(0.25, animations: {
+                UIView.animateWithDuration(itemViewRemovalFailureAnimationDuration, animations: {
                     var newPosition = viewPosition
                     // TODO: make the resting location common code
                     newPosition.y = self.bounds.height / 2.0 - pannedView.bounds.height / 2.0
@@ -247,8 +249,7 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         var position = viewPositions[itemView]!
         position.y = -itemView.frame.height
         
-        // TODO: move constant here
-        UIView.animateWithDuration(0.15, delay: 0, options: [.CurveLinear], animations: {
+        UIView.animateWithDuration(itemViewRemovalAnimationDuration, delay: 0, options: [.CurveLinear], animations: {
             self.updateItemView(itemView, withPosition: position)
             
             }, completion: { (finished) in
