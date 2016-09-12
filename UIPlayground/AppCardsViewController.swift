@@ -80,7 +80,7 @@ extension AppCardsViewController: CarouselViewDataSource {
         let carouselHeight = carouselView.frame.height
         let cardOriginalWidth = cardImage.size.width
         let cardOriginalHeight = cardImage.size.height
-        let cardAuxViewHeight = CGFloat(40) // TODO: don't hardcode here
+        let cardAuxViewHeight = cardView.headerImageView.frame.height + cardView.auxViewPadding
         
         let relativePadding = CGFloat(0.20)
         let cardProportionalHeight = carouselHeight - (carouselHeight * relativePadding)

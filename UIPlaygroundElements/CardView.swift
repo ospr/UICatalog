@@ -15,6 +15,12 @@ public class CardView: UIView {
     @IBOutlet public private(set) weak var headerImageView: UIImageView!
     @IBOutlet public private(set) weak var mainImageView: UIImageView!
     @IBOutlet private weak var shadowView: UIView!
+    @IBOutlet private weak var contentStackView: UIStackView!
+    
+    public var auxViewPadding: CGFloat {
+        get { return contentStackView.spacing }
+        set { contentStackView.spacing = newValue }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

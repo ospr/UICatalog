@@ -8,6 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CardView" customModule="UIPlaygroundElements" customModuleProvider="target">
             <connections>
+                <outlet property="contentStackView" destination="tO2-am-484" id="47d-nH-umn"/>
                 <outlet property="headerImageView" destination="MSE-Ul-TYL" id="EDL-Si-kNW"/>
                 <outlet property="headerLabel" destination="src-zp-hRl" id="Ht7-KM-5kz"/>
                 <outlet property="mainImageView" destination="6Fi-7E-Ppu" id="K0e-ra-7VK"/>
