@@ -147,7 +147,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Working with Data
     
     public func reloadData() {
-        // TODO: could put this all in a struct and have it all reset properly each time rather than trying to maintain the state here
         for itemView in itemViews {
             itemView.removeFromSuperview()
         }
