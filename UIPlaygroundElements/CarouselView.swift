@@ -181,23 +181,9 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     
     // MARK: - Updating item views
     
-    private func didPanHorizontally(byOffset offset: CGFloat, forView view: UIView? = nil) {
-        // Calculate the new x origin point for the view that was panned.
-        // Then use that value to backwards calculate the new root offset
-        // based on the view that was actually panned. This allows us to 
-        // keep the currently "selected" view under the user's finger 
-        // while it's being panned, but still allow for the other card
-        // animations to behave properly
-        // TODO: some better way to abstract this. If a value below changes it
-        //       needs to change here as well
-        if let view = view {
-            let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
-            absoluteOffset = absoluteOffsetForItemView(view, atXPosition: nextViewXPoint)
-        }
-        else {
-            absoluteOffset += offset
-        }
-
+    private func updateAbsoluteOffset(newAbsoluteOffset: CGFloat) {
+        absoluteOffset = newAbsoluteOffset
+        
         // Force the last view to only ever get to the mid point of the carousel view
         if let lastItemView = itemViews.last {
             let finalLastViewXPoint = bounds.midX
@@ -242,6 +228,28 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             
             delegate?.carouselView(self, didUpdateItemView: itemView)
         }
+    }
+    
+    private func didPanHorizontally(byOffset offset: CGFloat, forView view: UIView? = nil) {
+        // Calculate the new x origin point for the view that was panned.
+        // Then use that value to backwards calculate the new root offset
+        // based on the view that was actually panned. This allows us to 
+        // keep the currently "selected" view under the user's finger 
+        // while it's being panned, but still allow for the other card
+        // animations to behave properly
+        // TODO: some better way to abstract this. If a value below changes it
+        //       needs to change here as well
+        let newAbsoluteOffset: CGFloat = {
+            if let view = view {
+                let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
+                return absoluteOffsetForItemView(view, atXPosition: nextViewXPoint)
+            }
+            else {
+                return absoluteOffset + offset
+            }
+        }()
+
+        updateAbsoluteOffset(newAbsoluteOffset)
     }
     
     private func animateRemoval(ofItemView itemView: UIView) {
