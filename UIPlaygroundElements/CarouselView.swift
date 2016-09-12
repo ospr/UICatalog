@@ -14,6 +14,11 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     public weak var dataSource: CarouselViewDataSource?
     public weak var delegate: CarouselViewDelegate?
     
+    // A 1 here means that the resitance increases linearly from 0 to 1 between the item origin and item offscreen
+    public var itemViewPanDownResistance = CGFloat(1.8)
+    public var itemViewPanDownResistanceMax = CGFloat(0.9)
+    public var itemViewPanDownResistanceMin = CGFloat(0.0)
+    
     private var itemViews: [UIView] = []
     private var absoluteOffset = CGFloat(0)
     private var viewPositions: [UIView: Point3D] = [:]
@@ -90,19 +95,21 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             
             let resistance: CGFloat = {
                 // If the view is being pulled down past the resting spot,
-                // add a non-linear resistance to the draggin to simulate
-                // it being on a rubber band
+                // add a resistance to the dragging to simulate it being on a rubber band
                 // TODO: make the resting location common code
                 if translation.y >= 0 && pannedView.frame.midY > bounds.midY {
-                    let distance = pannedView.frame.midY - bounds.midY
-                    // TODO: clean up this resistance
-                    return (1 - 0.006 * distance)
+                    let originY = bounds.midY - (pannedView.frame.height / 2.0)
+                    let offScreenDistance = bounds.maxY - originY
+                    let currentDistance = pannedView.frame.origin.y - originY
+                    let resistance = currentDistance / (offScreenDistance / itemViewPanDownResistance)
+                    
+                    return min(max(resistance, itemViewPanDownResistanceMin), itemViewPanDownResistanceMax)
                 }
-                return 1.0
+                return 0
             }()
             
             var newPosition = viewPosition
-            newPosition.y += translation.y * resistance
+            newPosition.y += translation.y * (1 - resistance)
             
             updateItemView(pannedView, withPosition: newPosition)
             
