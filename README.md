@@ -3,7 +3,7 @@ UIPlayground
 
 A collection of user interfaces seen in iOS written in Swift.
 
-See ![Todo](UIPlayground/Todo.md) for a list of improvements.
+See [Todo](UIPlayground/Todo.md) for a list of improvements.
 
 Power Off
 ---------
