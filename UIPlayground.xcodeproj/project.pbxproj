@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */; };
+		7C2398211D87010A007F2CCF /* Point3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2398201D87010A007F2CCF /* Point3D.swift */; };
+		7C2398231D8702BA007F2CCF /* MathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2398221D8702BA007F2CCF /* MathExtensions.swift */; };
 		7C3AC1BA1D578EB8006F56BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1B91D578EB8006F56BF /* AppDelegate.swift */; };
 		7C3AC1BC1D578EB8006F56BF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */; };
 		7C3AC1C11D578EB8006F56BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1BF1D578EB8006F56BF /* Main.storyboard */; };
@@ -20,7 +22,7 @@
 		7C3AC1DF1D579714006F56BF /* UIPlaygroundElements.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AC1D71D579714006F56BF /* UIPlaygroundElements.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7C3AC1E51D5797F2006F56BF /* ThumbSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E41D5797F2006F56BF /* ThumbSliderView.swift */; };
 		7C3AC1E71D579815006F56BF /* ThumbSliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */; };
-		7C3AC1E91D579E4A006F56BF /* ViewLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */; };
+		7C3AC1E91D579E4A006F56BF /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E81D579E4A006F56BF /* UIViewExtensions.swift */; };
 		7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */; };
 		7C3AC1F31D63DE3E006F56BF /* Assests.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */; };
 		7C3AC21C1D664315006F56BF /* AppCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC21A1D664315006F56BF /* AppCardsViewController.swift */; };
@@ -56,6 +58,8 @@
 
 /* Begin PBXFileReference section */
 		7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
+		7C2398201D87010A007F2CCF /* Point3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point3D.swift; sourceTree = "<group>"; };
+		7C2398221D8702BA007F2CCF /* MathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathExtensions.swift; sourceTree = "<group>"; };
 		7C3AC1B61D578EB8006F56BF /* UIPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UIPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C3AC1B91D578EB8006F56BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -70,7 +74,7 @@
 		7C3AC1DB1D579714006F56BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C3AC1E41D5797F2006F56BF /* ThumbSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbSliderView.swift; sourceTree = "<group>"; };
 		7C3AC1E61D579815006F56BF /* ThumbSliderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThumbSliderView.xib; sourceTree = "<group>"; };
-		7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewLoading.swift; sourceTree = "<group>"; };
+		7C3AC1E81D579E4A006F56BF /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayLinkProgressor.swift; sourceTree = "<group>"; };
 		7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assests.xcassets; sourceTree = "<group>"; };
 		7C3AC2171D650353006F56BF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -148,7 +152,6 @@
 				7C3AC21E1D66438E006F56BF /* CardView.swift */,
 				7C3AC2201D664433006F56BF /* CardView.xib */,
 				7C3AC2221D664805006F56BF /* CarouselView.swift */,
-				7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */,
 				7C3AC1F61D63E04B006F56BF /* Extensions */,
 				7C3AC1F51D63E038006F56BF /* Supporting Files */,
 			);
@@ -180,7 +183,10 @@
 			isa = PBXGroup;
 			children = (
 				7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */,
-				7C3AC1E81D579E4A006F56BF /* ViewLoading.swift */,
+				7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */,
+				7C3AC1E81D579E4A006F56BF /* UIViewExtensions.swift */,
+				7C2398201D87010A007F2CCF /* Point3D.swift */,
+				7C2398221D8702BA007F2CCF /* MathExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -324,11 +330,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C3AC2231D664805006F56BF /* CarouselView.swift in Sources */,
+				7C2398231D8702BA007F2CCF /* MathExtensions.swift in Sources */,
 				7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */,
 				7C3AC1E51D5797F2006F56BF /* ThumbSliderView.swift in Sources */,
 				7C3AC21F1D66438E006F56BF /* CardView.swift in Sources */,
 				7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */,
-				7C3AC1E91D579E4A006F56BF /* ViewLoading.swift in Sources */,
+				7C3AC1E91D579E4A006F56BF /* UIViewExtensions.swift in Sources */,
+				7C2398211D87010A007F2CCF /* Point3D.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

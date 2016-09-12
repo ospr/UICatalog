@@ -61,7 +61,6 @@ class MasterViewController: UITableViewController {
         let nextViewController = catalogItem.viewController()
         let detailNavigationController = splitViewController.viewControllers.last as! UINavigationController
 
-        // TODO: this isn't ideal. Is there a more generic way of doing this?
         if splitViewController.collapsed {
             detailNavigationController.pushViewController(nextViewController, animated: true)
         }

@@ -9,33 +9,16 @@
 import UIKit
 import QuartzCore
 
-// TODO: remove this?
-class TransformView: UIView {
-//    override var layer: CALayer {
-//        return CATransformLayer()
-//    }
-}
-
-// TODO: use exsiting struct for this?
-struct Point3D {
-    var x: CGFloat
-    var y: CGFloat
-    var z: CGFloat
-}
-
 public class CarouselView: UIView, UIGestureRecognizerDelegate {
 
     public weak var dataSource: CarouselViewDataSource?
     public weak var delegate: CarouselViewDelegate?
     
     private var itemViews: [UIView] = []
-    // TODO: clean up property names here
-    private var transformView = TransformView()
     private var absoluteOffset = CGFloat(0)
     private var viewPositions: [UIView: Point3D] = [:]
     private var horizontalPanGesture: UIPanGestureRecognizer!
-    
-    var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
+    private var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,11 +33,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     }
     
     private func setup() {
-        // TODO: remove the transform view??
-        addSubview(transformView)
-        transformView.translatesAutoresizingMaskIntoConstraints = false
-        transformView.anchorConstraintsToFitSuperview()
-        
         horizontalPanGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
         addGestureRecognizer(horizontalPanGesture)
         horizontalPanGesture.enabled = true
@@ -77,10 +55,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
 
             // Find which view the user's finger is currently panning over
             // and shift all views relative to that view
-            // TODO: Bug where if you slide item to the left, so that it catches
-            //       the item just to the right of it, then slide that new right
-            //       card to the right, somehow you lose that right card and we
-            //       start shifting relative to the left card again.
             let pannedView = itemViews.findFirst({ (view) -> Bool in
                 let localPoint = recognizer.locationInView(view)
                 return view.pointInside(localPoint, withEvent: nil)
@@ -91,8 +65,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             }
             
         case .Ended:
-            // TODO: have views settle back to their desired location based on where they currently are
-
             let velocity = recognizer.velocityInView(self)
             animatePanEndDeceleration(withVelocity: velocity)
             
@@ -180,14 +152,13 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             
             let numberOfItems = dataSource.numberOfItemsInCarouselView(self)
             
-            // TODO: make this more dynamic so that we don't ask for everything all at once
             return (0..<numberOfItems).map { (index) -> UIView in
                 dataSource.carouselView(self, viewForItemAtIndex: index)
             }
         }()
         
         for itemView in itemViews {
-            transformView.insertSubview(itemView, atIndex: 0)
+            insertSubview(itemView, atIndex: 0)
             
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(itemViewDidPan))
             itemView.addGestureRecognizer(panGesture)
@@ -203,8 +174,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
     // MARK: - Updating item views
     
     private func didPanHorizontally(byOffset offset: CGFloat, forView view: UIView? = nil) {
-        // TODO: clean this up
-        
         // Calculate the new x origin point for the view that was panned.
         // Then use that value to backwards calculate the new root offset
         // based on the view that was actually panned. This allows us to 
@@ -216,8 +185,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         if let view = view {
             let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
             absoluteOffset = absoluteOffsetForItemView(view, atXPosition: nextViewXPoint)
-            
-//            print("nextViewXPoint: \(nextViewXPoint), view index: \(itemViews.indexOf(view)!), absOffset: \(absoluteOffset)")
         }
         else {
             absoluteOffset += offset
@@ -249,7 +216,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
             itemPosition.z = localOffset > 0 ? 0.3 * localOffset : 0
             // X grows using an exponential function to ensure that as progress
             // goes further negative that we only ever get closer to 0
-            // TODO: should probably just have it stop around 0 like we do with Z
             itemPosition.x = localOffset > 0 ? pow(2, localOffset / 25.0) : 0
 
             // Hide views when they are no longer visible (far behind in the deck)
@@ -362,9 +328,4 @@ public protocol CarouselViewDataSource: class {
 public protocol CarouselViewDelegate: class {
     
     func carouselView(carouselView: CarouselView, didUpdateItemView itemView: UIView)
-}
-
-// TODO: move to math extension?
-func log2orZero(d: CGFloat) -> CGFloat {
-    return d <= 0 ? 0 : log2(d)
 }

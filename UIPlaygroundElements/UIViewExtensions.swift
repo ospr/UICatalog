@@ -1,5 +1,5 @@
 //
-//  ViewLoading.swift
+//  UIViewExtentions.swift
 //  UIPlayground
 //
 //  Created by Kip Nicol on 8/7/16.
