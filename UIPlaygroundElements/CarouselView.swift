@@ -237,8 +237,6 @@ public class CarouselView: UIView, UIGestureRecognizerDelegate {
         // keep the currently "selected" view under the user's finger 
         // while it's being panned, but still allow for the other card
         // animations to behave properly
-        // TODO: some better way to abstract this. If a value below changes it
-        //       needs to change here as well
         let newAbsoluteOffset: CGFloat = {
             if let view = view {
                 let nextViewXPoint = max(0, viewPositions[view]!.x + offset)
