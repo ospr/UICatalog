@@ -8,6 +8,6 @@
 
 import Foundation
 
-func log2orZero(d: CGFloat) -> CGFloat {
+func log2orZero(_ d: CGFloat) -> CGFloat {
     return d <= 0 ? 0 : log2(d)
 }

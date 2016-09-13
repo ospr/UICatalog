@@ -13,8 +13,8 @@ import UIKit
 extension UIView {
     
     func addOwnedViewFrom(nibNamed nibName: String) -> UIView {
-        let nib = UINib(nibName: nibName, bundle: NSBundle(forClass: self.dynamicType))
-        let ownedView = nib.instantiateWithOwner(self, options: nil).first as! UIView
+        let nib = UINib(nibName: nibName, bundle: Bundle(for: type(of: self)))
+        let ownedView = nib.instantiate(withOwner: self, options: nil).first as! UIView
         
         addSubview(ownedView)
         ownedView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,10 +33,10 @@ extension UIView {
             return
         }
         
-        leadingAnchor.constraintEqualToAnchor(superview.leadingAnchor).active = true
-        trailingAnchor.constraintEqualToAnchor(superview.trailingAnchor).active = true
-        topAnchor.constraintEqualToAnchor(superview.topAnchor).active = true
-        bottomAnchor.constraintEqualToAnchor(superview.bottomAnchor).active = true
+        leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
     }
 }
 

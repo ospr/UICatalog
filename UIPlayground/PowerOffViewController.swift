@@ -20,7 +20,7 @@ class PowerOffViewController: UIViewController {
     var initialBrightness = CGFloat(0)
     
     required init() {
-        super.init(nibName: String(PowerOffViewController.self), bundle: nil)
+        super.init(nibName: String(describing: PowerOffViewController.self), bundle: nil)
         
         title = "Power Off"
     }
@@ -35,7 +35,7 @@ class PowerOffViewController: UIViewController {
         setupPowerOffSliderView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Setup views to be animated in when the view appears
@@ -46,18 +46,18 @@ class PowerOffViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Animate in the views
-        UIView.animateKeyframesWithDuration(0.6, delay: 0, options: [.CalculationModeCubic], animations: {
-            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.6, animations: { 
-                self.blurEffectView.effect = UIBlurEffect(style: .Dark)
+        UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [.calculationModeCubic], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.6, animations: { 
+                self.blurEffectView.effect = UIBlurEffect(style: .dark)
                 self.powerOffSliderView.alpha = 1
                 self.cancelStackView.alpha = 1
             })
             
-            UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.8, animations: { 
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.8, animations: { 
                 self.powerOffSlideViewTrailingConstraint.constant = 0
                 self.view.layoutIfNeeded()
             })
@@ -67,16 +67,16 @@ class PowerOffViewController: UIViewController {
     // MARK: - Working with Power Off Slider
     
     func setupPowerOffSliderView() {
-        powerOffSliderView.addTarget(self, action: #selector(powerOffSliderDidTouchDown), forControlEvents: [.TouchDown])
-        powerOffSliderView.addTarget(self, action: #selector(powerOffSliderValueDidChange), forControlEvents: [.ValueChanged])
+        powerOffSliderView.addTarget(self, action: #selector(powerOffSliderDidTouchDown), for: [.touchDown])
+        powerOffSliderView.addTarget(self, action: #selector(powerOffSliderValueDidChange), for: [.valueChanged])
     }
     
     func powerOffSliderValueDidChange() {
         dimmingView.alpha = CGFloat(powerOffSliderView.value)
-        UIScreen.mainScreen().brightness = initialBrightness - (initialBrightness * CGFloat(powerOffSliderView.value))
+        UIScreen.main.brightness = initialBrightness - (initialBrightness * CGFloat(powerOffSliderView.value))
     }
     
     func powerOffSliderDidTouchDown() {
-        initialBrightness = UIScreen.mainScreen().brightness
+        initialBrightness = UIScreen.main.brightness
     }
 }

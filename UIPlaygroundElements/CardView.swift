@@ -9,15 +9,15 @@
 import UIKit
 import QuartzCore
 
-public class CardView: UIView {
+open class CardView: UIView {
 
-    @IBOutlet public private(set) weak var headerLabel: UILabel!
-    @IBOutlet public private(set) weak var headerImageView: UIImageView!
-    @IBOutlet public private(set) weak var mainImageView: UIImageView!
-    @IBOutlet private weak var shadowView: UIView!
-    @IBOutlet private weak var contentStackView: UIStackView!
+    @IBOutlet open fileprivate(set) weak var headerLabel: UILabel!
+    @IBOutlet open fileprivate(set) weak var headerImageView: UIImageView!
+    @IBOutlet open fileprivate(set) weak var mainImageView: UIImageView!
+    @IBOutlet fileprivate weak var shadowView: UIView!
+    @IBOutlet fileprivate weak var contentStackView: UIStackView!
     
-    public var auxViewPadding: CGFloat {
+    open var auxViewPadding: CGFloat {
         get { return contentStackView.spacing }
         set { contentStackView.spacing = newValue }
     }
@@ -34,20 +34,20 @@ public class CardView: UIView {
         setup()
     }
     
-    private func setup() {
-        addOwnedViewFrom(nibNamed: String(CardView.self))
+    fileprivate func setup() {
+        let _ = addOwnedViewFrom(nibNamed: String(describing: CardView.self))
         
         mainImageView.clipsToBounds = true
         mainImageView.layer.cornerRadius = 6
         
-        shadowView.backgroundColor = .clearColor()
-        shadowView.layer.shadowOffset = CGSizeZero
-        shadowView.layer.shadowColor = UIColor.blackColor().CGColor
+        shadowView.backgroundColor = .clear
+        shadowView.layer.shadowOffset = CGSize.zero
+        shadowView.layer.shadowColor = UIColor.black.cgColor
         shadowView.layer.shadowOpacity = 0.1
         shadowView.layer.shadowRadius = 6.0
         
         headerLabel.text = nil
-        headerLabel.textColor = .whiteColor()
+        headerLabel.textColor = .white
     }
 
 }

@@ -9,17 +9,17 @@
 import UIKit
 
 @IBDesignable
-public class ThumbSliderView: UIControl {
+open class ThumbSliderView: UIControl {
     
-    @IBOutlet private weak var backgroundView: UIView!
-    @IBOutlet private weak var vibrancyBackgroundView: UIView!
-    @IBOutlet public private(set) weak var thumbView: UIImageView!
-    @IBOutlet private weak var informationalLabel: UILabel!
-    @IBOutlet private weak var backgroundInformationalLabel: UILabel!
-    @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var thumbViewTopPaddingConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var backgroundView: UIView!
+    @IBOutlet fileprivate weak var vibrancyBackgroundView: UIView!
+    @IBOutlet open fileprivate(set) weak var thumbView: UIImageView!
+    @IBOutlet fileprivate weak var informationalLabel: UILabel!
+    @IBOutlet fileprivate weak var backgroundInformationalLabel: UILabel!
+    @IBOutlet fileprivate weak var backgroundLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var thumbViewTopPaddingConstraint: NSLayoutConstraint!
     
-    public var value: Double = 0 {
+    open var value: Double = 0 {
         didSet {
             let previousValue = min(1, max(0, oldValue))
             guard previousValue != value else {
@@ -27,7 +27,7 @@ public class ThumbSliderView: UIControl {
             }
             
             backgroundLeadingConstraint.constant = maxBackgroundLeadingConstraintConstant() * CGFloat(value)
-            sendActionsForControlEvents([.ValueChanged])
+            sendActions(for: [.valueChanged])
             updatePowerOffLabel()
         }
     }
@@ -57,26 +57,26 @@ public class ThumbSliderView: UIControl {
         setup()
     }
     
-    private func setup() {
-        let view = addOwnedViewFrom(nibNamed: String(ThumbSliderView.self))
-        view.backgroundColor = .clearColor()
+    fileprivate func setup() {
+        let view = addOwnedViewFrom(nibNamed: String(describing: ThumbSliderView.self))
+        view.backgroundColor = .clear
         
         setupThumbView()
         setupInformationalLabel()
     }
     
-    private func setupThumbView() {
+    fileprivate func setupThumbView() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(thumbViewWasPanned))
         thumbView.addGestureRecognizer(panGesture)
-        panGesture.enabled = true
+        panGesture.isEnabled = true
     }
     
-    private func setupInformationalLabel() {
+    fileprivate func setupInformationalLabel() {
         // Create a mask for the white informational label to glide through
         // the label to create a shimmer effect
-        let shimmerMaskImage = UIImage(named: "ShimmerMask", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)!
+        let shimmerMaskImage = UIImage(named: "ShimmerMask", in: Bundle(for: type(of: self)), compatibleWith: nil)!
         let shimmerMaskLayer = CALayer()
-        shimmerMaskLayer.contents = shimmerMaskImage.CGImage
+        shimmerMaskLayer.contents = shimmerMaskImage.cgImage
         shimmerMaskLayer.contentsGravity = kCAGravityCenter
         shimmerMaskLayer.frame = CGRect(x: -shimmerMaskImage.size.width, y: shimmerMaskImage.size.height / 2.0,
                                         width: shimmerMaskImage.size.width, height: shimmerMaskImage.size.height)
@@ -87,14 +87,14 @@ public class ThumbSliderView: UIControl {
         shimmerAnimation.repeatCount = HUGE
         shimmerAnimation.duration = 3.5
         shimmerAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        shimmerMaskLayer.addAnimation(shimmerAnimation, forKey: "shimmerAnimation")
+        shimmerMaskLayer.add(shimmerAnimation, forKey: "shimmerAnimation")
         
         informationalLabel.layer.mask = shimmerMaskLayer
     }
 
     // MARK: - View Layout
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
         vibrancyBackgroundView.layer.cornerRadius = vibrancyBackgroundView.bounds.size.height / 2.0
@@ -113,7 +113,7 @@ public class ThumbSliderView: UIControl {
         
         if value != currentValue {
             value = currentValue
-            sendActionsForControlEvents([.ValueChanged])
+            sendActions(for: [.valueChanged])
         }
     }
     
@@ -121,7 +121,7 @@ public class ThumbSliderView: UIControl {
         // Hide the power off label when the slider is panned
         let desiredPowerOffLabelAlpha: CGFloat = (value == 0) ? 1.0 : 0.0
         if self.informationalLabel.alpha != desiredPowerOffLabelAlpha {
-            UIView.animateWithDuration(0.10, animations: {
+            UIView.animate(withDuration: 0.10, animations: {
                 self.informationalLabel.alpha = desiredPowerOffLabelAlpha
                 self.backgroundInformationalLabel.alpha = desiredPowerOffLabelAlpha
             })
@@ -130,26 +130,26 @@ public class ThumbSliderView: UIControl {
     
     // MARK: - Gesture Handling
     
-    func thumbViewWasPanned(recognizer: UIPanGestureRecognizer) {
+    func thumbViewWasPanned(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
-        case .Possible, .Began:
+        case .possible, .began:
             break
             
-        case .Changed:
+        case .changed:
             // Update the leading constraint to move the slider to match
             // the user's pan gesture
-            let translation = recognizer.translationInView(self)
+            let translation = recognizer.translation(in: self)
             backgroundLeadingConstraint.constant = max(translation.x, 0)
             updateValue()
             
-        case .Ended, .Cancelled, .Failed:
+        case .ended, .cancelled, .failed:
             // Determine whether the user slid the slider far enough to
             // either have the slider finish to the end position or slide
             // back to the start position
             let startValue = value
             let shouldSlideToEnd = startValue > 0.5
             
-            DisplayLinkProgressor.run(withDuration: 0.10, update: { (progress) in
+            let _ = DisplayLinkProgressor.run(withDuration: 0.10, update: { (progress) in
                 let finalValue = shouldSlideToEnd ? 1.0 : 0.0
                 let nextValue = startValue + progress * (finalValue - startValue)
                 
@@ -158,9 +158,9 @@ public class ThumbSliderView: UIControl {
         }
     }
     
-    public override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         
-        sendActionsForControlEvents([.TouchDown])
+        sendActions(for: [.touchDown])
     }
 }

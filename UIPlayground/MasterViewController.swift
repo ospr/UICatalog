@@ -11,8 +11,8 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var catalogItems: [CatalogItem] = [
-        .PowerOff,
-        .AppCards,
+        .powerOff,
+        .appCards,
     ]
 
     override func viewDidLoad() {
@@ -25,26 +25,26 @@ class MasterViewController: UITableViewController {
         updateDetailView(withCatalogItem: catalogItem)
     }
 
-    override func viewWillAppear(animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.collapsed
+    override func viewWillAppear(_ animated: Bool) {
+        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
 
     // MARK: - Table View
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return catalogItems.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         let catalogItem = catalogItems[indexPath.row]
         cell.textLabel?.text = catalogItem.viewController().title
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let catalogItem = catalogItems[indexPath.row]
 
         updateDetailView(withCatalogItem: catalogItem)
@@ -61,30 +61,30 @@ class MasterViewController: UITableViewController {
         let nextViewController = catalogItem.viewController()
         let detailNavigationController = splitViewController.viewControllers.last as! UINavigationController
 
-        if splitViewController.collapsed {
+        if splitViewController.isCollapsed {
             detailNavigationController.pushViewController(nextViewController, animated: true)
         }
         else {
             detailNavigationController.setViewControllers([nextViewController], animated: false)
         }
         
-        nextViewController.edgesForExtendedLayout = .None
-        nextViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        nextViewController.edgesForExtendedLayout = UIRectEdge()
+        nextViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
         nextViewController.navigationItem.leftItemsSupplementBackButton = true
     }
 }
 
 extension MasterViewController {
     enum CatalogItem {
-        case PowerOff
-        case AppCards
+        case powerOff
+        case appCards
         
         func viewController() -> UIViewController {
             switch self {
-            case .PowerOff:
+            case .powerOff:
                 return PowerOffViewController()
                 
-            case .AppCards:
+            case .appCards:
                 return AppCardsViewController()
             }
         }

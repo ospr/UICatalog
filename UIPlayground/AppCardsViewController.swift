@@ -28,7 +28,7 @@ class AppCardsViewController: UIViewController {
     ]
     
     required init() {
-        super.init(nibName: String(AppCardsViewController.self), bundle: nil)
+        super.init(nibName: String(describing: AppCardsViewController.self), bundle: nil)
         
         title = "App Cards"
     }
@@ -56,12 +56,12 @@ class AppCardsViewController: UIViewController {
 
 extension AppCardsViewController: CarouselViewDataSource {
     
-    func numberOfItemsInCarouselView(carouselView: CarouselView) -> Int {
-        return self.dynamicType.cardInfos.count
+    func numberOfItemsInCarouselView(_ carouselView: CarouselView) -> Int {
+        return type(of: self).cardInfos.count
     }
     
-    func carouselView(carouselView: CarouselView, viewForItemAtIndex index: Int) -> UIView {
-        let cardInfo = self.dynamicType.cardInfos[index]
+    func carouselView(_ carouselView: CarouselView, viewForItemAtIndex index: Int) -> UIView {
+        let cardInfo = type(of: self).cardInfos[index]
         
         let cardView = CardView()
         let cardImage = UIImage(named: "AppCard-\(cardInfo.cardName)-Main")!
@@ -95,7 +95,7 @@ extension AppCardsViewController: CarouselViewDataSource {
 
 extension AppCardsViewController: CarouselViewDelegate {
     
-    func carouselView(carouselView: CarouselView, didUpdateItemView itemView: UIView) {
+    func carouselView(_ carouselView: CarouselView, didUpdateItemView itemView: UIView) {
         let cardView = itemView as! CardView
         let progressX = cardView.frame.origin.x / carouselView.bounds.maxX
         

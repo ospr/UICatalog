@@ -9,8 +9,8 @@
 import Foundation
 
 // Taken from http://stackoverflow.com/a/33795713/4147791
-extension SequenceType {
-    func findFirst(@noescape predicate: (Self.Generator.Element) throws -> Bool) rethrows -> Self.Generator.Element? {
+extension Sequence {
+    func findFirst(_ predicate: (Self.Iterator.Element) throws -> Bool) rethrows -> Self.Iterator.Element? {
         for element in self {
             if try predicate(element) {
                 return element
