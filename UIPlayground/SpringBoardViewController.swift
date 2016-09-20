@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SpringBoardViewController: UIViewController {
+public class SpringBoardViewController: UIViewController {
     
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     let dockView = UIView()
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         // TODO: set correct vc here
         pageViewController.setViewControllers([SpringBoardAppCollectionViewController()], direction: .forward, animated: false, completion: nil)
         pageViewController.dataSource = self
@@ -43,12 +43,12 @@ class SpringBoardViewController: UIViewController {
 
 extension SpringBoardViewController: UIPageViewControllerDataSource {
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         // TODO: return correct vc here
         return SpringBoardAppCollectionViewController()
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         // TODO: return correct vc here
         return SpringBoardAppCollectionViewController()
     }

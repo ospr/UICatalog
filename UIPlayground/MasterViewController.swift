@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIPlaygroundUI
 
 class MasterViewController: UITableViewController {
 
