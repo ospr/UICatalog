@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37979AB51D9194EA00B33595 /* SpringBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37979AB31D9194EA00B33595 /* SpringBoardViewController.swift */; };
+		37979AB61D9194EA00B33595 /* SpringBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37979AB41D9194EA00B33595 /* SpringBoardViewController.xib */; };
 		7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */; };
 		7C2398211D87010A007F2CCF /* Point3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2398201D87010A007F2CCF /* Point3D.swift */; };
 		7C2398231D8702BA007F2CCF /* MathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2398221D8702BA007F2CCF /* MathExtensions.swift */; };
@@ -57,6 +59,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		37979AB31D9194EA00B33595 /* SpringBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardViewController.swift; sourceTree = "<group>"; };
+		37979AB41D9194EA00B33595 /* SpringBoardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpringBoardViewController.xib; sourceTree = "<group>"; };
 		7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		7C2398201D87010A007F2CCF /* Point3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point3D.swift; sourceTree = "<group>"; };
 		7C2398221D8702BA007F2CCF /* MathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathExtensions.swift; sourceTree = "<group>"; };
@@ -104,6 +108,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37979AB71D9194EF00B33595 /* Spring Board View */ = {
+			isa = PBXGroup;
+			children = (
+				37979AB31D9194EA00B33595 /* SpringBoardViewController.swift */,
+				37979AB41D9194EA00B33595 /* SpringBoardViewController.xib */,
+			);
+			name = "Spring Board View";
+			sourceTree = "<group>";
+		};
 		7C3AC1AD1D578EB7006F56BF = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +143,7 @@
 				7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */,
 				7C3AC2191D6642E5006F56BF /* App Cards View */,
 				7C3AC1D11D5790D8006F56BF /* Power Off View */,
+				37979AB71D9194EF00B33595 /* Spring Board View */,
 				7C3AC1F41D63E02C006F56BF /* Supporting Files */,
 			);
 			path = UIPlayground;
@@ -296,6 +310,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37979AB61D9194EA00B33595 /* SpringBoardViewController.xib in Resources */,
 				7C3AC21D1D664315006F56BF /* AppCardsViewController.xib in Resources */,
 				7C3AC1C61D578EB8006F56BF /* LaunchScreen.storyboard in Resources */,
 				7C3AC1D01D5790B1006F56BF /* PowerOffViewController.xib in Resources */,
@@ -323,6 +338,7 @@
 			files = (
 				7C3AC21C1D664315006F56BF /* AppCardsViewController.swift in Sources */,
 				7C3AC1BC1D578EB8006F56BF /* MasterViewController.swift in Sources */,
+				37979AB51D9194EA00B33595 /* SpringBoardViewController.swift in Sources */,
 				7C3AC1CF1D5790B1006F56BF /* PowerOffViewController.swift in Sources */,
 				7C3AC1BA1D578EB8006F56BF /* AppDelegate.swift in Sources */,
 			);
