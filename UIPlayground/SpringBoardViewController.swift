@@ -17,7 +17,7 @@ public class SpringBoardViewController: UIViewController {
     }
     
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    let dockView = UIView()
+    let dockView = SpringBoardDockView()
     let wallpaperView = UIImageView()
     
     override public func viewDidLoad() {
@@ -49,8 +49,6 @@ public class SpringBoardViewController: UIViewController {
         
         // Constrain top of dock to bottom of page view
         dockView.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor).isActive = true
-        
-        dockView.backgroundColor = .red // TODO: remove this
     }
 }
 

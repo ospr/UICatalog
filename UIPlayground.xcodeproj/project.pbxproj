@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		374A3A841D91EEE600C46836 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A3A831D91EEE600C46836 /* UIImageExtensions.swift */; };
+		3783B6441D91F32500BEC7DE /* SpringBoardDockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3783B6431D91F32500BEC7DE /* SpringBoardDockView.swift */; };
 		37979B051D91DBD300B33595 /* UIPlaygroundUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 37979B031D91DBD300B33595 /* UIPlaygroundUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37979B081D91DBD300B33595 /* UIPlaygroundUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37979B011D91DBD200B33595 /* UIPlaygroundUI.framework */; };
 		37979B091D91DBD300B33595 /* UIPlaygroundUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 37979B011D91DBD200B33595 /* UIPlaygroundUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -74,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		374A3A831D91EEE600C46836 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		3783B6431D91F32500BEC7DE /* SpringBoardDockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardDockView.swift; sourceTree = "<group>"; };
 		37979AB31D9194EA00B33595 /* SpringBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardViewController.swift; sourceTree = "<group>"; };
 		37979AF61D91CA7800B33595 /* SpringBoardAppIconViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardAppIconViewCell.swift; sourceTree = "<group>"; };
 		37979AF81D91CAF600B33595 /* SpringBoardAppCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardAppCollectionViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				37979AB31D9194EA00B33595 /* SpringBoardViewController.swift */,
 				37979AF81D91CAF600B33595 /* SpringBoardAppCollectionViewController.swift */,
 				37979AF61D91CA7800B33595 /* SpringBoardAppIconViewCell.swift */,
+				3783B6431D91F32500BEC7DE /* SpringBoardDockView.swift */,
 			);
 			name = "Spring Board View";
 			path = ../UIPlayground;
@@ -432,6 +435,7 @@
 				37979B0E1D91DBF700B33595 /* SpringBoardAppIconViewCell.swift in Sources */,
 				37979B0D1D91DBF400B33595 /* SpringBoardViewController.swift in Sources */,
 				37979B0F1D91DBFA00B33595 /* SpringBoardAppCollectionViewController.swift in Sources */,
+				3783B6441D91F32500BEC7DE /* SpringBoardDockView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
