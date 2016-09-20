@@ -10,9 +10,9 @@ import UIKit
 
 // MARK: - Nib/Xib Support
 
-extension UIView {
+public extension UIView {
     
-    func addOwnedViewFrom(nibNamed nibName: String) -> UIView {
+    public func addOwnedViewFrom(nibNamed nibName: String) -> UIView {
         let nib = UINib(nibName: nibName, bundle: Bundle(for: type(of: self)))
         let ownedView = nib.instantiate(withOwner: self, options: nil).first as! UIView
         
@@ -26,9 +26,9 @@ extension UIView {
 
 // MARK: - Autolayout Support
 
-extension UIView {
+public extension UIView {
     
-    func anchorConstraintsToFitSuperview() {
+    public func anchorConstraintsToFitSuperview() {
         guard let superview = self.superview else {
             return
         }
@@ -42,9 +42,9 @@ extension UIView {
 
 // MARK: - Layer Support
 
-extension UIView {
+public extension UIView {
     
-    func roundCornersToFormCircle() {
+    public func roundCornersToFormCircle() {
         layer.cornerRadius = bounds.size.width / 2.0
     }
 }

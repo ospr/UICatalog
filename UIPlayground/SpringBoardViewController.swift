@@ -7,16 +7,29 @@
 //
 
 import UIKit
+import UIPlaygroundElements
 
 public class SpringBoardViewController: UIViewController {
     
+    public var wallpaperImage: UIImage? {
+        get { return wallpaperView.image }
+        set { wallpaperView.image = newValue }
+    }
+    
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     let dockView = UIView()
+    let wallpaperView = UIImageView()
     
     override public func viewDidLoad() {
         // TODO: set correct vc here
         pageViewController.setViewControllers([SpringBoardAppCollectionViewController()], direction: .forward, animated: false, completion: nil)
         pageViewController.dataSource = self
+        
+        // Add wallpaper view
+        view.addSubview(wallpaperView)
+        wallpaperView.translatesAutoresizingMaskIntoConstraints = false
+        wallpaperView.anchorConstraintsToFitSuperview()
+        wallpaperImage = UIImage(named: "BackgroundWallpaper", inBundleForObject: self)
         
         // Add page view
         // TODO: do the view controller child methods here too
