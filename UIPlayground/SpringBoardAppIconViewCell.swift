@@ -10,6 +10,8 @@ import UIKit
 
 class SpringBoardAppIconViewCell: UICollectionViewCell {
     
+    let cornerRadius = CGFloat(12)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -23,6 +25,9 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
     }
     
     func setup() {
+        clipsToBounds = true
+        layer.cornerRadius = cornerRadius
+        
         // TODO: update this
         backgroundColor = .blue
     }
