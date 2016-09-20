@@ -77,6 +77,7 @@
 		37979B011D91DBD200B33595 /* UIPlaygroundUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UIPlaygroundUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37979B031D91DBD300B33595 /* UIPlaygroundUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIPlaygroundUI.h; sourceTree = "<group>"; };
 		37979B041D91DBD300B33595 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37979B111D91DD2200B33595 /* SpringBoard.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SpringBoard.playground; sourceTree = "<group>"; };
 		7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		7C2398201D87010A007F2CCF /* Point3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point3D.swift; sourceTree = "<group>"; };
 		7C2398221D8702BA007F2CCF /* MathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathExtensions.swift; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		37979AB71D9194EF00B33595 /* Spring Board View */ = {
 			isa = PBXGroup;
 			children = (
+				37979B111D91DD2200B33595 /* SpringBoard.playground */,
 				37979AB31D9194EA00B33595 /* SpringBoardViewController.swift */,
 				37979AF81D91CAF600B33595 /* SpringBoardAppCollectionViewController.swift */,
 				37979AF61D91CA7800B33595 /* SpringBoardAppIconViewCell.swift */,

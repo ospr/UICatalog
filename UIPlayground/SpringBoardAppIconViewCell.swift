@@ -24,6 +24,6 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
     
     func setup() {
         // TODO: update this
-        backgroundColor = .green
+        backgroundColor = .blue
     }
 }
