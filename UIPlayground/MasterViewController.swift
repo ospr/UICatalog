@@ -13,6 +13,7 @@ class MasterViewController: UITableViewController {
     var catalogItems: [CatalogItem] = [
         .powerOff,
         .appCards,
+        .springBoard,
     ]
 
     override func viewDidLoad() {
@@ -21,7 +22,7 @@ class MasterViewController: UITableViewController {
         splitViewController?.presentsWithGesture = false
 
         // TODO: revert this back
-        let catalogItem = catalogItems[1]
+        let catalogItem = catalogItems[2]
         updateDetailView(withCatalogItem: catalogItem)
     }
 
@@ -78,6 +79,7 @@ extension MasterViewController {
     enum CatalogItem {
         case powerOff
         case appCards
+        case springBoard
         
         func viewController() -> UIViewController {
             switch self {
@@ -86,6 +88,9 @@ extension MasterViewController {
                 
             case .appCards:
                 return AppCardsViewController()
+                
+            case .springBoard:
+                return SpringBoardViewController()
             }
         }
     }
