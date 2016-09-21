@@ -10,7 +10,6 @@ import UIKit
 
 class SpringBoardAppIconViewCell: UICollectionViewCell {
     
-    let cornerRadius = CGFloat(12)
     let appIconLength = CGFloat(60)
     let appNameFont = UIFont.systemFont(ofSize: 12)
     
@@ -41,8 +40,12 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.anchorConstraintsToFitSuperview()
         
-        appIconImageView.clipsToBounds = true
-        appIconImageView.layer.cornerRadius = cornerRadius
+        let mask = CALayer()
+        mask.contents = UIImage(named: "AppIconMask", inBundleForObject: self)!.cgImage
+        mask.frame = CGRect(x: 0, y: 0, width: appIconLength, height: appIconLength)
+        mask.contentsGravity = kCAGravityResize
+        appIconImageView.layer.mask = mask
+        appIconImageView.layer.masksToBounds = true
         appIconImageView.heightAnchor.constraint(equalToConstant: appIconLength).isActive = true
         appIconImageView.heightAnchor.constraint(equalTo: appIconImageView.widthAnchor, multiplier: 1).isActive = true
         
