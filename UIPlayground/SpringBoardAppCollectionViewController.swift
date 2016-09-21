@@ -10,12 +10,19 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
+struct SpringBoardAppInfo {
+    let appName: String
+    let image: UIImage
+}
+
 class SpringBoardAppCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    var appInfoItems = [SpringBoardAppInfo]()
     
     init() {
         let viewLayout = UICollectionViewFlowLayout()
         // TODO: don't hardcode here
-        viewLayout.itemSize = CGSize(width: 60, height: 60)
+        viewLayout.itemSize = CGSize(width: 74, height: 80)
         viewLayout.sectionInset = UIEdgeInsets(top: 28, left: 27, bottom: 28, right: 27)
         super.init(collectionViewLayout: viewLayout)
     }
@@ -36,13 +43,16 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
     // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // TODO: return correct values here
-        return 15
+        return appInfoItems.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // TODO: return correct values here
-        let appIconCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppIconCell", for: indexPath)
+        let appInfo = appInfoItems[indexPath.row]
+        
+        let appIconCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppIconCell", for: indexPath) as! SpringBoardAppIconViewCell
+        
+        appIconCell.appNameLabel.text = appInfo.appName
+        appIconCell.appIconImageView.image = appInfo.image
         
         return appIconCell
     }

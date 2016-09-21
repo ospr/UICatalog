@@ -11,18 +11,52 @@ import UIPlaygroundElements
 
 public class SpringBoardViewController: UIViewController {
     
+    var appIconLayoutInfoItems = [
+        [
+            SpringBoardAppInfo(appName: "UIPlayground", image: UIImage(named: "AppCard-UIPlayground-Icon")!),
+            SpringBoardAppInfo(appName: "DavisTrans", image: UIImage(named: "AppCard-DavisTrans-Icon")!),
+            SpringBoardAppInfo(appName: "Overcast", image: UIImage(named: "AppCard-Overcast-Icon")!),
+            SpringBoardAppInfo(appName: "UIPlayground", image: UIImage(named: "AppCard-UIPlayground-Icon")!),
+            SpringBoardAppInfo(appName: "DavisTrans", image: UIImage(named: "AppCard-DavisTrans-Icon")!),
+            SpringBoardAppInfo(appName: "Overcast", image: UIImage(named: "AppCard-Overcast-Icon")!),
+        ],
+        [
+            SpringBoardAppInfo(appName: "UIPlayground", image: UIImage(named: "AppCard-UIPlayground-Icon")!),
+            SpringBoardAppInfo(appName: "Overcast", image: UIImage(named: "AppCard-Overcast-Icon")!),
+        ],
+        [
+            SpringBoardAppInfo(appName: "DavisTrans", image: UIImage(named: "AppCard-DavisTrans-Icon")!),
+        ],
+    ]
+    
     public var wallpaperImage: UIImage? {
         get { return wallpaperView.image }
         set { wallpaperView.image = newValue }
     }
     
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    var pageViewSubViewControllers = [UIViewController]()
     let dockView = SpringBoardDockView()
     let wallpaperView = UIImageView()
     
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        title = "Spring Board"
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+        
     override public func viewDidLoad() {
-        // TODO: set correct vc here
-        pageViewController.setViewControllers([SpringBoardAppCollectionViewController()], direction: .forward, animated: false, completion: nil)
+        pageViewSubViewControllers = appIconLayoutInfoItems.map({ (appInfoItems) -> SpringBoardAppCollectionViewController in
+            let controller = SpringBoardAppCollectionViewController()
+            controller.appInfoItems = appInfoItems
+            
+            return controller
+        })
+        pageViewController.setViewControllers([pageViewSubViewControllers[0]], direction: .forward, animated: false, completion: nil)
         pageViewController.dataSource = self
         
         // Add wallpaper view
@@ -54,23 +88,32 @@ public class SpringBoardViewController: UIViewController {
 
 extension SpringBoardViewController: UIPageViewControllerDataSource {
     
+    func nextPageViewControllerFor(viewController: UIViewController, before: Bool) -> UIViewController? {
+        let currentIndex = pageViewSubViewControllers.index(of: viewController)!
+        let nextIndex = max(0, min(pageViewSubViewControllers.count - 1, before ? currentIndex - 1 : currentIndex + 1))
+        let nextViewController = pageViewSubViewControllers[nextIndex]
+        
+        guard nextViewController !== viewController else {
+            return nil
+        }
+        
+        return nextViewController
+    }
+    
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        // TODO: return correct vc here
-        return SpringBoardAppCollectionViewController()
+        return nextPageViewControllerFor(viewController: viewController, before: true)
     }
     
     public func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        // TODO: return correct vc here
-        return SpringBoardAppCollectionViewController()
+        return nextPageViewControllerFor(viewController: viewController, before: false)
     }
     
     public func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        // TODO: return correct value
-        return 3
+        return appIconLayoutInfoItems.count
     }
     
     public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        // TODO: return correct value
-        return 1
+    // todo: is this correct?
+        return 0
     }
 }
