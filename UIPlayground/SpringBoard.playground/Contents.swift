@@ -4,5 +4,5 @@ import UIKit
 import UIPlaygroundUI
 import PlaygroundSupport
 
-let springBoardController = SpringBoardViewController()
-PlaygroundPage.current.liveView = springBoardController
+//let springBoardController = SpringBoardViewController()
+//PlaygroundPage.current.liveView = springBoardController
