@@ -16,6 +16,7 @@
 		37979B0E1D91DBF700B33595 /* SpringBoardAppIconViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37979AF61D91CA7800B33595 /* SpringBoardAppIconViewCell.swift */; };
 		37979B0F1D91DBFA00B33595 /* SpringBoardAppCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37979AF81D91CAF600B33595 /* SpringBoardAppCollectionViewController.swift */; };
 		37979B131D91EAB200B33595 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37979B121D91EAB200B33595 /* Assets.xcassets */; };
+		37FF81151D93337F003C5DAE /* UIPlaygroundElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AC1D71D579714006F56BF /* UIPlaygroundElements.framework */; };
 		7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0B835E1D7786D000681D0B /* SequenceTypeExtensions.swift */; };
 		7C2398211D87010A007F2CCF /* Point3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2398201D87010A007F2CCF /* Point3D.swift */; };
 		7C2398231D8702BA007F2CCF /* MathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2398221D8702BA007F2CCF /* MathExtensions.swift */; };
@@ -117,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37FF81151D93337F003C5DAE /* UIPlaygroundElements.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
