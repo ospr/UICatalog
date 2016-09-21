@@ -23,7 +23,7 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
         let viewLayout = UICollectionViewFlowLayout()
         // TODO: don't hardcode here
         viewLayout.itemSize = CGSize(width: 74, height: 80)
-        viewLayout.sectionInset = UIEdgeInsets(top: 28, left: 27, bottom: 28, right: 27)
+        viewLayout.sectionInset = UIEdgeInsets(top: 28, left: 20, bottom: 28, right: 20)
         super.init(collectionViewLayout: viewLayout)
     }
     
@@ -36,7 +36,7 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView!.backgroundColor = .clear
+        collectionView!.backgroundColor = .blue
         collectionView!.register(SpringBoardAppIconViewCell.self, forCellWithReuseIdentifier: "AppIconCell")
     }
     
