@@ -36,7 +36,7 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView!.backgroundColor = .blue
+        collectionView!.backgroundColor = .clear
         collectionView!.register(SpringBoardAppIconViewCell.self, forCellWithReuseIdentifier: "AppIconCell")
     }
     
