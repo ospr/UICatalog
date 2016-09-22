@@ -30,8 +30,10 @@ public class SpringBoardViewController: UIViewController {
     ]
     
     public var wallpaperImage: UIImage? {
-        get { return wallpaperView.image }
-        set { wallpaperView.image = newValue }
+        didSet {
+            view.layoutIfNeeded()
+            wallpaperView.image = prepareWallpaperImage(image: wallpaperImage)
+        }
     }
     
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -63,7 +65,6 @@ public class SpringBoardViewController: UIViewController {
         view.addSubview(wallpaperView)
         wallpaperView.translatesAutoresizingMaskIntoConstraints = false
         wallpaperView.anchorConstraintsToFitSuperview()
-        wallpaperImage = UIImage(named: "BackgroundWallpaper", inBundleForObject: self)
         
         // Add page view
         // TODO: do the view controller child methods here too
@@ -83,6 +84,67 @@ public class SpringBoardViewController: UIViewController {
         
         // Constrain top of dock to bottom of page view
         dockView.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor).isActive = true
+        
+        wallpaperImage = UIImage(named: "BackgroundWallpaper", inBundleForObject: self)
+    }
+    
+    // MARK: - Working with wallpaper
+    
+    private func prepareWallpaperImage(image: UIImage?) -> UIImage? {
+        guard var newImage = image else {
+            return nil
+        }
+        
+        // Resize image so that it's just big enough for the wallpaper view
+        // This will increase performance when applying to effects below
+        let imageRect = wallpaperView.bounds
+        UIGraphicsBeginImageContextWithOptions(imageRect.size, true, 0)
+        newImage.draw(in: imageRect)
+        newImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        guard var newCGImage = newImage.cgImage else {
+            return nil
+        }
+        
+        // Apply a blur effect
+        if let blurFilter = CIFilter(name: "CIGaussianBlur") {
+            let start = Date()
+            
+            let ciContext = CIContext()
+            let ciImage = CIImage(cgImage: newCGImage)
+            blurFilter.setValue(ciImage, forKey: kCIInputImageKey)
+            blurFilter.setValue(1, forKey: kCIInputRadiusKey)
+            
+            let outputCIImage = blurFilter.value(forKey: kCIOutputImageKey) as! CIImage
+            newCGImage = ciContext.createCGImage(outputCIImage, from: outputCIImage.extent)!
+            
+            print("time: \(-start.timeIntervalSinceNow)")
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(imageRect.size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
+        // Draw image (must flip the coordinate system first)
+        context.saveGState()
+        context.translateBy(x: 0, y: imageRect.size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.draw(newCGImage, in: imageRect)
+        context.restoreGState()
+        
+        // Draw a transparent dark overlay to dim the image
+        context.setFillColor(UIColor.black.withAlphaComponent(0.3).cgColor)
+        let path = UIBezierPath(rect: imageRect)
+        path.fill()
+        
+        // Get final image
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()!
+        
+        UIGraphicsEndImageContext()
+        
+        return finalImage
     }
 }
 
