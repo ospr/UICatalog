@@ -38,6 +38,24 @@ public extension UIView {
         topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
         bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
     }
+    
+    public func anchorConstraintsToCenterInSuperview() {
+        guard let superview = superview else {
+            return
+        }
+        
+        centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
+    }
+
+    public func anchorConstraintsProporitonalSizeToSuperview(multiplier: CGFloat = 1.0) {
+        guard let superview = superview else {
+            return
+        }
+        
+        heightAnchor.constraint(equalTo: superview.heightAnchor, multiplier: multiplier).isActive = true
+        widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: multiplier).isActive = true
+    }
 }
 
 // MARK: - Layer Support
