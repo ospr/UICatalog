@@ -28,8 +28,8 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let toView = transitionContext.view(forKey: .to) else { return }
-        guard let fromViewController = transitionContext.viewController(forKey: .from) else { return }
+        let toView = transitionContext.view(forKey: .to)!
+        let fromViewController = transitionContext.viewController(forKey: .from)!
         let containerView = transitionContext.containerView
         let finalFrame = transitionContext.finalFrame(for: fromViewController)
         
