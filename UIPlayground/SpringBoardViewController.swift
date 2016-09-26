@@ -11,6 +11,10 @@ import UIPlaygroundElements
 
 public class SpringBoardViewController: UIViewController {
     
+    // TODO: clean this up
+    var selectedAppInfo: SpringBoardAppInfo?
+    var selectedAppFrame: CGRect?
+    
     var appIconLayoutInfoItems = [
         [
             SpringBoardAppInfo(appName: "UIPlayground", image: UIImage(named: "AppCard-UIPlayground-Icon")!),
@@ -181,10 +185,27 @@ extension SpringBoardViewController: UIPageViewControllerDataSource {
     }
 }
 
+extension SpringBoardViewController: UIViewControllerTransitioningDelegate {
+
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        // TODO: try not to use ! here?
+        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!)
+    }
+}
+
 extension SpringBoardViewController: SpringBoardAppCollectionViewControllerDelegate {
     
-    func springBoardAppCollectionViewController(viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo) {
-        print("selected: \(appInfo)")
-        // TODO: handle app selection
+    func springBoardAppCollectionViewController(viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo, selectionRect: CGRect) {
+        selectedAppInfo = appInfo
+        selectedAppFrame = selectionRect
+        
+        // TODO: finish this
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .green
+        viewController.modalPresentationStyle = .custom
+        viewController.transitioningDelegate = self
+        present(viewController, animated: true) {
+            viewController.dismiss(animated: false, completion: nil)
+        }   
     }
 }
