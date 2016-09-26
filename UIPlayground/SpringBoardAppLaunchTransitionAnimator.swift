@@ -32,7 +32,6 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         
         let toViewSnapshot = toView.snapshotView(afterScreenUpdates: true)!
         toViewSnapshot.frame = appIconFrame
-        toViewSnapshot.layer.cornerRadius = 20
         toViewSnapshot.layer.masksToBounds = true
         
         containerView.addSubview(toView)
@@ -56,7 +55,6 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
             
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0, animations: {
                 toViewSnapshot.frame = finalFrame
-                toViewSnapshot.layer.cornerRadius = 0
             })
             }, completion: { _ in
                 toView.isHidden = false
@@ -64,5 +62,15 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
                 appIconImageView.removeFromSuperview()
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
+        
+        // Animate corner radius seprately since CALayer properties can't be animated
+        // directly by using UIView animation mechanisms
+        toViewSnapshot.layer.cornerRadius = 0
+        let animation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animation.fromValue = 14.0
+        animation.toValue = toViewSnapshot.layer.cornerRadius
+        animation.duration = duration
+        toViewSnapshot.layer.add(animation, forKey: "cornerRadius")
     }
 }
