@@ -13,6 +13,9 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     let appInfo: SpringBoardAppInfo
     let appIconFrame: CGRect
     
+    var startingCornerRadius = CGFloat(14)
+    var duration = TimeInterval(1)
+    
     init(appInfo: SpringBoardAppInfo, appIconFrame: CGRect) {
         self.appInfo = appInfo
         self.appIconFrame = appIconFrame
@@ -21,7 +24,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 1
+        return duration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -44,8 +47,6 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         toViewSnapshot.addSubview(appIconImageView)
         appIconImageView.translatesAutoresizingMaskIntoConstraints = false
         appIconImageView.anchorConstraintsToFitSuperview()
-
-        let duration = transitionDuration(using: transitionContext)
         
         UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModeCubic, animations: {
             
@@ -68,7 +69,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         toViewSnapshot.layer.cornerRadius = 0
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        animation.fromValue = 14.0
+        animation.fromValue = startingCornerRadius
         animation.toValue = toViewSnapshot.layer.cornerRadius
         animation.duration = duration
         toViewSnapshot.layer.add(animation, forKey: "cornerRadius")
