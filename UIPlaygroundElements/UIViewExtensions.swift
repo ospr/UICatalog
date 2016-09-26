@@ -66,3 +66,18 @@ public extension UIView {
         layer.cornerRadius = bounds.size.width / 2.0
     }
 }
+
+// MARK: - Snapshot Support
+
+public extension UIView {
+    
+    public func snapshot(withScale scale: CGFloat, afterScreenUpdates: Bool = false) -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = scale
+        format.opaque = isOpaque
+        
+        return UIGraphicsImageRenderer(bounds: bounds, format: format).image { (context) in
+            drawHierarchy(in: bounds, afterScreenUpdates: afterScreenUpdates)
+        }
+    }
+}
