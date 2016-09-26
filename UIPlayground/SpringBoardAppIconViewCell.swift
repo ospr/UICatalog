@@ -14,7 +14,7 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
     let appNameFont = UIFont.systemFont(ofSize: 12)
     
     let appNameLabel = UILabel()
-    let appIconImageView = UIImageView()
+    let appIconButtonView = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +30,7 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
     
     func setup() {
         let stackView = UIStackView(arrangedSubviews: [
-            appIconImageView,
+            appIconButtonView,
             appNameLabel,
         ])
         stackView.axis = .vertical
@@ -44,10 +44,10 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
         mask.contents = UIImage(named: "AppIconMask", inBundleForObject: self)!.cgImage
         mask.frame = CGRect(x: 0, y: 0, width: appIconLength, height: appIconLength)
         mask.contentsGravity = kCAGravityResize
-        appIconImageView.layer.mask = mask
-        appIconImageView.layer.masksToBounds = true
-        appIconImageView.heightAnchor.constraint(equalToConstant: appIconLength).isActive = true
-        appIconImageView.heightAnchor.constraint(equalTo: appIconImageView.widthAnchor, multiplier: 1).isActive = true
+        appIconButtonView.layer.mask = mask
+        appIconButtonView.layer.masksToBounds = true
+        appIconButtonView.heightAnchor.constraint(equalToConstant: appIconLength).isActive = true
+        appIconButtonView.heightAnchor.constraint(equalTo: appIconButtonView.widthAnchor, multiplier: 1).isActive = true
         
         appNameLabel.textColor = .white
         appNameLabel.font = appNameFont

@@ -55,6 +55,7 @@ public class SpringBoardViewController: UIViewController {
         pageViewSubViewControllers = appIconLayoutInfoItems.map({ (appInfoItems) -> SpringBoardAppCollectionViewController in
             let controller = SpringBoardAppCollectionViewController()
             controller.appInfoItems = appInfoItems
+            controller.delegate = self
             
             return controller
         })
@@ -177,5 +178,13 @@ extension SpringBoardViewController: UIPageViewControllerDataSource {
     public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
     // todo: is this correct?
         return 0
+    }
+}
+
+extension SpringBoardViewController: SpringBoardAppCollectionViewControllerDelegate {
+    
+    func springBoardAppCollectionViewController(viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo) {
+        print("selected: \(appInfo)")
+        // TODO: handle app selection
     }
 }
