@@ -16,7 +16,8 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     
     var startingCornerRadius = CGFloat(14)
     var otherAppZoomScale = CGFloat(5)
-    var duration = TimeInterval(1)
+    var wallpaperZoomScale = CGFloat(1.5)
+    var duration = TimeInterval(0.3)
     
     init(appInfo: SpringBoardAppInfo, appIconFrame: CGRect, springBoardViewController: SpringBoardViewController) {
         self.appInfo = appInfo
@@ -36,6 +37,10 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let fromViewController = transitionContext.viewController(forKey: .from)!
         let containerView = transitionContext.containerView
         let finalFrame = transitionContext.finalFrame(for: fromViewController)
+        
+        let wallpaperSnapshotView = springBoardViewController.wallpaperView.snapshotView(afterScreenUpdates: false)!
+        containerView.addSubview(wallpaperSnapshotView)
+        wallpaperSnapshotView.frame = containerView.bounds
         
         let appCollectionSnapshotView = UIImageView()
         appCollectionSnapshotView.image = snapshotImageForZoomingAppIcons(from: springBoardViewController)
@@ -71,12 +76,14 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
                 toViewSnapshot.frame = finalFrame
                 appCollectionSnapshotView.alpha = 0
                 appCollectionSnapshotView.transform = CGAffineTransform(scaleX: self.otherAppZoomScale, y: self.otherAppZoomScale)
+                wallpaperSnapshotView.transform = CGAffineTransform(scaleX: self.wallpaperZoomScale, y: self.wallpaperZoomScale)
             })
             }, completion: { _ in
                 toView.isHidden = false
                 toViewSnapshot.removeFromSuperview()
                 appIconImageView.removeFromSuperview()
                 appCollectionSnapshotView.removeFromSuperview()
+                self.springBoardViewController.containerView.isHidden = false
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
         
@@ -92,7 +99,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     }
     
     func snapshotImageForZoomingAppIcons(from viewController: SpringBoardViewController) -> UIImage {
-        let springBoardView = viewController.view!
+        let springBoardView = viewController.containerView
         // Slightly increase the scale here so that when the image is zoomed things still look sharp
         let imageScale = springBoardView.window!.screen.scale * 2
         let snapshotImage = springBoardView.snapshotImage(with: imageScale, afterScreenUpdates: false)

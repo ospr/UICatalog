@@ -40,6 +40,7 @@ public class SpringBoardViewController: UIViewController {
         }
     }
     
+    let containerView = UIView()
     let pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     var pageViewSubViewControllers = [UIViewController]()
     let dockView = SpringBoardDockView()
@@ -71,16 +72,21 @@ public class SpringBoardViewController: UIViewController {
         wallpaperView.translatesAutoresizingMaskIntoConstraints = false
         wallpaperView.anchorConstraintsToFitSuperview()
         
+        view.addSubview(containerView)
+        containerView.isOpaque = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.anchorConstraintsToFitSuperview()
+        
         // Add page view
         // TODO: do the view controller child methods here too
-        view.addSubview(pageViewController.view)
+        containerView.addSubview(pageViewController.view)
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         // Add dock view
-        view.addSubview(dockView)
+        containerView.addSubview(dockView)
         dockView.translatesAutoresizingMaskIntoConstraints = false
         dockView.heightAnchor.constraint(equalToConstant: 96).isActive = true
         dockView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
