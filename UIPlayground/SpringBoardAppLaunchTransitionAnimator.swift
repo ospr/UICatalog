@@ -102,8 +102,23 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let springBoardView = viewController.containerView
         // Slightly increase the scale here so that when the image is zoomed things still look sharp
         let imageScale = springBoardView.window!.screen.scale * 2
-        let snapshotImage = springBoardView.snapshotImage(with: imageScale, afterScreenUpdates: false)
 
-        return snapshotImage
+        // Here we cheat a little bit by getting a snapshot of the dock using the full window
+        // hierarchy (b/c it is a visual effect view, otherwise it doesn't retain the blur) and
+        // placing it in the dock location of the original snapshot. The animation won't be perfect
+        // but it's quick enough that the user won't notice this little cheat
+        let snapshotImage = springBoardView.snapshotImage(with: imageScale, afterScreenUpdates: false)
+        let dockSnapshotImage = viewController.dockView.fullWindowHierarchySnapshotImage(with: imageScale)!
+        
+        let imageBounds = springBoardView.bounds
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = imageScale
+        format.opaque = false
+        let finalImage = UIGraphicsImageRenderer(bounds: imageBounds, format: format).image { (context) in
+            snapshotImage.draw(in: imageBounds)
+            dockSnapshotImage.draw(in: viewController.dockView.frame)
+        }
+
+        return finalImage
     }
 }

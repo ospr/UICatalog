@@ -80,4 +80,19 @@ public extension UIView {
             drawHierarchy(in: bounds, afterScreenUpdates: afterScreenUpdates)
         }
     }
+    
+    func fullWindowHierarchySnapshotImage(with scale: CGFloat? = nil, afterScreenUpdates: Bool = false) -> UIImage? {
+        guard let window = window else { return nil }
+        
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = scale ?? window.screen.scale
+        format.opaque = true
+        
+        let drawBounds = CGRect(x: -frame.origin.x, y: -frame.origin.y,
+                                width: window.frame.width, height: window.frame.height)
+        
+        return UIGraphicsImageRenderer(bounds: bounds, format: format).image { (context) in
+            window.drawHierarchy(in: drawBounds, afterScreenUpdates: afterScreenUpdates)
+        }
+    }
 }
