@@ -93,6 +93,12 @@ public class SpringBoardViewController: UIViewController {
         wallpaperImage = UIImage(named: "BackgroundWallpaper", inBundleForObject: self)
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     // MARK: - Working with wallpaper
     
     private func prepareWallpaperImage(image: UIImage?) -> UIImage? {
@@ -189,7 +195,7 @@ extension SpringBoardViewController: UIViewControllerTransitioningDelegate {
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // TODO: try not to use ! here?
-        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!)
+        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!, springBoardViewController: self)
     }
 }
 

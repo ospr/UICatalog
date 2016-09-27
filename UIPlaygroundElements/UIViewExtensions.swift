@@ -71,7 +71,7 @@ public extension UIView {
 
 public extension UIView {
     
-    public func snapshot(withScale scale: CGFloat = 0, afterScreenUpdates: Bool = false) -> UIImage {
+    public func snapshotImage(with scale: CGFloat = 0, afterScreenUpdates: Bool = false) -> UIImage {
         let format = UIGraphicsImageRendererFormat()
         format.scale = scale
         format.opaque = isOpaque
