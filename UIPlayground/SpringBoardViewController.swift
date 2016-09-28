@@ -215,6 +215,11 @@ extension SpringBoardViewController: UIViewControllerTransitioningDelegate {
         // TODO: try not to use ! here?
         return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!, springBoardViewController: self)
     }
+    
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        // TODO: finish this
+        return nil
+    }
 }
 
 extension SpringBoardViewController: SpringBoardAppCollectionViewControllerDelegate {
@@ -224,12 +229,9 @@ extension SpringBoardViewController: SpringBoardAppCollectionViewControllerDeleg
         selectedAppFrame = selectionRect
         
         // TODO: finish this
-        let viewController = UIViewController()
-        viewController.view.backgroundColor = .green
+        let viewController = SpringBoardLaunchedAppViewController()
         viewController.modalPresentationStyle = .custom
         viewController.transitioningDelegate = self
-        present(viewController, animated: true) {
-            viewController.dismiss(animated: false, completion: nil)
-        }   
+        present(viewController, animated: true, completion: nil)
     }
 }
