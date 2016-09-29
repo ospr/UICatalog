@@ -18,7 +18,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     var startingCornerRadius = CGFloat(14)
     var otherAppZoomScale = CGFloat(5)
     var wallpaperZoomScale = CGFloat(1.5)
-    var duration = TimeInterval(10.3)
+    var duration = TimeInterval(0.3)
     
     init(appInfo: SpringBoardAppInfo, appIconButton: UIButton, springBoardViewController: SpringBoardViewController, reversed: Bool) {
         self.appInfo = appInfo
