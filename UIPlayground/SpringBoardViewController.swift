@@ -120,60 +120,21 @@ public class SpringBoardViewController: UIViewController {
     // MARK: - Working with wallpaper
     
     private func prepareWallpaperImage(image: UIImage?) -> UIImage? {
-        guard var newImage = image else {
+        guard let image = image else {
             return nil
         }
-        
-        // Resize image so that it's just big enough for the wallpaper view
-        // This will increase performance when applying to effects below
+
         let imageRect = wallpaperView.bounds
-        UIGraphicsBeginImageContextWithOptions(imageRect.size, true, 0)
-        newImage.draw(in: imageRect)
-        newImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
         
-        guard var newCGImage = newImage.cgImage else {
-            return nil
-        }
-        
-        // Apply a blur effect
-        if let blurFilter = CIFilter(name: "CIGaussianBlur") {
-            let start = Date()
+        return UIGraphicsImageRenderer(size: imageRect.size, scale: 0, opaque: true).image { (context) in
+            // Resize image so that it's just big enough for the wallpaper view
+            image.draw(in: imageRect)
             
-            let ciContext = CIContext()
-            let ciImage = CIImage(cgImage: newCGImage)
-            blurFilter.setValue(ciImage, forKey: kCIInputImageKey)
-            blurFilter.setValue(1, forKey: kCIInputRadiusKey)
-            
-            let outputCIImage = blurFilter.value(forKey: kCIOutputImageKey) as! CIImage
-            newCGImage = ciContext.createCGImage(outputCIImage, from: outputCIImage.extent)!
-            
-            print("time: \(-start.timeIntervalSinceNow)")
+            // Draw a transparent dark overlay to dim the image
+            context.cgContext.setFillColor(UIColor.black.withAlphaComponent(0.3).cgColor)
+            let path = UIBezierPath(rect: imageRect)
+            path.fill()
         }
-        
-        UIGraphicsBeginImageContextWithOptions(imageRect.size, false, 0)
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return nil
-        }
-        
-        // Draw image (must flip the coordinate system first)
-        context.saveGState()
-        context.translateBy(x: 0, y: imageRect.size.height)
-        context.scaleBy(x: 1.0, y: -1.0)
-        context.draw(newCGImage, in: imageRect)
-        context.restoreGState()
-        
-        // Draw a transparent dark overlay to dim the image
-        context.setFillColor(UIColor.black.withAlphaComponent(0.3).cgColor)
-        let path = UIBezierPath(rect: imageRect)
-        path.fill()
-        
-        // Get final image
-        let finalImage = UIGraphicsGetImageFromCurrentImageContext()!
-        
-        UIGraphicsEndImageContext()
-        
-        return finalImage
     }
 }
 
@@ -213,12 +174,12 @@ extension SpringBoardViewController: UIViewControllerTransitioningDelegate {
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // TODO: try not to use ! here?
-        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!, springBoardViewController: self)
+        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!, springBoardViewController: self, reversed: false)
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // TODO: finish this
-        return nil
+        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!, springBoardViewController: self, reversed: true)
     }
 }
 
