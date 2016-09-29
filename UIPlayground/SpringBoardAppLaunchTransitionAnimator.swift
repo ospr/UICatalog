@@ -12,18 +12,17 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     
     let reversed: Bool
     let appInfo: SpringBoardAppInfo
-    let appIconFrame: CGRect
+    let appIconButton: UIButton
     let springBoardViewController: SpringBoardViewController
     
     var startingCornerRadius = CGFloat(14)
     var otherAppZoomScale = CGFloat(5)
     var wallpaperZoomScale = CGFloat(1.5)
-    var duration = TimeInterval(0.3)
+    var duration = TimeInterval(10.3)
     
-    init(appInfo: SpringBoardAppInfo, appIconFrame: CGRect, springBoardViewController: SpringBoardViewController, reversed: Bool) {
+    init(appInfo: SpringBoardAppInfo, appIconButton: UIButton, springBoardViewController: SpringBoardViewController, reversed: Bool) {
         self.appInfo = appInfo
-        // TODO: fix the need for an offset here
-        self.appIconFrame = appIconFrame.offsetBy(dx: -7, dy: 0)
+        self.appIconButton = appIconButton
         self.springBoardViewController = springBoardViewController
         self.reversed = reversed
         
@@ -35,6 +34,8 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        let appIconFrame = appIconButton.convert(appIconButton.frame, to: nil)
+        
 //        todo: clean this up
         let toViewController = transitionContext.viewController(forKey: .to)!
         let toView = toViewController.view!
@@ -130,11 +131,15 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         // Slightly increase the scale here so that when the image is zoomed things still look sharp
         let imageScale = springBoardView.window!.screen.scale * 2
 
+        // Get a snapshot of the app collection without the selected button
+        appIconButton.isHidden = true
+        let snapshotImage = springBoardView.snapshotImage(with: imageScale, afterScreenUpdates: true)
+        appIconButton.isHidden = false
+        
         // Here we cheat a little bit by getting a snapshot of the dock using the full window
         // hierarchy (b/c it is a visual effect view, otherwise it doesn't retain the blur) and
         // placing it in the dock location of the original snapshot. The animation won't be perfect
         // but it's quick enough that the user won't notice this little cheat
-        let snapshotImage = springBoardView.snapshotImage(with: imageScale, afterScreenUpdates: false)
         let dockSnapshotImage = viewController.dockView.fullWindowHierarchySnapshotImage(with: imageScale)!
         
         let imageBounds = springBoardView.bounds

@@ -13,7 +13,7 @@ public class SpringBoardViewController: UIViewController {
     
     // TODO: clean this up
     var selectedAppInfo: SpringBoardAppInfo?
-    var selectedAppFrame: CGRect?
+    var selectedAppButton: UIButton?
     
     var appIconLayoutInfoItems = [
         [
@@ -199,20 +199,20 @@ extension SpringBoardViewController: UIViewControllerTransitioningDelegate {
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // TODO: try not to use ! here?
-        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!, springBoardViewController: self, reversed: false)
+        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconButton: selectedAppButton!, springBoardViewController: self, reversed: false)
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // TODO: finish this
-        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconFrame: selectedAppFrame!, springBoardViewController: self, reversed: true)
+        return SpringBoardAppLaunchTransitionAnimator(appInfo: selectedAppInfo!, appIconButton: selectedAppButton!, springBoardViewController: self, reversed: true)
     }
 }
 
 extension SpringBoardViewController: SpringBoardAppCollectionViewControllerDelegate {
     
-    func springBoardAppCollectionViewController(viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo, selectionRect: CGRect) {
+    func springBoardAppCollectionViewController(_ viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo, selectedAppIconButton: UIButton) {
         selectedAppInfo = appInfo
-        selectedAppFrame = selectionRect
+        selectedAppButton = selectedAppIconButton
         
         // TODO: finish this
         let viewController = SpringBoardLaunchedAppViewController()

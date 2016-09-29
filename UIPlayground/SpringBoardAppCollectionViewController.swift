@@ -10,7 +10,7 @@ import UIKit
 
 protocol SpringBoardAppCollectionViewControllerDelegate: class {
     
-    func springBoardAppCollectionViewController(viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo, selectionRect: CGRect)
+    func springBoardAppCollectionViewController(_ viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo, selectedAppIconButton: UIButton)
 }
 
 private let reuseIdentifier = "Cell"
@@ -77,8 +77,6 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
     
     func appIconButtonWasTapped(sender: UIButton) {
         let appInfo = appInfoByAppIconButtons[sender]!
-        // TODO: Clean this up
-        let selectionRect = sender.convert(sender.frame, to: self.view.window)
-        delegate?.springBoardAppCollectionViewController(viewController: self, didSelectAppInfo: appInfo, selectionRect: selectionRect)
+        delegate?.springBoardAppCollectionViewController(self, didSelectAppInfo: appInfo, selectedAppIconButton: sender)
     }
 }
