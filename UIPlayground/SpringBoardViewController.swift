@@ -58,6 +58,10 @@ public class SpringBoardViewController: UIViewController {
     let dockView = SpringBoardDockView()
     let wallpaperView = UIImageView()
     
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     public init() {
         super.init(nibName: nil, bundle: nil)
         

@@ -11,6 +11,8 @@
 		374A3A841D91EEE600C46836 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A3A831D91EEE600C46836 /* UIImageExtensions.swift */; };
 		3772B4A71D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772B4A61D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift */; };
 		3772B4A91D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772B4A81D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift */; };
+		3772B4AE1D9DAB5800F1A169 /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772B4AC1D9D9AAC00F1A169 /* UINavigationControllerExtensions.swift */; };
+		3772B4B01D9DBF3C00F1A169 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772B4AF1D9DBF3C00F1A169 /* SplitViewController.swift */; };
 		3783B6441D91F32500BEC7DE /* SpringBoardDockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3783B6431D91F32500BEC7DE /* SpringBoardDockView.swift */; };
 		37979B051D91DBD300B33595 /* UIPlaygroundUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 37979B031D91DBD300B33595 /* UIPlaygroundUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37979B081D91DBD300B33595 /* UIPlaygroundUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37979B011D91DBD200B33595 /* UIPlaygroundUI.framework */; };
@@ -82,6 +84,8 @@
 		374A3A831D91EEE600C46836 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		3772B4A61D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardLaunchedAppViewController.swift; sourceTree = "<group>"; };
 		3772B4A81D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGraphicsImageRendererExtensions.swift; sourceTree = "<group>"; };
+		3772B4AC1D9D9AAC00F1A169 /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UINavigationControllerExtensions.swift; path = UIPlaygroundElements/UINavigationControllerExtensions.swift; sourceTree = SOURCE_ROOT; };
+		3772B4AF1D9DBF3C00F1A169 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		3783B6431D91F32500BEC7DE /* SpringBoardDockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardDockView.swift; sourceTree = "<group>"; };
 		37979AB31D9194EA00B33595 /* SpringBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardViewController.swift; sourceTree = "<group>"; };
 		37979AF61D91CA7800B33595 /* SpringBoardAppIconViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardAppIconViewCell.swift; sourceTree = "<group>"; };
@@ -268,6 +272,8 @@
 				7C2398221D8702BA007F2CCF /* MathExtensions.swift */,
 				374A3A831D91EEE600C46836 /* UIImageExtensions.swift */,
 				3772B4A81D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift */,
+				3772B4AC1D9D9AAC00F1A169 /* UINavigationControllerExtensions.swift */,
+				3772B4AF1D9DBF3C00F1A169 /* SplitViewController.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -476,7 +482,9 @@
 				7C3AC21F1D66438E006F56BF /* CardView.swift in Sources */,
 				7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */,
 				7C3AC1E91D579E4A006F56BF /* UIViewExtensions.swift in Sources */,
+				3772B4AE1D9DAB5800F1A169 /* UINavigationControllerExtensions.swift in Sources */,
 				7C2398211D87010A007F2CCF /* Point3D.swift in Sources */,
+				3772B4B01D9DBF3C00F1A169 /* SplitViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
