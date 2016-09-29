@@ -22,8 +22,8 @@ open class NavigationController: UINavigationController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         // If the navbar is hidden, then let the visible view controller decide the
         // status bar style
-        if navigationBar.isHidden, let visibleViewController = self.visibleViewController {
-            return visibleViewController.preferredStatusBarStyle
+        if navigationBar.isHidden, let topViewController = self.topViewController {
+            return topViewController.preferredStatusBarStyle
         }
         return super.preferredStatusBarStyle
     }

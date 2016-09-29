@@ -59,6 +59,11 @@ public class SpringBoardViewController: UIViewController {
     let wallpaperView = UIImageView()
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
+        // Have the presented view controller specify the status bar style
+        if let presentedViewController = presentedViewController, !presentedViewController.isBeingDismissed {
+            return presentedViewController.preferredStatusBarStyle
+        }
+        
         return .lightContent
     }
     
@@ -95,7 +100,10 @@ public class SpringBoardViewController: UIViewController {
         
         // Add page view
         // TODO: do the view controller child methods here too
+        pageViewController.willMove(toParentViewController: self)
         containerView.addSubview(pageViewController.view)
+        addChildViewController(pageViewController)
+        pageViewController.didMove(toParentViewController: self)
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -119,6 +127,19 @@ public class SpringBoardViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        
     }
     
     // MARK: - Working with wallpaper
