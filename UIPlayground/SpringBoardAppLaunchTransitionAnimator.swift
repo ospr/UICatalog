@@ -42,15 +42,8 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let containerView = transitionContext.containerView
         let finalFrame = transitionContext.finalFrame(for: fromViewController)
         
-        // TODO: clean up
-        let appInitialView: UIView = {
-            if reversed {
-                return fromViewController.view!
-            }
-            else {
-                return toView
-            }
-        }()
+        // TODO: clean up !
+        let appInitialView = reversed ? fromViewController.view! : toView
         
         print("duration: \(duration), toViewController: \(toViewController), fromViewController: \(fromViewController)")
         
