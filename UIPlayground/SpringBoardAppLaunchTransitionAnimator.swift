@@ -138,10 +138,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let dockSnapshotImage = viewController.dockView.fullWindowHierarchySnapshotImage(with: imageScale)!
         
         let imageBounds = springBoardView.bounds
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = imageScale
-        format.opaque = false
-        let finalImage = UIGraphicsImageRenderer(bounds: imageBounds, format: format).image { (context) in
+        let finalImage = UIGraphicsImageRenderer(size: imageBounds.size, scale: imageScale, opaque: false).image { (context) in
             snapshotImage.draw(in: imageBounds)
             dockSnapshotImage.draw(in: viewController.dockView.frame)
         }
