@@ -15,14 +15,20 @@ class SpringBoardLaunchedAppViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         
         view.addSubview(exitButton)
         exitButton.translatesAutoresizingMaskIntoConstraints = false
         exitButton.anchorConstraintsToCenterInSuperview()
+        exitButton.contentEdgeInsets = UIEdgeInsets(top: 7, left: 20, bottom: 7, right: 20)
         exitButton.setTitle("Exit", for: .normal)
-        exitButton.titleLabel?.font = .systemFont(ofSize: 16)
+        exitButton.setTitleColor(.white, for: .normal)
+        exitButton.setTitleColor(.red, for: .highlighted)
+        exitButton.titleLabel?.font = .systemFont(ofSize: 26)
         exitButton.addTarget(self, action: #selector(exitPressed), for: .touchUpInside)
+        exitButton.backgroundColor = .black
+        exitButton.clipsToBounds = true
+        exitButton.layer.cornerRadius = 8
     }
     
     // MARK: - Actions
