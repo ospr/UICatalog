@@ -10,6 +10,7 @@ import Foundation
 
 class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
+    let reversed: Bool
     let appInfo: SpringBoardAppInfo
     let appIconFrame: CGRect
     let springBoardViewController: SpringBoardViewController
@@ -19,11 +20,12 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     var wallpaperZoomScale = CGFloat(1.5)
     var duration = TimeInterval(0.3)
     
-    init(appInfo: SpringBoardAppInfo, appIconFrame: CGRect, springBoardViewController: SpringBoardViewController) {
+    init(appInfo: SpringBoardAppInfo, appIconFrame: CGRect, springBoardViewController: SpringBoardViewController, reversed: Bool) {
         self.appInfo = appInfo
         // TODO: fix the need for an offset here
-        self.appIconFrame = appIconFrame.offsetBy(dx: -10, dy: 0)
+        self.appIconFrame = appIconFrame.offsetBy(dx: -7, dy: 0)
         self.springBoardViewController = springBoardViewController
+        self.reversed = reversed
         
         super.init()
     }
@@ -33,10 +35,24 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let toView = transitionContext.view(forKey: .to)!
+//        todo: clean this up
+        let toViewController = transitionContext.viewController(forKey: .to)!
+        let toView = toViewController.view!
         let fromViewController = transitionContext.viewController(forKey: .from)!
         let containerView = transitionContext.containerView
         let finalFrame = transitionContext.finalFrame(for: fromViewController)
+        
+        // TODO: clean up
+        let appInitialView: UIView = {
+            if reversed {
+                return fromViewController.view!
+            }
+            else {
+                return toView
+            }
+        }()
+        
+        print("duration: \(duration), toViewController: \(toViewController), fromViewController: \(fromViewController)")
         
         let wallpaperSnapshotView = springBoardViewController.wallpaperView.snapshotView(afterScreenUpdates: false)!
         containerView.addSubview(wallpaperSnapshotView)
@@ -51,52 +67,69 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         appCollectionSnapshotView.frame = containerView.bounds
         containerView.addSubview(appCollectionSnapshotView)
         
-        let toViewSnapshot = toView.snapshotView(afterScreenUpdates: true)!
-        toViewSnapshot.frame = appIconFrame
-        toViewSnapshot.layer.masksToBounds = true
+        let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
+        appInitialViewSnapshot.frame = appIconFrame
+        appInitialViewSnapshot.layer.masksToBounds = true
         
-        containerView.addSubview(toView)
-        containerView.addSubview(toViewSnapshot)
+        if !reversed {
+            containerView.addSubview(toView)
+        }
+        containerView.addSubview(appInitialViewSnapshot)
         toView.isHidden = true
         
         let appIconImageView = UIImageView()
         appIconImageView.image = appInfo.image
-        appIconImageView.frame = toViewSnapshot.bounds
-        toViewSnapshot.addSubview(appIconImageView)
+        appIconImageView.frame = appInitialViewSnapshot.bounds
+        appInitialViewSnapshot.addSubview(appIconImageView)
         appIconImageView.translatesAutoresizingMaskIntoConstraints = false
         appIconImageView.anchorConstraintsToFitSuperview()
         
-        UIView.animateKeyframes(withDuration: duration, delay: 0, options: .calculationModeCubic, animations: {
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/10, animations: {
-                appIconImageView.alpha = 0
+        let curveProvider = UICubicTimingParameters(animationCurve: reversed ? .easeIn : .easeOut)
+        let animator = UIViewPropertyAnimator(duration: duration, timingParameters: curveProvider)
+        
+        animator.addAnimations {
+            UIView.animateKeyframes(withDuration: self.duration, delay: 0, options: .calculationModeCubic, animations: {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/10, animations: {
+                    appIconImageView.alpha = 0
+                })
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0, animations: {
+                    appInitialViewSnapshot.frame = finalFrame
+                    appCollectionSnapshotView.alpha = 0
+                    appCollectionSnapshotView.transform = CGAffineTransform(scaleX: self.otherAppZoomScale, y: self.otherAppZoomScale)
+                    wallpaperSnapshotView.transform = CGAffineTransform(scaleX: self.wallpaperZoomScale, y: self.wallpaperZoomScale)
+                })
+                }, completion: { _ in
+                    toView.isHidden = false
+                    appInitialViewSnapshot.removeFromSuperview()
+                    appIconImageView.removeFromSuperview()
+                    appCollectionSnapshotView.removeFromSuperview()
+                    wallpaperSnapshotView.removeFromSuperview()
+                    self.springBoardViewController.containerView.isHidden = false
+                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
-            
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0, animations: {
-                toViewSnapshot.frame = finalFrame
-                appCollectionSnapshotView.alpha = 0
-                appCollectionSnapshotView.transform = CGAffineTransform(scaleX: self.otherAppZoomScale, y: self.otherAppZoomScale)
-                wallpaperSnapshotView.transform = CGAffineTransform(scaleX: self.wallpaperZoomScale, y: self.wallpaperZoomScale)
-            })
-            }, completion: { _ in
-                toView.isHidden = false
-                toViewSnapshot.removeFromSuperview()
-                appIconImageView.removeFromSuperview()
-                appCollectionSnapshotView.removeFromSuperview()
-                wallpaperSnapshotView.removeFromSuperview()
-                self.springBoardViewController.containerView.isHidden = false
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-        })
+        }
+        
+        // TODO: clean up
+        animator.isInterruptible = true
+        animator.startAnimation()
+        animator.pauseAnimation()
+        animator.fractionComplete = reversed ? 1 : 0
+        animator.isReversed = reversed
+        animator.startAnimation()
         
         // Animate corner radius seprately since CALayer properties can't be animated
         // directly by using UIView animation mechanisms
-        toViewSnapshot.layer.cornerRadius = 0
+        let startRadius = reversed ? 0 : startingCornerRadius
+        let endRadius = reversed ? startingCornerRadius : 0
+        appInitialViewSnapshot.layer.cornerRadius = endRadius
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        animation.fromValue = startingCornerRadius
-        animation.toValue = toViewSnapshot.layer.cornerRadius
+        animation.fromValue = startRadius
+        animation.toValue = appInitialViewSnapshot.layer.cornerRadius
         animation.duration = duration
-        toViewSnapshot.layer.add(animation, forKey: "cornerRadius")
+        appInitialViewSnapshot.layer.add(animation, forKey: "cornerRadius")
     }
     
     func snapshotImageForZoomingAppIcons(from viewController: SpringBoardViewController) -> UIImage {
