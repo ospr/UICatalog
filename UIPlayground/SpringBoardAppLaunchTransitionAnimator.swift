@@ -70,18 +70,20 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         }
         toView.isHidden = true
         
+        let appIconContainerView = UIView(frame: appIconFrame)
+        containerView.addSubview(appIconContainerView)
+        
         let appIconImageView = UIImageView(image: appInfo.image)
-        containerView.addSubview(appIconImageView)
-        appIconImageView.frame = appIconFrame
+        appIconContainerView.addSubview(appIconImageView)
+        // TODO: why don't these autolayout constraints work?
+        appIconImageView.frame = appIconContainerView.bounds
+        appIconImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
-        
-        
-        appInitialViewSnapshot.layer.masksToBounds = true
-        appIconImageView.addSubview(appInitialViewSnapshot)
         // TODO: why don't these autolayout constraints work?
 //        appInitialViewSnapshot.translatesAutoresizingMaskIntoConstraints = false
 //        appInitialViewSnapshot.anchorConstraintsToFitSuperview()
-        appInitialViewSnapshot.frame = CGRect(origin: .zero, size: appIconImageView.bounds.size)
+        appIconContainerView.addSubview(appInitialViewSnapshot)
+        appInitialViewSnapshot.frame = appIconContainerView.bounds
         appInitialViewSnapshot.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         appInitialViewSnapshot.alpha = 0
         
@@ -100,13 +102,14 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
                 })
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0, animations: {
-                    appIconImageView.frame = finalFrame
+                    appIconContainerView.frame = finalFrame
                     appCollectionSnapshotView.alpha = 0
                     appCollectionSnapshotView.transform = CGAffineTransform(scaleX: self.otherAppZoomScale, y: self.otherAppZoomScale)
                     wallpaperSnapshotView.transform = CGAffineTransform(scaleX: self.wallpaperZoomScale, y: self.wallpaperZoomScale)
                 })
                 }, completion: { _ in
                     toView.isHidden = false
+                    appIconContainerView.removeFromSuperview()
                     appInitialViewSnapshot.removeFromSuperview()
                     appIconImageView.removeFromSuperview()
                     appCollectionSnapshotView.removeFromSuperview()
@@ -128,13 +131,14 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         // directly by using UIView animation mechanisms
         let startRadius = reversed ? 0 : startingCornerRadius
         let endRadius = reversed ? startingCornerRadius : 0
-        appInitialViewSnapshot.layer.cornerRadius = endRadius
+        appIconContainerView.layer.cornerRadius = endRadius
+        appIconContainerView.clipsToBounds = true
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         animation.fromValue = startRadius
-        animation.toValue = appInitialViewSnapshot.layer.cornerRadius
+        animation.toValue = appIconContainerView.layer.cornerRadius
         animation.duration = duration
-        appInitialViewSnapshot.layer.add(animation, forKey: "cornerRadius")
+        appIconContainerView.layer.add(animation, forKey: "cornerRadius")
     }
     
     func snapshotImageForZoomingAppIcons(from viewController: SpringBoardViewController) -> UIImage {
