@@ -91,6 +91,7 @@ public class SpringBoardViewController: UIViewController {
         view.addSubview(wallpaperView)
         wallpaperView.translatesAutoresizingMaskIntoConstraints = false
         wallpaperView.anchorConstraintsToFitSuperview()
+        wallpaperView.contentMode = .scaleAspectFill
         
         view.addSubview(containerView)
         containerView.isOpaque = false
@@ -148,7 +149,7 @@ public class SpringBoardViewController: UIViewController {
             return nil
         }
 
-        let imageRect = wallpaperView.bounds
+        let imageRect = CGRect(origin: .zero, size: image.size)
         
         return UIGraphicsImageRenderer(size: imageRect.size, scale: 0, opaque: true).image { (context) in
             // Resize image so that it's just big enough for the wallpaper view
