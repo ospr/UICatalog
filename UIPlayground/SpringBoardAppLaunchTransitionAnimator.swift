@@ -59,8 +59,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         appCollectionSnapshotView.frame = containerView.bounds
         containerView.addSubview(appCollectionSnapshotView)
 
-        // TODO: plain old snapshot view here?
-        let appInitialViewSnapshot = UIImageView(image: appInitialView.snapshotImage(withScale: 0, afterScreenUpdates: true))//snapshotView(afterScreenUpdates: true)!
+        let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
         
         // TODO: can this be moved to the end of the animation?
         if !reversed {
