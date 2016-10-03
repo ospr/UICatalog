@@ -11,7 +11,6 @@ import Foundation
 class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     let reversed: Bool
-    let appInfo: SpringBoardAppInfo
     let appIconButton: UIButton
     let springBoardViewController: SpringBoardViewController
     
@@ -20,8 +19,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     var wallpaperZoomScale = CGFloat(1.5)
     var duration = TimeInterval(10.3)
     
-    init(appInfo: SpringBoardAppInfo, appIconButton: UIButton, springBoardViewController: SpringBoardViewController, reversed: Bool) {
-        self.appInfo = appInfo
+    init(appIconButton: UIButton, springBoardViewController: SpringBoardViewController, reversed: Bool) {
         self.appIconButton = appIconButton
         self.springBoardViewController = springBoardViewController
         self.reversed = reversed
@@ -73,7 +71,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let appIconContainerView = UIView(frame: appIconFrame)
         containerView.addSubview(appIconContainerView)
         
-        let appIconImageView = UIImageView(image: appInfo.image)
+        let appIconImageView = appIconButton.snapshotView(afterScreenUpdates: false)!
         appIconContainerView.addSubview(appIconImageView)
         // TODO: why don't these autolayout constraints work?
         appIconImageView.frame = appIconContainerView.bounds
