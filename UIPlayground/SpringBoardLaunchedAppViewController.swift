@@ -15,7 +15,7 @@ class SpringBoardLaunchedAppViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .red
         
         view.addSubview(exitButton)
         exitButton.translatesAutoresizingMaskIntoConstraints = false
