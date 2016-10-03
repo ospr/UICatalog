@@ -18,7 +18,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     var startingCornerRadius = CGFloat(14)
     var otherAppZoomScale = CGFloat(5)
     var wallpaperZoomScale = CGFloat(1.5)
-    var duration = TimeInterval(0.3)
+    var duration = TimeInterval(10.3)
     
     init(appInfo: SpringBoardAppInfo, appIconButton: UIButton, springBoardViewController: SpringBoardViewController, reversed: Bool) {
         self.appInfo = appInfo
@@ -60,36 +60,47 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
                                                               y: appIconFrame.midY / containerView.bounds.maxY)
         appCollectionSnapshotView.frame = containerView.bounds
         containerView.addSubview(appCollectionSnapshotView)
+
+        // TODO: plain old snapshot view here?
+        let appInitialViewSnapshot = UIImageView(image: appInitialView.snapshotImage(withScale: 0, afterScreenUpdates: true))//snapshotView(afterScreenUpdates: true)!
         
-        let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
-        appInitialViewSnapshot.frame = appIconFrame
-        appInitialViewSnapshot.layer.masksToBounds = true
-        
+        // TODO: can this be moved to the end of the animation?
         if !reversed {
             containerView.addSubview(toView)
         }
-        containerView.addSubview(appInitialViewSnapshot)
         toView.isHidden = true
         
-        let appIconImageView = UIImageView()
-        appIconImageView.image = appInfo.image
-        appIconImageView.frame = appInitialViewSnapshot.bounds
-        appInitialViewSnapshot.addSubview(appIconImageView)
-        appIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        appIconImageView.anchorConstraintsToFitSuperview()
+        let appIconImageView = UIImageView(image: appInfo.image)
+        containerView.addSubview(appIconImageView)
+        appIconImageView.frame = appIconFrame
+        
+        
+        
+        appInitialViewSnapshot.layer.masksToBounds = true
+        appIconImageView.addSubview(appInitialViewSnapshot)
+        // TODO: why don't these autolayout constraints work?
+//        appInitialViewSnapshot.translatesAutoresizingMaskIntoConstraints = false
+//        appInitialViewSnapshot.anchorConstraintsToFitSuperview()
+        appInitialViewSnapshot.frame = CGRect(origin: .zero, size: appIconImageView.bounds.size)
+        appInitialViewSnapshot.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        appInitialViewSnapshot.alpha = 0
+        
         
         let curveProvider = UICubicTimingParameters(animationCurve: reversed ? .easeIn : .easeOut)
         let animator = UIViewPropertyAnimator(duration: duration, timingParameters: curveProvider)
         
+        // TODO: constants for these
+        let alphaDuration = reversed ? 9/10.0 : 1 / 10.0
+        
         animator.addAnimations {
             UIView.animateKeyframes(withDuration: self.duration, delay: 0, options: .calculationModeCubic, animations: {
                 
-                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1/10, animations: {
-                    appIconImageView.alpha = 0
+                UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: alphaDuration, animations: {
+                    appInitialViewSnapshot.alpha = 1
                 })
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0, animations: {
-                    appInitialViewSnapshot.frame = finalFrame
+                    appIconImageView.frame = finalFrame
                     appCollectionSnapshotView.alpha = 0
                     appCollectionSnapshotView.transform = CGAffineTransform(scaleX: self.otherAppZoomScale, y: self.otherAppZoomScale)
                     wallpaperSnapshotView.transform = CGAffineTransform(scaleX: self.wallpaperZoomScale, y: self.wallpaperZoomScale)
@@ -133,7 +144,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
 
         // Get a snapshot of the app collection without the selected button
         appIconButton.isHidden = true
-        let snapshotImage = springBoardView.snapshotImage(with: imageScale, afterScreenUpdates: true)
+        let snapshotImage = springBoardView.snapshotImage(withScale: imageScale, afterScreenUpdates: true)
         appIconButton.isHidden = false
         
         // Here we cheat a little bit by getting a snapshot of the dock using the full window
