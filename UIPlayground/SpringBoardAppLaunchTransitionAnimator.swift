@@ -111,7 +111,6 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
                     appIconImageView.removeFromSuperview()
                     appCollectionSnapshotView.removeFromSuperview()
                     wallpaperSnapshotView.removeFromSuperview()
-                    self.springBoardViewController.containerView.isHidden = false
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
         }
