@@ -17,7 +17,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     var startingCornerRadius = CGFloat(14)
     var otherAppZoomScale = CGFloat(5)
     var wallpaperZoomScale = CGFloat(1.5)
-    var duration = TimeInterval(10.3)
+    var duration = TimeInterval(0.3)
     
     init(appIconButton: UIButton, springBoardViewController: SpringBoardViewController, reversed: Bool) {
         self.appIconButton = appIconButton
@@ -50,15 +50,24 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         containerView.addSubview(wallpaperSnapshotView)
         wallpaperSnapshotView.frame = containerView.bounds
         
-        let appCollectionSnapshotView = UIImageView()
-        appCollectionSnapshotView.image = snapshotImageForZoomingAppIcons(from: springBoardViewController)
+        let appCollectionContainerView = UIView()
         // Move the anchor point to the center of the app that is being launched so that
         // the zoom animation will look like we are going into that app
-        appCollectionSnapshotView.layer.anchorPoint = CGPoint(x: appIconFrame.midX / containerView.bounds.maxX,
-                                                              y: appIconFrame.midY / containerView.bounds.maxY)
-        appCollectionSnapshotView.frame = containerView.bounds
-        containerView.addSubview(appCollectionSnapshotView)
-
+        appCollectionContainerView.layer.anchorPoint = CGPoint(x: appIconFrame.midX / containerView.bounds.maxX,
+                                                               y: appIconFrame.midY / containerView.bounds.maxY)
+        appCollectionContainerView.frame = containerView.bounds
+        containerView.addSubview(appCollectionContainerView)
+        
+        let dockViewSnapshot = SpringBoardDockView()
+        appCollectionContainerView.addSubview(dockViewSnapshot)
+        dockViewSnapshot.frame = springBoardViewController.dockView.frame
+        dockViewSnapshot.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+        
+        let appCollectionSnapshotView = UIImageView()
+        appCollectionContainerView.addSubview(appCollectionSnapshotView)
+        appCollectionSnapshotView.image = snapshotImageForZoomingAppIcons(from: springBoardViewController)
+        appCollectionSnapshotView.frame = appCollectionContainerView.bounds
+        
         let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
         
         // TODO: can this be moved to the end of the animation?
@@ -101,7 +110,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
                 UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0, animations: {
                     appIconContainerView.frame = finalFrame
                     appCollectionSnapshotView.alpha = 0
-                    appCollectionSnapshotView.transform = CGAffineTransform(scaleX: self.otherAppZoomScale, y: self.otherAppZoomScale)
+                    appCollectionContainerView.transform = CGAffineTransform(scaleX: self.otherAppZoomScale, y: self.otherAppZoomScale)
                     wallpaperSnapshotView.transform = CGAffineTransform(scaleX: self.wallpaperZoomScale, y: self.wallpaperZoomScale)
                 })
                 }, completion: { _ in
@@ -111,6 +120,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
                     appIconImageView.removeFromSuperview()
                     appCollectionSnapshotView.removeFromSuperview()
                     wallpaperSnapshotView.removeFromSuperview()
+                    appCollectionContainerView.removeFromSuperview()
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
             })
         }
@@ -143,20 +153,16 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let imageScale = springBoardView.window!.screen.scale * 2
 
         // Get a snapshot of the app collection without the selected button
+        // TODO: is this causing flickering?
         appIconButton.isHidden = true
+        viewController.dockView.isHidden = true
         let snapshotImage = springBoardView.snapshotImage(withScale: imageScale, afterScreenUpdates: true)
         appIconButton.isHidden = false
-        
-        // Here we cheat a little bit by getting a snapshot of the dock using the full window
-        // hierarchy (b/c it is a visual effect view, otherwise it doesn't retain the blur) and
-        // placing it in the dock location of the original snapshot. The animation won't be perfect
-        // but it's quick enough that the user won't notice this little cheat
-        let dockSnapshotImage = viewController.dockView.fullWindowHierarchySnapshotImage(with: imageScale)!
+        viewController.dockView.isHidden = false
         
         let imageBounds = springBoardView.bounds
         let finalImage = UIGraphicsImageRenderer(size: imageBounds.size, scale: imageScale, opaque: false).image { (context) in
             snapshotImage.draw(in: imageBounds)
-            dockSnapshotImage.draw(in: viewController.dockView.frame)
         }
 
         return finalImage
