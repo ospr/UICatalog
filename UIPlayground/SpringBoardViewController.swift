@@ -160,7 +160,7 @@ public class SpringBoardViewController: UIViewController {
             image.draw(in: imageRect)
             
             // Draw a transparent dark overlay to dim the image
-            context.cgContext.setFillColor(UIColor.black.withAlphaComponent(0.3).cgColor)
+            context.cgContext.setFillColor(UIColor.black.withAlphaComponent(0.1).cgColor)
             let path = UIBezierPath(rect: imageRect)
             path.fill()
         }
