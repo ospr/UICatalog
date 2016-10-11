@@ -203,12 +203,12 @@ extension SpringBoardViewController: UIViewControllerTransitioningDelegate {
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // TODO: try not to use ! here?
-        return SpringBoardAppLaunchTransitionAnimator(appIconButton: selectedAppButton!, springBoardViewController: self, reversed: false)
+        return SpringBoardAppLaunchTransitionAnimator(appIconButton: selectedAppButton!, springBoardViewController: self, isPresenting: false)
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         // TODO: finish this
-        return SpringBoardAppLaunchTransitionAnimator(appIconButton: selectedAppButton!, springBoardViewController: self, reversed: true)
+        return SpringBoardAppLaunchTransitionAnimator(appIconButton: selectedAppButton!, springBoardViewController: self, isPresenting: true)
     }
 }
 

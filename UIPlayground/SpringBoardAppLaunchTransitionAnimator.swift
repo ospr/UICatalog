@@ -10,7 +10,7 @@ import Foundation
 
 class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
-    let reversed: Bool
+    let isPresenting: Bool
     let appIconButton: UIButton
     let springBoardViewController: SpringBoardViewController
     
@@ -19,10 +19,10 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     var wallpaperZoomScale = CGFloat(1.5)
     var duration = TimeInterval(0.3)
     
-    init(appIconButton: UIButton, springBoardViewController: SpringBoardViewController, reversed: Bool) {
+    init(appIconButton: UIButton, springBoardViewController: SpringBoardViewController, isPresenting: Bool) {
         self.appIconButton = appIconButton
         self.springBoardViewController = springBoardViewController
-        self.reversed = reversed
+        self.isPresenting = isPresenting
         
         super.init()
     }
@@ -42,7 +42,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let finalFrame = transitionContext.finalFrame(for: fromViewController)
         
         // TODO: clean up !
-        let appInitialView = reversed ? fromViewController.view! : toView
+        let appInitialView = isPresenting ? fromViewController.view! : toView
         
         print("duration: \(duration), toViewController: \(toViewController), fromViewController: \(fromViewController)")
         
@@ -71,7 +71,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
         
         // TODO: can this be moved to the end of the animation?
-        if !reversed {
+        if !isPresenting {
             containerView.addSubview(toView)
         }
         toView.isHidden = true
@@ -94,11 +94,11 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         appInitialViewSnapshot.alpha = 0
         
         
-        let curveProvider = UICubicTimingParameters(animationCurve: reversed ? .easeIn : .easeOut)
+        let curveProvider = UICubicTimingParameters(animationCurve: isPresenting ? .easeIn : .easeOut)
         let animator = UIViewPropertyAnimator(duration: duration, timingParameters: curveProvider)
         
         // TODO: constants for these
-        let alphaDuration = reversed ? 9/10.0 : 1 / 10.0
+        let alphaDuration = isPresenting ? 9/10.0 : 1 / 10.0
         
         animator.addAnimations {
             UIView.animateKeyframes(withDuration: self.duration, delay: 0, options: .calculationModeCubic, animations: {
@@ -129,14 +129,14 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         animator.isInterruptible = true
         animator.startAnimation()
         animator.pauseAnimation()
-        animator.fractionComplete = reversed ? 1 : 0
-        animator.isReversed = reversed
+        animator.fractionComplete = isPresenting ? 1 : 0
+        animator.isReversed = isPresenting
         animator.startAnimation()
         
         // Animate corner radius seprately since CALayer properties can't be animated
         // directly by using UIView animation mechanisms
-        let startRadius = reversed ? 0 : startingCornerRadius
-        let endRadius = reversed ? startingCornerRadius : 0
+        let startRadius = isPresenting ? 0 : startingCornerRadius
+        let endRadius = isPresenting ? startingCornerRadius : 0
         appIconContainerView.layer.cornerRadius = endRadius
         appIconContainerView.clipsToBounds = true
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
