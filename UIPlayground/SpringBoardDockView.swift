@@ -11,9 +11,7 @@ import UIPlaygroundElements
 
 class SpringBoardDockView: UIView {
 
-    let blurView = UIVisualEffectView(effect: nil)
-//    let blurView = UIView()
-    
+    let blurView = UIVisualEffectView(effect: nil)    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,9 +26,8 @@ class SpringBoardDockView: UIView {
     }
     
     private func setup() {
-//        backgroundColor = .red
+        backgroundColor = .clear
         
-//        blurView.backgroundColor = .purple
         addSubview(blurView)
         blurView.translatesAutoresizingMaskIntoConstraints = false
         blurView.effect = UIBlurEffect(style: .light)
