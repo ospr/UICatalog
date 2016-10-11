@@ -66,6 +66,10 @@ public class SpringBoardViewController: UIViewController {
         return .lightContent
     }
     
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+    
     public init() {
         super.init(nibName: nil, bundle: nil)
         

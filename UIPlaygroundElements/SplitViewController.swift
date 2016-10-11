@@ -18,4 +18,20 @@ class SplitViewController: UISplitViewController {
         
         return super.preferredStatusBarStyle
     }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if let childVC = viewControllers.last {
+            return childVC.supportedInterfaceOrientations
+        }
+        
+        return super.supportedInterfaceOrientations
+    }
+    
+    override var shouldAutorotate: Bool {
+        if let childVC = viewControllers.last {
+            return childVC.shouldAutorotate
+        }
+        
+        return super.shouldAutorotate
+    }
 }

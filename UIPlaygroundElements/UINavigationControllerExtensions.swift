@@ -27,4 +27,12 @@ open class NavigationController: UINavigationController {
         }
         return super.preferredStatusBarStyle
     }
+    
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if let topViewController = self.topViewController {
+            return topViewController.supportedInterfaceOrientations
+        }
+        
+        return super.supportedInterfaceOrientations
+    }
 }
