@@ -18,6 +18,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     var otherAppZoomScale = CGFloat(5)
     var wallpaperZoomScale = CGFloat(1.5)
     var duration = TimeInterval(0.5)
+    var animationTimingParameters = UISpringTimingParameters(dampingRatio: 4.56)
     
     init(appIconButton: UIButton, springBoardViewController: SpringBoardViewController, isPresenting: Bool) {
         self.appIconButton = appIconButton
@@ -68,8 +69,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         updateViewsForAnimation(!isPresenting)
         
         // Build animation
-        let curveProvider = UISpringTimingParameters(dampingRatio: 1)
-        let animator = UIViewPropertyAnimator(duration: duration, timingParameters: curveProvider)
+        let animator = UIViewPropertyAnimator(duration: duration, timingParameters: animationTimingParameters)
         animator.addAnimations {
             updateViewsForAnimation(self.isPresenting)
         }
