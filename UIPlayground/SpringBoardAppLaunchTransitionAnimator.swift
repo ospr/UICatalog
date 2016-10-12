@@ -93,10 +93,10 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         appIconContainerView.layer.cornerRadius = endRadius
         appIconContainerView.clipsToBounds = true
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         animation.fromValue = startRadius
         animation.toValue = appIconContainerView.layer.cornerRadius
-        animation.duration = duration
+        animation.duration = duration * 0.65
         appIconContainerView.layer.add(animation, forKey: "cornerRadius")
     }
     
