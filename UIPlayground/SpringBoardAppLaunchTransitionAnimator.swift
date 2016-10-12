@@ -47,13 +47,13 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let (appCollectionContainerView, appCollectionSnapshotView) = setupAppCollectionContainerView(for: containerView.bounds, appIconFrame: appIconFrame)
         containerView.addSubview(appCollectionContainerView)
         
-        // TODO: can just set this frame afterwards?
         let (appIconContainerView, appInitialViewSnapshot) = setupAppIconContainerView(for: appIconFrame, with: appInitialView)
         containerView.addSubview(appIconContainerView)
 
         // Initialize frame values
         appCollectionContainerView.frame = containerView.bounds
         wallpaperSnapshotView.frame = containerView.bounds
+        appIconContainerView.frame = appIconFrame
 
         // Setup a block used for updating views for animation states
         let updateViewsForAnimation: (Bool) -> () = { isLaunched in
@@ -127,10 +127,9 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     }
     
     private func setupAppIconContainerView(for appIconFrame: CGRect, with appInitialView: UIView) -> (UIView, UIView) {
-        // TODO: true?
         let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
 
-        let appIconContainerView = UIView(frame: appIconFrame)
+        let appIconContainerView = UIView()
         
         let appIconImageView = appIconButton.snapshotView(afterScreenUpdates: false)!
         appIconContainerView.addSubview(appIconImageView)
