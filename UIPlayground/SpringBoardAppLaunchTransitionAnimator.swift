@@ -42,7 +42,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let finalFrame = transitionContext.finalFrame(for: fromViewController)
         
         // TODO: clean up !
-        let appInitialView = isPresenting ? fromViewController.view! : toView
+        let appInitialView = isPresenting ? toView : fromViewController.view!
         
         print("duration: \(duration), toViewController: \(toViewController), fromViewController: \(fromViewController)")
         
@@ -71,7 +71,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
         
         // TODO: can this be moved to the end of the animation?
-        if !isPresenting {
+        if isPresenting {
             containerView.addSubview(toView)
         }
         toView.isHidden = true
@@ -94,11 +94,11 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         appInitialViewSnapshot.alpha = 0
         
         
-        let curveProvider = UICubicTimingParameters(animationCurve: isPresenting ? .easeIn : .easeOut)
+        let curveProvider = UICubicTimingParameters(animationCurve: isPresenting ? .easeOut : .easeIn)
         let animator = UIViewPropertyAnimator(duration: duration, timingParameters: curveProvider)
         
         // TODO: constants for these
-        let alphaDuration = isPresenting ? 9/10.0 : 1 / 10.0
+        let alphaDuration = isPresenting ? 1 / 10.0 : 9 / 10.0
         
         animator.addAnimations {
             UIView.animateKeyframes(withDuration: self.duration, delay: 0, options: .calculationModeCubic, animations: {
@@ -129,14 +129,14 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         animator.isInterruptible = true
         animator.startAnimation()
         animator.pauseAnimation()
-        animator.fractionComplete = isPresenting ? 1 : 0
-        animator.isReversed = isPresenting
+        animator.fractionComplete = isPresenting ? 0 : 1
+        animator.isReversed = !isPresenting
         animator.startAnimation()
         
         // Animate corner radius seprately since CALayer properties can't be animated
         // directly by using UIView animation mechanisms
-        let startRadius = isPresenting ? 0 : startingCornerRadius
-        let endRadius = isPresenting ? startingCornerRadius : 0
+        let startRadius = isPresenting ? startingCornerRadius : 0
+        let endRadius = isPresenting ? 0 : startingCornerRadius
         appIconContainerView.layer.cornerRadius = endRadius
         appIconContainerView.clipsToBounds = true
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.cornerRadius))
