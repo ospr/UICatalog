@@ -44,10 +44,14 @@ public extension UIView {
             return
         }
         
-        centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
-        centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
+        anchorConstraintsToCenterIn(superview)
     }
 
+    public func anchorConstraintsToCenterIn(_ view: UIView) {
+        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
     public func anchorConstraintsProporitonalSizeToSuperview(multiplier: CGFloat = 1.0) {
         guard let superview = superview else {
             return
