@@ -151,16 +151,16 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let imageScale = springBoardView.window!.screen.scale * 2
 
         // Get a snapshot of the app collection without the selected button
-        // TODO: is this causing flickering?
-        appIconButton.isHidden = true
-        viewController.dockView.isHidden = true
-        let snapshotImage = springBoardView.snapshotImage(withScale: imageScale, afterScreenUpdates: true)
-        appIconButton.isHidden = false
-        viewController.dockView.isHidden = false
+        let snapshotImage = springBoardView.snapshotImage(withScale: imageScale)
         
+        // Mask out the app icon
         let imageBounds = springBoardView.bounds
         let finalImage = UIGraphicsImageRenderer(size: imageBounds.size, scale: imageScale, opaque: false).image { (context) in
             snapshotImage.draw(in: imageBounds)
+            
+            let appIconFrame = appIconButton.convert(appIconButton.frame, to: nil)
+            UIColor.clear.setFill()
+            context.fill(appIconFrame)
         }
 
         return finalImage
