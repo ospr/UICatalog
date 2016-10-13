@@ -9,6 +9,22 @@
 import UIKit
 
 open class NavigationController: UINavigationController {
+
+    override init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?) {
+        super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
+        
+        setup()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        setup()
+    }
+    
+    private func setup() {
+        delegate = self
+    }
     
     open override func setNavigationBarHidden(_ hidden: Bool, animated: Bool) {
         super.setNavigationBarHidden(hidden, animated: animated)
@@ -35,4 +51,30 @@ open class NavigationController: UINavigationController {
         
         return super.supportedInterfaceOrientations
     }
+}
+
+extension NavigationController: UINavigationControllerDelegate {
+    
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        
+        // Allow view controllers to specify whether they would like to have the navbar
+        // hidden when shown. This allows us to move the logic for determining when to
+        // hide the bar to the parent controller rather than having the child deal with it
+        let shouldHideNavigationBar: Bool = {
+            guard let hideableViewController = viewController as? ViewControllerNavigationBarHideable else {
+                return false
+            }
+            
+            return hideableViewController.prefersNavigationBarHidden
+        }()
+        
+        if isNavigationBarHidden != shouldHideNavigationBar {
+            setNavigationBarHidden(shouldHideNavigationBar, animated: true)
+        }
+    }
+}
+
+public protocol ViewControllerNavigationBarHideable {
+    
+    var prefersNavigationBarHidden: Bool { get }
 }

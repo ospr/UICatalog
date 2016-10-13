@@ -142,7 +142,6 @@ public class SpringBoardViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(true, animated: animated)
         setNeedsStatusBarAppearanceUpdate()
     }
     
@@ -180,6 +179,13 @@ public class SpringBoardViewController: UIViewController {
             let path = UIBezierPath(rect: imageRect)
             path.fill()
         }
+    }
+}
+
+extension SpringBoardViewController: ViewControllerNavigationBarHideable {
+    
+    public var prefersNavigationBarHidden: Bool {
+        return true
     }
 }
 
