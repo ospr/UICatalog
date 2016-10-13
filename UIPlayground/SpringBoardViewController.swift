@@ -11,7 +11,6 @@ import UIPlaygroundElements
 
 public class SpringBoardViewController: UIViewController {
     
-    // TODO: clean this up
     var selectedAppButton: UIButton?
     
     var appIconLayoutInfoItems = [
@@ -216,20 +215,21 @@ extension SpringBoardViewController: UIPageViewControllerDataSource {
     }
     
     public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-    // todo: is this correct?
-        return 0
+        guard let subView = pageViewController.viewControllers?.first else {
+            return 0
+        }
+        
+        return pageViewSubViewControllers.index(of: subView)!
     }
 }
 
 extension SpringBoardViewController: UIViewControllerTransitioningDelegate {
 
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        // TODO: try not to use ! here?
         return SpringBoardAppLaunchTransitionAnimator(appIconButton: selectedAppButton!, springBoardViewController: self, isPresenting: true)
     }
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        // TODO: finish this
         return SpringBoardAppLaunchTransitionAnimator(appIconButton: selectedAppButton!, springBoardViewController: self, isPresenting: false)
     }
 }
@@ -239,7 +239,6 @@ extension SpringBoardViewController: SpringBoardAppCollectionViewControllerDeleg
     func springBoardAppCollectionViewController(_ viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo, selectedAppIconButton: UIButton) {
         selectedAppButton = selectedAppIconButton
         
-        // TODO: finish this
         let viewController = SpringBoardLaunchedAppViewController()
         viewController.modalPresentationStyle = .custom
         viewController.transitioningDelegate = self
