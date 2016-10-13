@@ -82,6 +82,8 @@ public class SpringBoardViewController: UIViewController {
     }
         
     override public func viewDidLoad() {
+        view.clipsToBounds = true
+        
         pageViewSubViewControllers = appIconLayoutInfoItems.map({ (appInfoItems) -> SpringBoardAppCollectionViewController in
             let controller = SpringBoardAppCollectionViewController()
             controller.appInfoItems = appInfoItems
