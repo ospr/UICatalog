@@ -16,6 +16,11 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
     let appNameLabel = UILabel()
     let appIconButtonView = UIButton()
     
+    var appIconImage: UIImage? {
+        get { return appIconButtonView.image(for: .normal) }
+        set { appIconButtonView.setImage(newValue, for: .normal) }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,6 +43,7 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.alignment = .center
+        stackView.spacing = 4
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.anchorConstraintsToFitSuperview()
@@ -53,6 +59,9 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
         mask.contentsGravity = kCAGravityResize
         appIconButtonView.layer.mask = mask
         appIconButtonView.layer.masksToBounds = true
+        appIconButtonView.contentMode = .scaleAspectFill
+        appIconButtonView.contentHorizontalAlignment = .fill
+        appIconButtonView.contentVerticalAlignment = .fill
         appIconButtonView.translatesAutoresizingMaskIntoConstraints = false
         appIconButtonView.anchorConstraintsToFitSuperview()
         

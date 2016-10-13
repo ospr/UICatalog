@@ -61,10 +61,7 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
         let appIconCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppIconCell", for: indexPath) as! SpringBoardAppIconViewCell
         
         appIconCell.appNameLabel.text = appInfo.appName
-        appIconCell.appIconButtonView.setImage(appInfo.image, for: .normal)
-        appIconCell.appIconButtonView.contentMode = .scaleAspectFill
-        appIconCell.appIconButtonView.contentHorizontalAlignment = .fill
-        appIconCell.appIconButtonView.contentVerticalAlignment = .fill
+        appIconCell.appIconImage = appInfo.image
         
         appIconCell.appIconButtonView.removeTarget(nil, action: nil, for: .allEvents)
         appIconCell.appIconButtonView.addTarget(self, action: #selector(appIconButtonWasTapped), for: .touchUpInside)

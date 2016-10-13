@@ -56,6 +56,7 @@ public class SpringBoardViewController: UIViewController {
     var pageViewSubViewControllers = [UIViewController]()
     let dockView = SpringBoardDockView()
     let wallpaperView = UIImageView()
+    let backAppIconView = SpringBoardAppIconViewCell()
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         // Have the presented view controller specify the status bar style
@@ -97,13 +98,21 @@ public class SpringBoardViewController: UIViewController {
         wallpaperView.anchorConstraintsToFitSuperview()
         wallpaperView.contentMode = .scaleAspectFill
         
+        // Add dock view
+        view.addSubview(dockView)
+        dockView.translatesAutoresizingMaskIntoConstraints = false
+        dockView.heightAnchor.constraint(equalToConstant: 96).isActive = true
+        dockView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        dockView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        dockView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        // Add container view for app collection
         view.addSubview(containerView)
         containerView.isOpaque = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.anchorConstraintsToFitSuperview()
         
         // Add page view
-        // TODO: do the view controller child methods here too
         pageViewController.willMove(toParentViewController: self)
         containerView.addSubview(pageViewController.view)
         addChildViewController(pageViewController)
@@ -113,13 +122,14 @@ public class SpringBoardViewController: UIViewController {
         pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
-        // Add dock view
-        containerView.addSubview(dockView)
-        dockView.translatesAutoresizingMaskIntoConstraints = false
-        dockView.heightAnchor.constraint(equalToConstant: 96).isActive = true
-        dockView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        dockView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        dockView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        // Add back app icon
+        containerView.addSubview(backAppIconView)
+        backAppIconView.appIconImage = UIImage(named: "AppCard-UIPlayground-Icon")!
+        backAppIconView.appNameLabel.text = "Back"
+        backAppIconView.appIconButtonView.addTarget(self, action: #selector(backButtonSelectedAction), for: .touchUpInside)
+        backAppIconView.translatesAutoresizingMaskIntoConstraints = false
+        backAppIconView.centerXAnchor.constraint(equalTo: dockView.centerXAnchor).isActive = true
+        backAppIconView.bottomAnchor.constraint(equalTo: dockView.bottomAnchor, constant: -4).isActive = true
         
         // Constrain top of dock to bottom of page view
         dockView.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor).isActive = true
@@ -142,8 +152,12 @@ public class SpringBoardViewController: UIViewController {
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        
+    }
+    
+    // MARK: - Actions
+    
+    func backButtonSelectedAction(sender: UIButton) {
+        let _ = (splitViewController?.viewControllers.first as? UINavigationController)?.popViewController(animated: true)
     }
     
     // MARK: - Working with wallpaper
