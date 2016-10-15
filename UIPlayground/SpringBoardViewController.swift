@@ -125,7 +125,7 @@ public class SpringBoardViewController: UIViewController {
         
         // Add back app icon
         containerView.addSubview(backAppIconView)
-        backAppIconView.appIconImage = UIImage(named: "AppCard-UIPlayground-Icon")!
+        backAppIconView.appIconImage = UIImage(named: "BackIcon", inBundleForObject: self)!
         backAppIconView.appNameLabel.text = "Back"
         backAppIconView.appIconButtonView.addTarget(self, action: #selector(backButtonSelectedAction), for: .touchUpInside)
         backAppIconView.translatesAutoresizingMaskIntoConstraints = false
