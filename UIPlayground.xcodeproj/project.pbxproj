@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3732F0341DB136CE0065350F /* SpringBoardAppCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3732F0331DB136CD0065350F /* SpringBoardAppCollectionLayout.swift */; };
 		373640751D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373640741D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift */; };
 		374A3A841D91EEE600C46836 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A3A831D91EEE600C46836 /* UIImageExtensions.swift */; };
 		3772B4A71D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772B4A61D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift */; };
@@ -80,6 +81,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3732F0331DB136CD0065350F /* SpringBoardAppCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardAppCollectionLayout.swift; sourceTree = "<group>"; };
 		373640741D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardAppLaunchTransitionAnimator.swift; sourceTree = "<group>"; };
 		374A3A831D91EEE600C46836 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		3772B4A61D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardLaunchedAppViewController.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				3783B6431D91F32500BEC7DE /* SpringBoardDockView.swift */,
 				373640741D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift */,
 				3772B4A61D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift */,
+				3732F0331DB136CD0065350F /* SpringBoardAppCollectionLayout.swift */,
 			);
 			name = "Spring Board View";
 			path = ../UIPlayground;
@@ -452,6 +455,7 @@
 				3772B4A71D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift in Sources */,
 				37979B0E1D91DBF700B33595 /* SpringBoardAppIconViewCell.swift in Sources */,
 				37979B0D1D91DBF400B33595 /* SpringBoardViewController.swift in Sources */,
+				3732F0341DB136CE0065350F /* SpringBoardAppCollectionLayout.swift in Sources */,
 				37979B0F1D91DBFA00B33595 /* SpringBoardAppCollectionViewController.swift in Sources */,
 				373640751D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift in Sources */,
 				3783B6441D91F32500BEC7DE /* SpringBoardDockView.swift in Sources */,

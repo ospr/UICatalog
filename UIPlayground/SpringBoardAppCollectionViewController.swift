@@ -22,17 +22,23 @@ struct SpringBoardAppInfo {
 
 class SpringBoardAppCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    var appInfoItems = [SpringBoardAppInfo]()
+    let appCollectionLayout: SpringBoardAppCollectionLayout
+    let appInfoItems: [SpringBoardAppInfo]
     
     weak var delegate: SpringBoardAppCollectionViewControllerDelegate?
     
     private var appInfoByAppIconButtons = [UIButton : SpringBoardAppInfo]()
     
-    init() {
+    init(appInfoItems: [SpringBoardAppInfo], appCollectionLayout: SpringBoardAppCollectionLayout) {
+        self.appCollectionLayout = appCollectionLayout
+        self.appInfoItems = appInfoItems
+        
         let viewLayout = UICollectionViewFlowLayout()
-        // TODO: don't hardcode here
-        viewLayout.itemSize = CGSize(width: 74, height: 80)
-        viewLayout.sectionInset = UIEdgeInsets(top: 28, left: 20, bottom: 28, right: 20)
+        viewLayout.minimumInteritemSpacing = appCollectionLayout.minimumInteritemSpacing
+        viewLayout.minimumLineSpacing = appCollectionLayout.minimumLineSpacing
+        viewLayout.itemSize = appCollectionLayout.itemSize
+        viewLayout.sectionInset = appCollectionLayout.sectionInset
+        
         super.init(collectionViewLayout: viewLayout)
     }
     
@@ -62,6 +68,7 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
         
         appIconCell.appNameLabel.text = appInfo.appName
         appIconCell.appIconImage = appInfo.image
+        appIconCell.appIconLength = appCollectionLayout.iconLength
         
         appIconCell.appIconButtonView.removeTarget(nil, action: nil, for: .allEvents)
         appIconCell.appIconButtonView.addTarget(self, action: #selector(appIconButtonWasTapped), for: .touchUpInside)

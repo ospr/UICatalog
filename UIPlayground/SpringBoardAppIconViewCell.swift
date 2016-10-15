@@ -10,16 +10,25 @@ import UIKit
 
 class SpringBoardAppIconViewCell: UICollectionViewCell {
     
-    let appIconLength = CGFloat(60)
     let appNameFont = UIFont.systemFont(ofSize: 12)
     
     let appNameLabel = UILabel()
     let appIconButtonView = UIButton()
     
+    var appIconLength: CGFloat {
+        get { return appIconContentViewHeightConstraint.constant }
+        set {
+            appIconContentViewHeightConstraint.constant = newValue
+            appIconButtonView.layer.mask?.frame.size = CGSize(width: newValue, height: newValue)
+        }
+    }
+    
     var appIconImage: UIImage? {
         get { return appIconButtonView.image(for: .normal) }
         set { appIconButtonView.setImage(newValue, for: .normal) }
     }
+    
+    private var appIconContentViewHeightConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +59,8 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
         
         appIconContentView.addSubview(appIconButtonView)
         appIconContentView.translatesAutoresizingMaskIntoConstraints = false
-        appIconContentView.heightAnchor.constraint(equalToConstant: appIconLength).isActive = true
+        appIconContentViewHeightConstraint = appIconContentView.heightAnchor.constraint(equalToConstant: 60)
+        appIconContentViewHeightConstraint.isActive = true
         appIconContentView.heightAnchor.constraint(equalTo: appIconContentView.widthAnchor, multiplier: 1).isActive = true
         
         let mask = CALayer()

@@ -83,9 +83,9 @@ public class SpringBoardViewController: UIViewController {
     override public func viewDidLoad() {
         view.clipsToBounds = true
         
+        let appCollectionLayout = SpringBoardAppCollectionLayout(screen: UIScreen.main)
         pageViewSubViewControllers = appIconLayoutInfoItems.map({ (appInfoItems) -> SpringBoardAppCollectionViewController in
-            let controller = SpringBoardAppCollectionViewController()
-            controller.appInfoItems = appInfoItems
+            let controller = SpringBoardAppCollectionViewController(appInfoItems: appInfoItems, appCollectionLayout: appCollectionLayout)
             controller.delegate = self
             
             return controller
@@ -133,7 +133,7 @@ public class SpringBoardViewController: UIViewController {
         backAppIconView.bottomAnchor.constraint(equalTo: dockView.bottomAnchor, constant: -4).isActive = true
         
         // Constrain top of dock to bottom of page view
-        dockView.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor).isActive = true
+        dockView.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor, constant: appCollectionLayout.pageControlOfffset).isActive = true
         
         wallpaperImage = UIImage(named: "BackgroundWallpaper", inBundleForObject: self)
     }
