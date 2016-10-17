@@ -75,6 +75,17 @@ public extension UIView {
 
 public extension UIView {
     
+    public func simulatorFix_snapshotView(afterScreenUpdates: Bool) -> UIView? {
+        // When running in simulator (6s/6s+, 7/7+), snapshotView(afterScreenUpdates:) create a white
+        // view instead of an actual representation of the snapshotted view. rdar://28807303
+        #if IOS_SIMULATOR
+            let image = snapshotImage(withScale: 0, afterScreenUpdates: afterScreenUpdates)
+            return UIImageView(image: image)
+        #else
+            return snapshotView(afterScreenUpdates: afterScreenUpdates)
+        #endif
+    }
+    
     public func snapshotImage(withScale scale: CGFloat = 0, afterScreenUpdates: Bool = false) -> UIImage {
         let format = UIGraphicsImageRendererFormat()
         format.scale = scale

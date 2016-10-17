@@ -42,7 +42,7 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
         let appInitialView = isPresenting ? toView : fromViewController.view!
         let appIconFrame = appIconButton.convert(appIconButton.frame, to: nil)
         
-        let wallpaperSnapshotView = springBoardViewController.wallpaperView.snapshotView(afterScreenUpdates: false)!
+        let wallpaperSnapshotView = springBoardViewController.wallpaperView.simulatorFix_snapshotView(afterScreenUpdates: false)!
         containerView.addSubview(wallpaperSnapshotView)
         
         let (appCollectionContainerView, appCollectionSnapshotView) = setupAppCollectionContainerView(for: containerView.bounds, appIconFrame: appIconFrame)
@@ -127,11 +127,13 @@ class SpringBoardAppLaunchTransitionAnimator: NSObject, UIViewControllerAnimated
     }
     
     private func setupAppIconContainerView(for appIconFrame: CGRect, with appInitialView: UIView) -> (UIView, UIView) {
-        let appInitialViewSnapshot = appInitialView.snapshotView(afterScreenUpdates: true)!
+        // Note on iPhone 7/7+ simulator there is a white flicker when calling this with true set
+        // rdar://28808781
+        let appInitialViewSnapshot = appInitialView.simulatorFix_snapshotView(afterScreenUpdates: true)!
 
         let appIconContainerView = UIView()
         
-        let appIconImageView = appIconButton.snapshotView(afterScreenUpdates: false)!
+        let appIconImageView = appIconButton.simulatorFix_snapshotView(afterScreenUpdates: false)!
         appIconContainerView.addSubview(appIconImageView)
         appIconImageView.frame = appIconContainerView.bounds
         appIconImageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
