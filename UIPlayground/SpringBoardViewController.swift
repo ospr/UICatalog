@@ -157,7 +157,13 @@ public class SpringBoardViewController: UIViewController {
     // MARK: - Actions
     
     func backButtonSelectedAction(sender: UIButton) {
-        let _ = (splitViewController?.viewControllers.first as? UINavigationController)?.popViewController(animated: true)
+        if splitViewController!.isCollapsed {
+            let _ = (splitViewController?.viewControllers.first as? UINavigationController)?.popViewController(animated: true)
+        }
+        else {
+            let btn = splitViewController!.displayModeButtonItem
+            let _ = btn.target?.perform(btn.action, with: btn)            
+        }
     }
     
     // MARK: - Working with wallpaper
