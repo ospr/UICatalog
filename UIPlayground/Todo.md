@@ -22,3 +22,10 @@ App Cards
 - After horizontal pan has ended, cards should settle back in predefined "bucket" locations.
 - Lazily fetch card data (screenshot, icon, etc) just before views are seen to reduce memory footprint.
 - When sliding down first card, the cards behind it should show up.
+
+Spring Board
+------------
+- Refine launch animation curve to better match the iOS animation curve.
+- Rounded corner animation during launch should go to 0 earlier than when then animation finishes.
+- Make the UIPageControl dots less transparent.
+- Reduce time taken to build up launch animation.
