@@ -44,6 +44,12 @@ public class AppCardsViewController: UIViewController {
         carouselView.delegate = self
     }
     
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        carouselView.animateIn()
+    }
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         

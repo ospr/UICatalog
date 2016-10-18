@@ -23,6 +23,8 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
     open var itemViewRemovalAnimationDuration = 0.15
     open var itemViewRemovalFailureAnimationDuration = 0.25
     
+    var animateViewItemOpacity = true
+    
     fileprivate var itemViews: [UIView] = []
     fileprivate var absoluteOffset = CGFloat(0)
     fileprivate var viewPositions: [UIView: Point3D] = [:]
@@ -219,6 +221,10 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
 
             // Hide views when they are no longer visible (far behind in the deck)
             itemView.alpha = {
+                if !animateViewItemOpacity {
+                    return 1
+                }
+                
                 if localOffset < -itemOffset {
                     return 0
                 }
@@ -253,6 +259,26 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         }()
 
         updateAbsoluteOffset(newAbsoluteOffset)
+    }
+    
+    public func animateIn() {
+        guard let firstItemView = itemViews.first else {
+            return
+        }
+
+        // Turn off opacity animation here so that we don't get a weird
+        // opacity animation effect while animating in
+        let previousAnimateViewItemOpacity = animateViewItemOpacity
+        animateViewItemOpacity = false
+        updateAbsoluteOffset(0)
+        
+        let animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 4.56) {
+            self.didPanHorizontally(byOffset: self.bounds.midX, forView: firstItemView)
+        }
+        animator.addCompletion { (position) in
+            self.animateViewItemOpacity = previousAnimateViewItemOpacity
+        }
+        animator.startAnimation()
     }
     
     fileprivate func animateRemoval(ofItemView itemView: UIView) {
@@ -300,6 +326,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
     
     fileprivate func layoutItemViews() {
         for itemView in itemViews {
+            itemView.layer.transform = CATransform3DIdentity
             itemView.frame.origin = bounds.origin
             
             let position = Point3D(x: 0, y: bounds.height / 2.0 - itemView.bounds.height / 2.0, z: 0)
