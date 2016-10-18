@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372E5A781DB67F7900A08377 /* AppCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC21A1D664315006F56BF /* AppCardsViewController.swift */; };
+		372E5A791DB67F9400A08377 /* AppCardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */; };
+		372E5A7A1DB6800800A08377 /* PowerOffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1CD1D5790B1006F56BF /* PowerOffViewController.swift */; };
+		372E5A7B1DB6800C00A08377 /* PowerOffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1CE1D5790B1006F56BF /* PowerOffViewController.xib */; };
 		3732F0341DB136CE0065350F /* SpringBoardAppCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3732F0331DB136CD0065350F /* SpringBoardAppCollectionLayout.swift */; };
 		373640751D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373640741D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift */; };
 		374A3A841D91EEE600C46836 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A3A831D91EEE600C46836 /* UIImageExtensions.swift */; };
@@ -31,8 +35,6 @@
 		7C3AC1C11D578EB8006F56BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1BF1D578EB8006F56BF /* Main.storyboard */; };
 		7C3AC1C31D578EB8006F56BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1C21D578EB8006F56BF /* Assets.xcassets */; };
 		7C3AC1C61D578EB8006F56BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1C41D578EB8006F56BF /* LaunchScreen.storyboard */; };
-		7C3AC1CF1D5790B1006F56BF /* PowerOffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1CD1D5790B1006F56BF /* PowerOffViewController.swift */; };
-		7C3AC1D01D5790B1006F56BF /* PowerOffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1CE1D5790B1006F56BF /* PowerOffViewController.xib */; };
 		7C3AC1DA1D579714006F56BF /* UIPlaygroundElements.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C3AC1D91D579714006F56BF /* UIPlaygroundElements.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7C3AC1DE1D579714006F56BF /* UIPlaygroundElements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AC1D71D579714006F56BF /* UIPlaygroundElements.framework */; };
 		7C3AC1DF1D579714006F56BF /* UIPlaygroundElements.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3AC1D71D579714006F56BF /* UIPlaygroundElements.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -41,8 +43,6 @@
 		7C3AC1E91D579E4A006F56BF /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1E81D579E4A006F56BF /* UIViewExtensions.swift */; };
 		7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC1EA1D5E8DA6006F56BF /* DisplayLinkProgressor.swift */; };
 		7C3AC1F31D63DE3E006F56BF /* Assests.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1F21D63DE3E006F56BF /* Assests.xcassets */; };
-		7C3AC21C1D664315006F56BF /* AppCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC21A1D664315006F56BF /* AppCardsViewController.swift */; };
-		7C3AC21D1D664315006F56BF /* AppCardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */; };
 		7C3AC21F1D66438E006F56BF /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC21E1D66438E006F56BF /* CardView.swift */; };
 		7C3AC2211D664433006F56BF /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC2201D664433006F56BF /* CardView.xib */; };
 		7C3AC2231D664805006F56BF /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3AC2221D664805006F56BF /* CarouselView.swift */; };
@@ -171,6 +171,8 @@
 		37979B021D91DBD300B33595 /* UIPlaygroundUI */ = {
 			isa = PBXGroup;
 			children = (
+				7C3AC2191D6642E5006F56BF /* App Cards View */,
+				7C3AC1D11D5790D8006F56BF /* Power Off View */,
 				37979AB71D9194EF00B33595 /* Spring Board View */,
 				37979B101D91DCBE00B33595 /* Supporting Files */,
 			);
@@ -214,8 +216,6 @@
 				7C3AC1B91D578EB8006F56BF /* AppDelegate.swift */,
 				7C3AC1BB1D578EB8006F56BF /* MasterViewController.swift */,
 				37979B111D91DD2200B33595 /* SpringBoard.playground */,
-				7C3AC2191D6642E5006F56BF /* App Cards View */,
-				7C3AC1D11D5790D8006F56BF /* Power Off View */,
 				7C3AC1F41D63E02C006F56BF /* Supporting Files */,
 			);
 			path = UIPlayground;
@@ -228,6 +228,7 @@
 				7C3AC1CE1D5790B1006F56BF /* PowerOffViewController.xib */,
 			);
 			name = "Power Off View";
+			path = ../UIPlayground;
 			sourceTree = "<group>";
 		};
 		7C3AC1D81D579714006F56BF /* UIPlaygroundElements */ = {
@@ -288,6 +289,7 @@
 				7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */,
 			);
 			name = "App Cards View";
+			path = ../UIPlayground;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,6 +421,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				372E5A7B1DB6800C00A08377 /* PowerOffViewController.xib in Resources */,
+				372E5A791DB67F9400A08377 /* AppCardsViewController.xib in Resources */,
 				37979B131D91EAB200B33595 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,9 +431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C3AC21D1D664315006F56BF /* AppCardsViewController.xib in Resources */,
 				7C3AC1C61D578EB8006F56BF /* LaunchScreen.storyboard in Resources */,
-				7C3AC1D01D5790B1006F56BF /* PowerOffViewController.xib in Resources */,
 				7C3AC1C31D578EB8006F56BF /* Assets.xcassets in Resources */,
 				7C3AC1C11D578EB8006F56BF /* Main.storyboard in Resources */,
 			);
@@ -456,7 +458,9 @@
 				37979B0E1D91DBF700B33595 /* SpringBoardAppIconViewCell.swift in Sources */,
 				37979B0D1D91DBF400B33595 /* SpringBoardViewController.swift in Sources */,
 				3732F0341DB136CE0065350F /* SpringBoardAppCollectionLayout.swift in Sources */,
+				372E5A781DB67F7900A08377 /* AppCardsViewController.swift in Sources */,
 				37979B0F1D91DBFA00B33595 /* SpringBoardAppCollectionViewController.swift in Sources */,
+				372E5A7A1DB6800800A08377 /* PowerOffViewController.swift in Sources */,
 				373640751D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift in Sources */,
 				3783B6441D91F32500BEC7DE /* SpringBoardDockView.swift in Sources */,
 			);
@@ -466,9 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C3AC21C1D664315006F56BF /* AppCardsViewController.swift in Sources */,
 				7C3AC1BC1D578EB8006F56BF /* MasterViewController.swift in Sources */,
-				7C3AC1CF1D5790B1006F56BF /* PowerOffViewController.swift in Sources */,
 				7C3AC1BA1D578EB8006F56BF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

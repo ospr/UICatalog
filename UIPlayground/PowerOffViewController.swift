@@ -9,7 +9,7 @@
 import UIKit
 import UIPlaygroundElements
 
-class PowerOffViewController: UIViewController {
+public class PowerOffViewController: UIViewController {
     
     @IBOutlet weak var powerOffSliderView: ThumbSliderView!
     @IBOutlet weak var dimmingView: UIView!
@@ -19,34 +19,34 @@ class PowerOffViewController: UIViewController {
     
     var initialBrightness = CGFloat(0)
     
-    required init() {
-        super.init(nibName: String(describing: PowerOffViewController.self), bundle: nil)
+    public required init() {
+        super.init(nibName: String(describing: PowerOffViewController.self), bundle: Bundle(for: type(of: self)))
         
         title = "Power Off"
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented. Use init()")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         setupPowerOffSliderView()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Setup views to be animated in when the view appears
+        view.layoutIfNeeded()
         blurEffectView.effect = nil
         powerOffSliderView.alpha = 0
         cancelStackView.alpha = 0
         powerOffSlideViewTrailingConstraint.constant = powerOffSliderView.bounds.width / 2.0
-        view.layoutIfNeeded()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         // Animate in the views
@@ -66,7 +66,7 @@ class PowerOffViewController: UIViewController {
     
     // MARK: - Working with Power Off Slider
     
-    func setupPowerOffSliderView() {
+    private func setupPowerOffSliderView() {
         powerOffSliderView.addTarget(self, action: #selector(powerOffSliderDidTouchDown), for: [.touchDown])
         powerOffSliderView.addTarget(self, action: #selector(powerOffSliderValueDidChange), for: [.valueChanged])
     }

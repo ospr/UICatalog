@@ -9,7 +9,7 @@
 import UIKit
 import UIPlaygroundElements
 
-class AppCardsViewController: UIViewController {
+public class AppCardsViewController: UIViewController {
     
     struct CardInfo {
         let cardName: String
@@ -27,24 +27,24 @@ class AppCardsViewController: UIViewController {
         CardInfo(cardName: "Overcast", showAuxInfo: true),
     ]
     
-    required init() {
-        super.init(nibName: String(describing: AppCardsViewController.self), bundle: nil)
+    public required init() {
+        super.init(nibName: String(describing: AppCardsViewController.self), bundle: Bundle(for: type(of: self)))
         
         title = "App Cards"
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented. Use init()")
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         carouselView.dataSource = self
         carouselView.delegate = self
     }
     
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         if needsCarouselViewReload {
@@ -56,21 +56,21 @@ class AppCardsViewController: UIViewController {
 
 extension AppCardsViewController: CarouselViewDataSource {
     
-    func numberOfItemsInCarouselView(_ carouselView: CarouselView) -> Int {
+    public func numberOfItemsInCarouselView(_ carouselView: CarouselView) -> Int {
         return type(of: self).cardInfos.count
     }
     
-    func carouselView(_ carouselView: CarouselView, viewForItemAtIndex index: Int) -> UIView {
+    public func carouselView(_ carouselView: CarouselView, viewForItemAtIndex index: Int) -> UIView {
         let cardInfo = type(of: self).cardInfos[index]
         
         let cardView = CardView()
-        let cardImage = UIImage(named: "AppCard-\(cardInfo.cardName)-Main")!
+        let cardImage = UIImage(named: "AppCard-\(cardInfo.cardName)-Main", inBundleForObject: self)!
         cardView.mainImageView.image = cardImage
         
         if cardInfo.showAuxInfo {
             cardView.headerLabel.text = cardInfo.cardName
             
-            cardView.headerImageView.image = UIImage(named: "AppCard-\(cardInfo.cardName)-Icon")
+            cardView.headerImageView.image = UIImage(named: "AppCard-\(cardInfo.cardName)-Icon", inBundleForObject: self)!
             cardView.headerImageView.clipsToBounds = true
             cardView.headerImageView.layer.cornerRadius = 7.5
         }
@@ -95,7 +95,7 @@ extension AppCardsViewController: CarouselViewDataSource {
 
 extension AppCardsViewController: CarouselViewDelegate {
     
-    func carouselView(_ carouselView: CarouselView, didUpdateItemView itemView: UIView) {
+    public func carouselView(_ carouselView: CarouselView, didUpdateItemView itemView: UIView) {
         let cardView = itemView as! CardView
         let progressX = cardView.frame.origin.x / carouselView.bounds.maxX
         
