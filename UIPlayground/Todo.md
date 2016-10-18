@@ -29,3 +29,4 @@ Spring Board
 - Rounded corner animation during launch should go to 0 earlier than when then animation finishes.
 - Make the UIPageControl dots less transparent.
 - Reduce time taken to build up launch animation.
+- No delay when tapping the app icon. It should turn dark immediately.
