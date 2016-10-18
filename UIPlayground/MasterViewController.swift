@@ -22,8 +22,7 @@ class MasterViewController: UITableViewController {
         
         splitViewController?.presentsWithGesture = false
 
-        // TODO: revert this back
-        let catalogItem = catalogItems[2]
+        let catalogItem = catalogItems[0]
         updateDetailView(withCatalogItem: catalogItem)
     }
 
