@@ -13,7 +13,7 @@ public class SpringBoardViewController: UIViewController {
     
     var selectedAppButton: UIButton?
     
-    var appIconLayoutInfoItems = [[SpringBoardAppInfo]]()
+    var appInfoItems = [[SpringBoardAppInfo]]()
     
     public var wallpaperImage: UIImage? {
         didSet {
@@ -57,7 +57,7 @@ public class SpringBoardViewController: UIViewController {
         
         setupAppInfo()
         let appCollectionLayout = SpringBoardAppCollectionLayout(screen: UIScreen.main)
-        pageViewSubViewControllers = appIconLayoutInfoItems.map({ (appInfoItems) -> SpringBoardAppCollectionViewController in
+        pageViewSubViewControllers = appInfoItems.map({ (appInfoItems) -> SpringBoardAppCollectionViewController in
             let controller = SpringBoardAppCollectionViewController(appInfoItems: appInfoItems, appCollectionLayout: appCollectionLayout)
             controller.delegate = self
             
@@ -130,7 +130,7 @@ public class SpringBoardViewController: UIViewController {
     // MARK: - Setup
     
     private func setupAppInfo() {
-        appIconLayoutInfoItems = [
+        appInfoItems = [
             [
             SpringBoardAppInfo(appName: "UIPlayground", image: UIImage(named: "AppCard-UIPlayground-Icon", inBundleForObject: self)!),
             SpringBoardAppInfo(appName: "DavisTrans", image: UIImage(named: "AppCard-DavisTrans-Icon", inBundleForObject: self)!),
@@ -224,7 +224,7 @@ extension SpringBoardViewController: UIPageViewControllerDataSource {
     }
     
     public func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return appIconLayoutInfoItems.count
+        return appInfoItems.count
     }
     
     public func presentationIndex(for pageViewController: UIPageViewController) -> Int {
