@@ -165,7 +165,6 @@
 				3732F0331DB136CD0065350F /* SpringBoardAppCollectionLayout.swift */,
 			);
 			name = "Spring Board View";
-			path = ../UIPlayground;
 			sourceTree = "<group>";
 		};
 		37979B021D91DBD300B33595 /* UIPlaygroundUI */ = {
@@ -228,7 +227,6 @@
 				7C3AC1CE1D5790B1006F56BF /* PowerOffViewController.xib */,
 			);
 			name = "Power Off View";
-			path = ../UIPlayground;
 			sourceTree = "<group>";
 		};
 		7C3AC1D81D579714006F56BF /* UIPlaygroundElements */ = {
@@ -289,7 +287,6 @@
 				7C3AC21B1D664315006F56BF /* AppCardsViewController.xib */,
 			);
 			name = "App Cards View";
-			path = ../UIPlayground;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
