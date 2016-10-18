@@ -46,6 +46,11 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         addGestureRecognizer(horizontalPanGesture)
         horizontalPanGesture.isEnabled = true
         horizontalPanGesture.delegate = self
+        
+        // Setup perspective
+        var perspectiveTransform = CATransform3DIdentity
+        perspectiveTransform.m34 = 1.0 / -1000.0
+        layer.sublayerTransform = perspectiveTransform
     }
     
     // MARK: - Handling gestures
@@ -305,9 +310,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
     }
 
     fileprivate func updateItemView(_ itemView: UIView, withPosition position: Point3D) {
-        var transform = CATransform3DIdentity
-        transform.m34 = 1.0 / -1000.0
-        transform = CATransform3DTranslate(transform, position.x, position.y, position.z)
+        let transform = CATransform3DMakeTranslation(position.x, position.y, position.z)
         
         itemView.layer.transform = transform
         viewPositions[itemView] = position
