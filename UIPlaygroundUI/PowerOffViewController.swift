@@ -17,6 +17,7 @@ public class PowerOffViewController: UIViewController {
     @IBOutlet weak var powerOffSlideViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var cancelStackView: UIStackView!
     
+    var originalBrightness: CGFloat?
     var initialBrightness = CGFloat(0)
     
     public required init() {
@@ -49,6 +50,8 @@ public class PowerOffViewController: UIViewController {
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        originalBrightness = UIScreen.main.brightness
+        
         // Animate in the views
         UIView.animateKeyframes(withDuration: 0.6, delay: 0, options: [.calculationModeCubic], animations: {
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.6, animations: { 
@@ -64,6 +67,15 @@ public class PowerOffViewController: UIViewController {
         }, completion: nil)
     }
     
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Reset screen brightness when leaving view
+        if let originalBrightness = originalBrightness {
+            UIScreen.main.brightness = originalBrightness
+        }
+    }
+    
     // MARK: - Working with Power Off Slider
     
     private func setupPowerOffSliderView() {
@@ -77,6 +89,10 @@ public class PowerOffViewController: UIViewController {
     }
     
     func powerOffSliderDidTouchDown() {
-        initialBrightness = UIScreen.main.brightness
+        // If the slider value is 1, then reset the initial brightness to the original brightness
+        // (the one we started with when the view was shown). This will allow the view to raise
+        // the brightness back up as the slider resets back to a value of 0. Otherwise use the
+        // screen's current brightness.
+        initialBrightness = (powerOffSliderView.value == 1) ? (originalBrightness ?? 0) : UIScreen.main.brightness
     }
 }
