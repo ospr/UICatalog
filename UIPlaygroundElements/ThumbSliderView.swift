@@ -76,18 +76,10 @@ open class ThumbSliderView: UIControl {
         // the label to create a shimmer effect
         let shimmerMaskImage = UIImage(named: "ShimmerMask", in: Bundle(for: type(of: self)), compatibleWith: nil)!
         let shimmerMaskLayer = CALayer()
-        shimmerMaskLayer.contents = shimmerMaskImage.cgImage
+        let cgImage = shimmerMaskImage.cgImage!
+        shimmerMaskLayer.contents = cgImage
         shimmerMaskLayer.contentsGravity = kCAGravityCenter
-        shimmerMaskLayer.frame = CGRect(x: -shimmerMaskImage.size.width, y: shimmerMaskImage.size.height / 2.0,
-                                        width: shimmerMaskImage.size.width, height: shimmerMaskImage.size.height)
-        
-        // Create the horizontal animation to move the shimmer mask
-        let shimmerAnimation = CABasicAnimation(keyPath: "position.x")
-        shimmerAnimation.byValue = informationalLabel.bounds.size.width
-        shimmerAnimation.repeatCount = HUGE
-        shimmerAnimation.duration = 3.5
-        shimmerAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        shimmerMaskLayer.add(shimmerAnimation, forKey: "shimmerAnimation")
+        shimmerMaskLayer.frame.size = CGSize(width: cgImage.width, height: cgImage.height)
         
         informationalLabel.layer.mask = shimmerMaskLayer
     }
@@ -101,9 +93,33 @@ open class ThumbSliderView: UIControl {
         thumbView.roundCornersToFormCircle()
     }
     
+    open override func layoutSublayers(of layer: CALayer) {
+        super.layoutSublayers(of: layer)
+        
+        updateShimmerMaskLayerLayout()
+    }
+    
     func maxBackgroundLeadingConstraintConstant() -> CGFloat {
         let thumbViewPadding = thumbViewTopPaddingConstraint.constant
         return backgroundView.superview!.bounds.width - (thumbViewPadding * 2 + thumbView.frame.width)
+    }
+    
+    func updateShimmerMaskLayerLayout() {
+        guard let shimmerMaskLayer = informationalLabel.layer.mask else {
+            return
+        }
+        
+        // Start the mask just offscreen on the left side of the super layer and centered
+        shimmerMaskLayer.frame.origin = CGPoint(x: -shimmerMaskLayer.frame.width,
+                                                y: informationalLabel.layer.bounds.height / 2.0 - shimmerMaskLayer.bounds.height / 2.0)
+        
+        // Create the horizontal animation to move the shimmer mask
+        let shimmerAnimation = CABasicAnimation(keyPath: "position.x")
+        shimmerAnimation.byValue = informationalLabel.bounds.width + shimmerMaskLayer.frame.width
+        shimmerAnimation.repeatCount = HUGE
+        shimmerAnimation.duration = 2.5
+        shimmerAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        shimmerMaskLayer.add(shimmerAnimation, forKey: "shimmerAnimation")
     }
     
     // MARK: - Working with slider value
