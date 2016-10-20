@@ -8,7 +8,7 @@ See [Todo](UIPlayground/Todo.md) for a list of improvements.
 Power Off
 ---------
 
-Mimics the iOS power off view.
+Mimics parts of the iOS power off view.
 
 ![Assets/Screenshots/PowerOffScreenshot.png](Assets/Screenshots/PowerOffScreenshot.png)
 
@@ -16,14 +16,14 @@ Mimics the iOS power off view.
 App Cards
 ---------
 
-Mimics the iOS app switcher view.
+Mimics parts of the iOS app switcher view.
 
-![Assets/Screenshots/PowerOffScreenshot.png](Assets/Screenshots/AppCardsScreenshot.png)
+![Assets/Screenshots/AppCardsScreenshot.png](Assets/Screenshots/AppCardsScreenshot.png)
 
 
 Spring Board
 ------------
 
-Mimics the iOS app spring board view.
+Mimics parts of the iOS app spring board view.
 
 ![Assets/Screenshots/SpringBoardScreenshot.png](Assets/Screenshots/SpringBoardScreenshot.png)
