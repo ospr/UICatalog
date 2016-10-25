@@ -9,27 +9,27 @@
 import UIKit
 import QuartzCore
 
-open class CarouselView: UIView, UIGestureRecognizerDelegate {
+public class CarouselView: UIView, UIGestureRecognizerDelegate {
 
-    open weak var dataSource: CarouselViewDataSource?
-    open weak var delegate: CarouselViewDelegate?
+    public weak var dataSource: CarouselViewDataSource?
+    public weak var delegate: CarouselViewDelegate?
     
     // A 1 here means that the resitance increases linearly from 0 to 1 between the item origin and item offscreen
-    open var itemViewPanDownResistance = CGFloat(1.8)
-    open var itemViewPanDownResistanceMax = CGFloat(0.9)
-    open var itemViewPanDownResistanceMin = CGFloat(0.0)
+    public var itemViewPanDownResistance = CGFloat(1.8)
+    public var itemViewPanDownResistanceMax = CGFloat(0.9)
+    private var itemViewPanDownResistanceMin = CGFloat(0.0)
     
-    open var itemViewRemovalEscapeVelocity = CGFloat(-100)
-    open var itemViewRemovalAnimationDuration = 0.15
-    open var itemViewRemovalFailureAnimationDuration = 0.25
+    private var itemViewRemovalEscapeVelocity = CGFloat(-100)
+    private var itemViewRemovalAnimationDuration = 0.15
+    private var itemViewRemovalFailureAnimationDuration = 0.25
     
     var animateViewItemOpacity = true
     
-    fileprivate var itemViews: [UIView] = []
-    fileprivate var absoluteOffset = CGFloat(0)
-    fileprivate var viewPositions: [UIView: Point3D] = [:]
-    fileprivate var horizontalPanGesture: UIPanGestureRecognizer!
-    fileprivate var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
+    private var itemViews: [UIView] = []
+    private var absoluteOffset = CGFloat(0)
+    private var viewPositions: [UIView: Point3D] = [:]
+    private var horizontalPanGesture: UIPanGestureRecognizer!
+    private var decelerateDisplayLinkProgressor: DisplayLinkProgressor?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,7 +43,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         setup()
     }
     
-    fileprivate func setup() {
+    private func setup() {
         horizontalPanGesture = UIPanGestureRecognizer(target: self, action: #selector(viewWasPanned))
         addGestureRecognizer(horizontalPanGesture)
         horizontalPanGesture.isEnabled = true
@@ -147,13 +147,13 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         stopDecelerationAnimation()
     }
     
     // MARK: - Working with Data
     
-    open func reloadData() {
+    public func reloadData() {
         for itemView in itemViews {
             itemView.removeFromSuperview()
         }
@@ -188,7 +188,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
     
     // MARK: - Updating item views
     
-    fileprivate func updateAbsoluteOffset(_ newAbsoluteOffset: CGFloat) {
+    private func updateAbsoluteOffset(_ newAbsoluteOffset: CGFloat) {
         absoluteOffset = newAbsoluteOffset
         
         // Force the last view to only ever get to the mid point of the carousel view
@@ -241,7 +241,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-    fileprivate func didPanHorizontally(byOffset offset: CGFloat, forView view: UIView? = nil) {
+    private func didPanHorizontally(byOffset offset: CGFloat, forView view: UIView? = nil) {
         // Calculate the new x origin point for the view that was panned.
         // Then use that value to backwards calculate the new root offset
         // based on the view that was actually panned. This allows us to 
@@ -281,7 +281,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         animator.startAnimation()
     }
     
-    fileprivate func animateRemoval(ofItemView itemView: UIView) {
+    private func animateRemoval(ofItemView itemView: UIView) {
         var position = viewPositions[itemView]!
         position.y = -itemView.frame.height
         
@@ -297,7 +297,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         })
     }
     
-    fileprivate func animatePanEndDeceleration(withVelocity velocity: CGPoint) {
+    private func animatePanEndDeceleration(withVelocity velocity: CGPoint) {
         var velocityX = Double(velocity.x)
         
         decelerateDisplayLinkProgressor = DisplayLinkProgressor.run({ [weak self] (timeDelta) -> Bool in
@@ -324,7 +324,7 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         self.decelerateDisplayLinkProgressor = nil
     }
     
-    fileprivate func layoutItemViews() {
+    private func layoutItemViews() {
         for itemView in itemViews {
             itemView.layer.transform = CATransform3DIdentity
             itemView.frame.origin = bounds.origin
@@ -336,21 +336,21 @@ open class CarouselView: UIView, UIGestureRecognizerDelegate {
         }
     }
 
-    fileprivate func updateItemView(_ itemView: UIView, withPosition position: Point3D) {
+    private func updateItemView(_ itemView: UIView, withPosition position: Point3D) {
         let transform = CATransform3DMakeTranslation(position.x, position.y, position.z)
         
         itemView.layer.transform = transform
         viewPositions[itemView] = position
     }
     
-    fileprivate func absoluteOffsetForItemView(_ itemView: UIView, atXPosition xPosition: CGFloat) -> CGFloat {
+    private func absoluteOffsetForItemView(_ itemView: UIView, atXPosition xPosition: CGFloat) -> CGFloat {
         let viewIndex = itemViews.index(of: itemView)!
         return (25 * log2orZero(xPosition)) + (CGFloat(viewIndex) * 50)
     }
     
     // MARK: - UIGestureRecognizerDelegate
     
-    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         // Fail the horizontal gesture recognizer if the user is swiping up/down with
         // a greater velocity to allow the per-itemView recognizers to handle that
         if gestureRecognizer === horizontalPanGesture {

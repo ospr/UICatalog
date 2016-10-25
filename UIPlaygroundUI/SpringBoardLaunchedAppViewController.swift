@@ -12,7 +12,7 @@ class SpringBoardLaunchedAppViewController: UIViewController {
 
     let exitButton = UIButton()
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
     

@@ -9,15 +9,15 @@
 import UIKit
 import QuartzCore
 
-open class CardView: UIView {
+public class CardView: UIView {
 
-    @IBOutlet open fileprivate(set) weak var headerLabel: UILabel!
-    @IBOutlet open fileprivate(set) weak var headerImageView: UIImageView!
-    @IBOutlet open fileprivate(set) weak var mainImageView: UIImageView!
-    @IBOutlet fileprivate weak var shadowView: UIView!
-    @IBOutlet fileprivate weak var contentStackView: UIStackView!
+    @IBOutlet public private(set) weak var headerLabel: UILabel!
+    @IBOutlet public private(set) weak var headerImageView: UIImageView!
+    @IBOutlet public private(set) weak var mainImageView: UIImageView!
+    @IBOutlet private weak var shadowView: UIView!
+    @IBOutlet private weak var contentStackView: UIStackView!
     
-    open var auxViewPadding: CGFloat {
+    public var auxViewPadding: CGFloat {
         get { return contentStackView.spacing }
         set { contentStackView.spacing = newValue }
     }
@@ -34,7 +34,7 @@ open class CardView: UIView {
         setup()
     }
     
-    fileprivate func setup() {
+    private func setup() {
         let _ = addOwnedViewFrom(nibNamed: String(describing: CardView.self))
         
         mainImageView.clipsToBounds = true

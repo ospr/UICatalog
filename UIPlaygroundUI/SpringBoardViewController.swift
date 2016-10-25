@@ -29,7 +29,7 @@ public class SpringBoardViewController: UIViewController {
     let wallpaperView = UIImageView()
     let backAppIconView = SpringBoardAppIconViewCell()
     
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
         // Have the presented view controller specify the status bar style
         if let presentedViewController = presentedViewController, !presentedViewController.isBeingDismissed {
             return presentedViewController.preferredStatusBarStyle
@@ -38,7 +38,7 @@ public class SpringBoardViewController: UIViewController {
         return .lightContent
     }
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
     

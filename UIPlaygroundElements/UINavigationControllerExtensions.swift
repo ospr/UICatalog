@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class NavigationController: UINavigationController {
+public class NavigationController: UINavigationController {
 
     override init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?) {
         super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
@@ -26,7 +26,7 @@ open class NavigationController: UINavigationController {
         delegate = self
     }
     
-    open override func setNavigationBarHidden(_ hidden: Bool, animated: Bool) {
+    public override func setNavigationBarHidden(_ hidden: Bool, animated: Bool) {
         super.setNavigationBarHidden(hidden, animated: animated)
         
         // When the status bar hidden state changes we may need to update
@@ -35,7 +35,7 @@ open class NavigationController: UINavigationController {
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
         // If the navbar is hidden, then let the visible view controller decide the
         // status bar style
         if navigationBar.isHidden, let topViewController = self.topViewController {
@@ -44,7 +44,7 @@ open class NavigationController: UINavigationController {
         return super.preferredStatusBarStyle
     }
     
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if let topViewController = self.topViewController {
             return topViewController.supportedInterfaceOrientations
         }

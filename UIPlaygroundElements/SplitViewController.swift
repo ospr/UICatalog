@@ -10,7 +10,7 @@ import UIKit
 
 class SplitViewController: UISplitViewController {
 
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
         // Let the child view controllers decide how the status bar should look
         if let childVC = viewControllers.last {
             return childVC.preferredStatusBarStyle

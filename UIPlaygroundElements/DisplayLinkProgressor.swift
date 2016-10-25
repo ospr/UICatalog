@@ -13,16 +13,16 @@ import QuartzCore
 //       perhaps have a protocol that gets called to update its own closure
 internal class DisplayLinkProgressor: NSObject {
     
-    fileprivate var displayLink: CADisplayLink!
-    fileprivate let duration: TimeInterval
+    private var displayLink: CADisplayLink!
+    private let duration: TimeInterval
     
-    fileprivate let indeterministicUpdateBlock: ((_ timeDelta: TimeInterval) -> Bool)?
-    fileprivate let deterministicUpdateBlock: ((_ progress: Double) -> Void)?
+    private let indeterministicUpdateBlock: ((_ timeDelta: TimeInterval) -> Bool)?
+    private let deterministicUpdateBlock: ((_ progress: Double) -> Void)?
     
-    fileprivate var startTimestamp: CFTimeInterval?
-    fileprivate var lastFrameTimestamp: CFTimeInterval?
+    private var startTimestamp: CFTimeInterval?
+    private var lastFrameTimestamp: CFTimeInterval?
     
-    fileprivate init(duration: TimeInterval,
+    private init(duration: TimeInterval,
                  deterministicUpdateBlock: ((_ progress: Double) -> Void)?,
                  indeterministicUpdateBlock: ((_ timeDelta: TimeInterval) -> Bool)?) {
         self.duration = duration
@@ -51,7 +51,7 @@ internal class DisplayLinkProgressor: NSObject {
         return displayLinkProgressor
     }
     
-    fileprivate func start() {
+    private func start() {
         displayLink.add(to: RunLoop.main, forMode: RunLoopMode.defaultRunLoopMode)
         startTimestamp = CACurrentMediaTime()
         lastFrameTimestamp = startTimestamp

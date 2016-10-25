@@ -9,17 +9,17 @@
 import UIKit
 
 @IBDesignable
-open class ThumbSliderView: UIControl {
+public class ThumbSliderView: UIControl {
     
-    @IBOutlet fileprivate weak var backgroundView: UIView!
-    @IBOutlet fileprivate weak var vibrancyBackgroundView: UIView!
-    @IBOutlet open fileprivate(set) weak var thumbView: UIImageView!
-    @IBOutlet fileprivate weak var informationalLabel: UILabel!
-    @IBOutlet fileprivate weak var backgroundInformationalLabel: UILabel!
-    @IBOutlet fileprivate weak var backgroundLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet fileprivate weak var thumbViewTopPaddingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var backgroundView: UIView!
+    @IBOutlet private weak var vibrancyBackgroundView: UIView!
+    @IBOutlet public private(set) weak var thumbView: UIImageView!
+    @IBOutlet private weak var informationalLabel: UILabel!
+    @IBOutlet private weak var backgroundInformationalLabel: UILabel!
+    @IBOutlet private weak var backgroundLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var thumbViewTopPaddingConstraint: NSLayoutConstraint!
     
-    open var value: Double = 0 {
+    public var value: Double = 0 {
         didSet {
             let previousValue = min(1, max(0, oldValue))
             guard previousValue != value else {
@@ -57,7 +57,7 @@ open class ThumbSliderView: UIControl {
         setup()
     }
     
-    fileprivate func setup() {
+    private func setup() {
         let view = addOwnedViewFrom(nibNamed: String(describing: ThumbSliderView.self))
         view.backgroundColor = .clear
         
@@ -65,13 +65,13 @@ open class ThumbSliderView: UIControl {
         setupInformationalLabel()
     }
     
-    fileprivate func setupThumbView() {
+    private func setupThumbView() {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(thumbViewWasPanned))
         thumbView.addGestureRecognizer(panGesture)
         panGesture.isEnabled = true
     }
     
-    fileprivate func setupInformationalLabel() {
+    private func setupInformationalLabel() {
         // Create a mask for the white informational label to glide through
         // the label to create a shimmer effect
         let shimmerMaskImage = UIImage(named: "ShimmerMask", in: Bundle(for: type(of: self)), compatibleWith: nil)!
@@ -86,14 +86,14 @@ open class ThumbSliderView: UIControl {
 
     // MARK: - View Layout
     
-    override open func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         
         vibrancyBackgroundView.layer.cornerRadius = vibrancyBackgroundView.bounds.size.height / 2.0
         thumbView.roundCornersToFormCircle()
     }
     
-    open override func layoutSublayers(of layer: CALayer) {
+    public override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         
         updateShimmerMaskLayerLayout()
@@ -174,7 +174,7 @@ open class ThumbSliderView: UIControl {
         }
     }
     
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
         sendActions(for: [.touchDown])
