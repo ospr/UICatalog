@@ -5,6 +5,8 @@ A collection of user interfaces seen in iOS written in Swift.
 
 See [Todo](UIPlayground/Todo.md) for a list of improvements.
 
+*Note:* Some of the animations (eg Spring Board) take snapshots of the views before animating them. There is a bug in the iOS Simulator where this can cause a white flicker during the animation and/or an entirely white view (Radars rdar://28808781 and rdar://28807303). To see the animation behave properly, run it directly on an iOS device.
+
 Power Off
 ---------
 
