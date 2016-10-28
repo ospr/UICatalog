@@ -13,6 +13,7 @@
 		372E5A7B1DB6800C00A08377 /* PowerOffViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C3AC1CE1D5790B1006F56BF /* PowerOffViewController.xib */; };
 		3732F0341DB136CE0065350F /* SpringBoardAppCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3732F0331DB136CD0065350F /* SpringBoardAppCollectionLayout.swift */; };
 		373640751D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373640741D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift */; };
+		3736ECEB1DC3C1AA007C7AA8 /* CAAnimationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3736ECEA1DC3C1AA007C7AA8 /* CAAnimationExtensions.swift */; };
 		374A3A841D91EEE600C46836 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A3A831D91EEE600C46836 /* UIImageExtensions.swift */; };
 		3772B4A71D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772B4A61D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift */; };
 		3772B4A91D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3772B4A81D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift */; };
@@ -83,6 +84,7 @@
 /* Begin PBXFileReference section */
 		3732F0331DB136CD0065350F /* SpringBoardAppCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardAppCollectionLayout.swift; sourceTree = "<group>"; };
 		373640741D99AD8D004A6C8C /* SpringBoardAppLaunchTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardAppLaunchTransitionAnimator.swift; sourceTree = "<group>"; };
+		3736ECEA1DC3C1AA007C7AA8 /* CAAnimationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAAnimationExtensions.swift; sourceTree = "<group>"; };
 		374A3A831D91EEE600C46836 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		3772B4A61D9B20F400F1A169 /* SpringBoardLaunchedAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringBoardLaunchedAppViewController.swift; sourceTree = "<group>"; };
 		3772B4A81D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIGraphicsImageRendererExtensions.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 				3772B4A81D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift */,
 				3772B4AC1D9D9AAC00F1A169 /* UINavigationControllerExtensions.swift */,
 				3772B4AF1D9DBF3C00F1A169 /* SplitViewController.swift */,
+				3736ECEA1DC3C1AA007C7AA8 /* CAAnimationExtensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				7C2398231D8702BA007F2CCF /* MathExtensions.swift in Sources */,
 				7C3AC1EB1D5E8DA6006F56BF /* DisplayLinkProgressor.swift in Sources */,
 				7C3AC1E51D5797F2006F56BF /* ThumbSliderView.swift in Sources */,
+				3736ECEB1DC3C1AA007C7AA8 /* CAAnimationExtensions.swift in Sources */,
 				3772B4A91D9D8DFF00F1A169 /* UIGraphicsImageRendererExtensions.swift in Sources */,
 				7C3AC21F1D66438E006F56BF /* CardView.swift in Sources */,
 				7C0B835F1D7786D000681D0B /* SequenceTypeExtensions.swift in Sources */,
