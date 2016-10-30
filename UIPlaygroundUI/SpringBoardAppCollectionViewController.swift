@@ -11,6 +11,7 @@ import UIKit
 protocol SpringBoardAppCollectionViewControllerDelegate: class {
     
     func springBoardAppCollectionViewController(_ viewController: SpringBoardAppCollectionViewController, didSelectAppInfo appInfo: SpringBoardAppInfo, selectedAppIconButton: UIButton)
+    func springBoardAppCollectionViewControllerDidUpdateEditMode(_ viewController: SpringBoardAppCollectionViewController)
 }
 
 private let reuseIdentifier = "Cell"
@@ -25,9 +26,18 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
     let appCollectionLayout: SpringBoardAppCollectionLayout
     let appInfoItems: [SpringBoardAppInfo]
     
+    var editModeEnabled: Bool = false {
+        didSet {
+            if editModeEnabled != oldValue {
+                // Reload cells to start/stop animations
+                collectionView!.reloadData()
+            }
+        }
+    }
+    
     weak var delegate: SpringBoardAppCollectionViewControllerDelegate?
     
-    private var appInfoByAppIconButtons = [UIButton : SpringBoardAppInfo]()
+    fileprivate var appInfoByAppIconButtons = [UIButton : SpringBoardAppInfo]()
     
     init(appInfoItems: [SpringBoardAppInfo], appCollectionLayout: SpringBoardAppCollectionLayout) {
         self.appCollectionLayout = appCollectionLayout
@@ -55,6 +65,18 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
         collectionView!.register(SpringBoardAppIconViewCell.self, forCellWithReuseIdentifier: "AppIconCell")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // The cells stop animating sometimes when the view disappears 
+        // (eg spring board page view transitions)
+        for cell in collectionView!.visibleCells {
+            if let cell = cell as? SpringBoardAppIconViewCell {
+                updateCellAnimations(cell)
+            }
+        }
+    }
+    
     // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -65,6 +87,7 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
         let appInfo = appInfoItems[indexPath.row]
         
         let appIconCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AppIconCell", for: indexPath) as! SpringBoardAppIconViewCell
+        appIconCell.delegate = self
         
         appIconCell.appNameLabel.text = appInfo.appName
         appIconCell.appIconImage = appInfo.image
@@ -74,7 +97,29 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
         appIconCell.appIconButtonView.addTarget(self, action: #selector(appIconButtonWasTapped), for: .touchUpInside)
         appInfoByAppIconButtons[appIconCell.appIconButtonView] = appInfo
         
+        updateCellAnimations(appIconCell)
+        
         return appIconCell
+    }
+    
+    // MARK: - Working with Animations
+    
+    func updateCellAnimations(_ cell: SpringBoardAppIconViewCell) {
+        let jitterAnimationKey = "Jitter"
+        
+        if editModeEnabled {
+            if cell.layer.animation(forKey: jitterAnimationKey) == nil {
+                let jitterAnimation = CAAnimation.jitterAnimation()
+                // Add a offset to the animation time to cause the cells
+                // to jitter at different offsets
+                jitterAnimation.timeOffset = CACurrentMediaTime() + drand48()
+                cell.layer.add(jitterAnimation, forKey: jitterAnimationKey)
+            }
+        }
+        else {
+            cell.layer.removeAnimation(forKey: jitterAnimationKey)
+        }
+        cell.appIconButtonView.isUserInteractionEnabled = !editModeEnabled
     }
     
     // MARK: - Handling touch events
@@ -82,5 +127,12 @@ class SpringBoardAppCollectionViewController: UICollectionViewController, UIColl
     func appIconButtonWasTapped(sender: UIButton) {
         let appInfo = appInfoByAppIconButtons[sender]!
         delegate?.springBoardAppCollectionViewController(self, didSelectAppInfo: appInfo, selectedAppIconButton: sender)
+    }
+}
+
+extension SpringBoardAppCollectionViewController: SpringBoardAppIconViewCellDelegate {
+    
+    func springBoardAppIconViewCell(didLongPress springBoardAppIconViewCell: SpringBoardAppIconViewCell) {
+        delegate?.springBoardAppCollectionViewControllerDidUpdateEditMode(self)
     }
 }

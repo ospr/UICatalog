@@ -257,4 +257,13 @@ extension SpringBoardViewController: SpringBoardAppCollectionViewControllerDeleg
         viewController.transitioningDelegate = self
         present(viewController, animated: true, completion: nil)
     }
+    
+    func springBoardAppCollectionViewControllerDidUpdateEditMode(_ viewController: SpringBoardAppCollectionViewController) {
+        // Enable edit mode for all app collection view controllers
+        for viewController in pageViewSubViewControllers {
+            if let appCollectionViewController = viewController as? SpringBoardAppCollectionViewController {
+                appCollectionViewController.editModeEnabled = true
+            }
+        }
+    }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class SpringBoardAppIconViewCell: UICollectionViewCell {
     
+    weak var delegate: SpringBoardAppIconViewCellDelegate?
+    
     let appNameFont = UIFont.systemFont(ofSize: 12)
     
     let appNameLabel = UILabel()
@@ -78,5 +80,19 @@ class SpringBoardAppIconViewCell: UICollectionViewCell {
         appNameLabel.textColor = .white
         appNameLabel.font = appNameFont
         appNameLabel.allowsDefaultTighteningForTruncation = true
+        
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress))
+        appIconButtonView.addGestureRecognizer(longPressGestureRecognizer)
     }
+    
+    func didLongPress(recognizer: UILongPressGestureRecognizer) {
+        if recognizer.state == .began {
+            delegate?.springBoardAppIconViewCell(didLongPress: self)
+        }
+    }
+}
+
+protocol SpringBoardAppIconViewCellDelegate: class {
+    
+    func springBoardAppIconViewCell(didLongPress springBoardAppIconViewCell: SpringBoardAppIconViewCell)
 }
